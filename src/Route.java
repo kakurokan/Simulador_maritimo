@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,18 +38,25 @@ public class Route {
         return total;
     }
 
-    public Ponto Intersecao(SegmentoReta sr) {
-        Vetor vetor = new Vetor(sr.getA(), sr.getB());
+    /**
+     * Calcula os pontos de interseção entre um segmento de reta fornecido e os segmentos de reta
+     * que compõem a rota. Se houver interseções, os pontos são retornados em uma lista na ordem
+     * em que foram encontrados. Caso contrário, o método retorna {@code null}.
+     *
+     * @param sr O segmento de reta que será testado para interseções com os segmentos da rota.
+     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção entre
+     * o segmento fornecido e os segmentos da rota, ou {@code null} se nenhuma interseção
+     * for encontrada.
+     */
+    public List<Ponto> Intersect(SegmentoReta sr) {
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
 
         for (SegmentoReta segmentoRota : retas) {
-            Ponto p;
-            p = segmentoRota.intersect(vetor);
-
-            //Caso haja alguma interseção, retornamos
+            Ponto p = segmentoRota.intersect(sr);
             if (p != null)
-                return p;
+                intersecoes.add(p);
         }
 
-        return null;
+        return (intersecoes.isEmpty()) ? null : intersecoes;
     }
 }

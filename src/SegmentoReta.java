@@ -40,6 +40,24 @@ public class SegmentoReta {
     }
 
     /**
+     * Retorna o ponto de origem do segmento de reta.
+     *
+     * @return o ponto extremo inicial do segmento de reta.
+     */
+    public Ponto getA() {
+        return a;
+    }
+
+    /**
+     * Retorna o ponto extremo final do segmento de reta.
+     *
+     * @return o ponto extremo final do segmento de reta.
+     */
+    public Ponto getB() {
+        return b;
+    }
+
+    /**
      * Verifica a validade do segmento de reta com base nas extremidades definidas.
      * Se as extremidades do segmento de reta forem consideradas iguais,
      * conforme o critério de igualdade estabelecido na classe {@code Ponto},
@@ -104,19 +122,18 @@ public class SegmentoReta {
     }
 
     /**
-     * Calcula o ponto de interseção entre o segmento de reta atual e um vetor fornecido,
-     * caso a interseção exista. O vetor é considerado como um segmento de reta que
-     * começa na origem e segue na direção do vetor.
+     * Calcula o ponto de interseção entre o segmento de reta atual e outro segmento de reta especificado,
+     * caso a interseção exista. Se os segmentos forem colineares, verifica os pontos em comum e retorna
+     * o primeiro ponto de interseção encontrado. Retorna {@code null} caso não haja interseção ou se
+     * os segmentos forem paralelos (exceto no caso colinear).
      *
-     * @param v O vetor que define o segmento de reta com o qual será verificada a interseção.
-     * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null}
-     * caso não exista interseção ou os segmentos sejam paralelos (incluindo o caso colinear).
+     * @param seg O segmento de reta com o qual será calculada a interseção.
+     * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso não exista
+     * interseção, os segmentos sejam paralelos ou não compartilhem uma região comum.
      * @see <a href="https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect">Stack Overflow</a>,
      * <a href="https://theswissbay.ch/pdf/Gentoomen%20Library/Game%20Development/Programming/Graphics%20Gems%201.pdf">Livro de referência</a>
      */
-    Ponto intersect(Vetor v) {
-        SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);
-
+    Ponto intersect(SegmentoReta seg) {
         Ponto r = this.b.subtracao(this.a);
         Ponto s = seg.b;
         Ponto k = seg.a.subtracao(this.a);
@@ -153,4 +170,28 @@ public class SegmentoReta {
         return null;
     }
 
+    /**
+     * Calcula o ponto de interseção entre o segmento de reta atual e um vetor fornecido,
+     * caso a interseção exista. O vetor é tratado como um segmento de reta que começa
+     * na origem (0,0) e segue na direção definida pelo vetor.
+     *
+     * @param v O vetor que define a direção e o comprimento do segmento de reta a ser utilizado
+     *          para cálculo da interseção com o segmento de reta atual.
+     * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso
+     * não exista interseção ou os segmentos sejam paralelos (incluindo o caso colinear).
+     */
+    Ponto intersect(Vetor v) {
+        SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);
+        return this.intersect(seg);
+    }
+
+    /**
+     * Calcula o comprimento do segmento de reta.
+     * O comprimento é obtido calculando o módulo de um vetor que conecta os dois extremos do segmento de reta.
+     *
+     * @return o comprimento do segmento de reta como um valor do tipo {@code double}.
+     */
+    public double Comprimento() {
+        return new Vetor(a, b).modulo();
+    }
 }

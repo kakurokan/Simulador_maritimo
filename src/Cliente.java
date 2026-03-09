@@ -14,26 +14,20 @@ public class Cliente {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
         String[] parts = line.split(" ");
-        ArrayList<SegmentoReta> segmentos = new ArrayList<>();
+        ArrayList<Ponto> pontos = new ArrayList<>();
 
         double xa, ya, xb, yb;
         Ponto a, b;
 
-        for (int i = 3; i < parts.length; i += 2) {
-            xa = Double.parseDouble(parts[i - 3]);
-            ya = Double.parseDouble(parts[i - 2]);
-
-            xb = Double.parseDouble(parts[i - 1]);
-            yb = Double.parseDouble(parts[i]);
+        for (int i = 1; i < parts.length; i += 2) {
+            xa = Double.parseDouble(parts[i - 1]);
+            ya = Double.parseDouble(parts[i]);
 
             a = new Ponto(xa, ya);
-            b = new Ponto(xb, yb);
-
-            SegmentoReta seg = new SegmentoReta(a, b);
-            segmentos.add(seg);
+            pontos.add(a);
         }
 
-        Route rota = new Route(segmentos);
+        Route rota = new Route(pontos);
 
         line = br.readLine();
         parts = line.split(" ");
@@ -46,14 +40,17 @@ public class Cliente {
         a = new Ponto(xa, ya);
         b = new Ponto(xb, yb);
 
-        SegmentoReta seg = new SegmentoReta(a, b);
+        IO.println(String.format("%.2f", rota.Comprimento()));
 
+        SegmentoReta seg = new SegmentoReta(a, b);
         List<Ponto> intersecoes = rota.Intersect(seg);
 
-        IO.println(rota.Comprimento());
-
-        for (Ponto p : intersecoes) {
-            IO.println(p);
+        if (intersecoes == null) {
+            IO.println("null");
+        } else {
+            for (Ponto p : intersecoes) {
+                IO.println(p);
+            }
         }
     }
 }

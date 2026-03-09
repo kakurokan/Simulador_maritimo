@@ -185,13 +185,4 @@ public class SegmentoReta {
         return this.intersect(seg);
     }
 
-    /**
-     * Calcula o comprimento do segmento de reta.
-     * O comprimento é obtido calculando o módulo de um vetor que conecta os dois extremos do segmento de reta.
-     *
-     * @return o comprimento do segmento de reta como um valor do tipo {@code double}.
-     */
-    public double Comprimento() {
-        return new Vetor(a, b).modulo();
-    }
 }

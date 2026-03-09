@@ -135,7 +135,7 @@ public class SegmentoReta {
      */
     Ponto intersect(SegmentoReta seg) {
         Ponto r = this.b.subtracao(this.a);
-        Ponto s = seg.b;
+        Ponto s = seg.b.subtracao(seg.a);
         Ponto k = seg.a.subtracao(this.a);
 
         double numerador = (k).produtoVetorial(r);

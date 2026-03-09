@@ -48,8 +48,14 @@ public class Cliente {
         if (intersecoes == null) {
             IO.println("null");
         } else {
-            for (Ponto p : intersecoes) {
-                IO.println(p);
+            for (int i = 0; i < intersecoes.size(); i++) {
+                System.out.print(intersecoes.get(i));
+
+                if (i == intersecoes.size() - 1) {
+                    System.out.print("\n");
+                } else {
+                    System.out.print(" ");
+                }
             }
         }
     }

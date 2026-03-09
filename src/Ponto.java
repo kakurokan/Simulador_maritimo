@@ -92,15 +92,17 @@ public class Ponto {
     }
 
     /**
-     * Calcula a distância do ponto atual para outro ponto especificado no sistema de
-     * coordenadas cartesianas. A distância é calculada utilizando a norma do vetor que
-     * conecta os dois pontos.
+     * Calcula a distância entre o ponto atual e um outro ponto fornecido.
+     * Se os dois pontos forem considerados iguais (com base no método {@code equals}),
+     * a distância será considerada zero. Caso contrário, a distância é calculada
+     * utilizando o módulo do vetor formado pelos dois pontos.
      *
-     * @param p O ponto para o qual a distância será calculada.
+     * @param p O ponto de destino para o qual a distância será calculada.
      * @return A distância entre o ponto atual e o ponto fornecido.
+     * Retorna {@code 0.0} se os pontos forem iguais.
      */
     public Double distanciaPara(Ponto p) {
-        return new Vetor(this, p).modulo();
+        return (this.equals(p)) ? 0.0 : new Vetor(this, p).modulo();
     }
 
     /**

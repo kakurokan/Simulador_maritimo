@@ -48,4 +48,11 @@ class PontoTest {
         assertEquals("(3.00,4.00)", new Ponto(3, 4).toString());
         assertEquals("(-2.40,7.51)", new Ponto(-2.4, 7.512).toString());
     }
+
+    @Test
+    void testDistanciaPara() {
+        assertEquals(10.30776, new Ponto(-1, 2).distanciaPara(new Ponto(9, 4.5)), 0.00001);
+        assertEquals(11.47102, new Ponto(0, 10).distanciaPara(new Ponto(-5.62, 20)), 0.00001);
+        assertEquals(0.0, new Ponto(1, 2).distanciaPara(new Ponto(1, 2)));
+    }
 }

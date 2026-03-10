@@ -18,6 +18,10 @@ public class Vetor {
      *
      * @param x Componente x do vetor.
      * @param y Componente y do vetor.
+     * @pre Math.abs(x) >= 1e-9 e Math.abs(y) >= 1e-9.
+     * @pos O modulo do vetor é > 0.
+     * @pos getX() == x
+     * @pos getY() == y
      */
     public Vetor(double x, double y) {
         if (Math.abs(x) < Ponto.eps && Math.abs(y) < Ponto.eps) {
@@ -35,6 +39,10 @@ public class Vetor {
      * componentes deve ter módulo maior que zero.
      *
      * @param p O ponto utilizado para definir as componentes x e y do vetor.
+     * @pre p != null e p não pode estar na origem (0,0).
+     * @pos O modulo do vetor é > 0.
+     * @pos getX() == p.getX()
+     * @pos getY() == p.getY()
      */
     public Vetor(Ponto p) {
         this(p.getX(), p.getY());
@@ -46,6 +54,10 @@ public class Vetor {
      *
      * @param a O ponto inicial utilizado para calcular o vetor.
      * @param b O ponto final utilizado para calcular o vetor.
+     * @pre a != null, b != null e a != b.
+     * @pos O modulo do vetor é > 0.
+     * @pos getX() == b.getX() - a.getX()
+     * @pos getY() == b.getY() - a.getY()
      */
     public Vetor(Ponto a, Ponto b) {
         this(b.getX() - a.getX(), b.getY() - a.getY());
@@ -74,6 +86,7 @@ public class Vetor {
      * da soma dos quadrados das componentes x e y.
      *
      * @return o módulo do vetor.
+     * @pos O valor retornado é estritamente > 0.
      */
     public double modulo() {
         double sum = Math.pow(x, 2) + Math.pow(y, 2);
@@ -86,6 +99,8 @@ public class Vetor {
      *
      * @param v O vetor fornecido com o qual o produto interno será calculado.
      * @return o valor do produto interno entre os dois vetores.
+     * @pre v != null
+     * @pos O estado dos vetores não é alterado
      */
     public double produtoInterno(Vetor v) {
 
@@ -99,6 +114,8 @@ public class Vetor {
      *
      * @param v O vetor fornecido com o qual a similaridade cosseno será calculada.
      * @return o valor da similaridade cosseno entre os dois vetores.
+     * @pre v != null
+     * @pos O estado dos vetores não é alterado e o valor retornado está no intervalo [-1.0, 1.0].
      */
     public double cossineSimilarity(Vetor v) {
 
@@ -114,6 +131,8 @@ public class Vetor {
      *          com o vetor atual.
      * @return O ponto de interseção entre o vetor atual e o segmento de reta fornecido,
      * ou {@code null} se não houver interseção.
+     * @pre v != null
+     * @pos O estado do vetor e do segmento de reta não é alterado.
      * @see SegmentoReta#intersect(Vetor)
      */
     public Ponto intersect(SegmentoReta v) {
@@ -125,6 +144,8 @@ public class Vetor {
      *
      * @param d O escalar pelo qual as componentes do vetor serão multiplicadas.
      * @return Um novo vetor cujas componentes são o resultado da multiplicação do vetor atual pelo escalar.
+     * @pre Math.abs(d) >= 1e-9.
+     * @pos Retorna um novo vetor não nulo válido.
      */
     public Vetor mult(double d) {
         return new Vetor(this.x * d, this.y * d);
@@ -136,6 +157,8 @@ public class Vetor {
      *
      * @param v O vetor a ser somado ao vetor atual.
      * @return Um novo vetor que é o resultado da soma dos dois vetores.
+     * @pre v != null e a soma dos vetores não pode originar um vetor nulo.
+     * @pos Retorna um novo vetor não nulo válido
      */
     public Vetor add(Vetor v) {
         return new Vetor(v.getX() + this.x, v.getY() + this.y);
@@ -148,6 +171,8 @@ public class Vetor {
      * @param v O vetor a ser subtraído do vetor atual.
      * @return Um novo vetor que é o resultado da subtração do vetor fornecido
      * do vetor atual.
+     * @pre v != null e os vetores não podem ser iguais.
+     * @pos Retorna um novo vetor não nulo válido.
      */
     public Vetor sub(Vetor v) {
         return new Vetor(this.x - v.getX(), this.y - v.getY());

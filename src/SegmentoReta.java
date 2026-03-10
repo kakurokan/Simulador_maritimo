@@ -188,6 +188,8 @@ public class SegmentoReta {
      *          para cálculo da interseção com o segmento de reta atual.
      * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso
      * não exista interseção ou os segmentos sejam paralelos (incluindo o caso colinear).
+     * @pre v != null
+     * @pos Os objetos não sofrem alterações
      */
     Ponto intersect(Vetor v) {
         SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);

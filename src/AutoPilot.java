@@ -14,6 +14,8 @@ public class AutoPilot {
      *
      * @param a O ponto inicial da rota.
      * @param b O ponto final da rota.
+     * @pre a != null, b != null e a != b.
+     * @pos O objeto é inicializado com um vetor de rota válido (r != null e r.modulo() > 0)
      */
     public AutoPilot(Ponto a, Ponto b) {
         this.r = new Vetor(a, b);
@@ -28,6 +30,8 @@ public class AutoPilot {
      * @param time      O tempo em que a rota é percorrida, utilizado para ajustar a velocidade.
      * @return Um novo vetor que representa a velocidade ajustada com base no vetor de rota,
      * na velocidade do vento e no tempo.
+     * @pre windSpeed != null e time > 0.0
+     * @pos O estado interno do Autopilot não é alterado. Retorna um novo vetor válido e não nulo.
      */
     public Vetor speed(Vetor windSpeed, double time) {
         return r.sub(windSpeed).mult(1 / time);
@@ -40,6 +44,8 @@ public class AutoPilot {
      * @param windSpeed   O vetor que representa a velocidade do vento, utilizado para ajustar a rota.
      * @param linearSpeed A velocidade linear constante utilizada na travessia da rota.
      * @return O tempo necessário para percorrer a rota, ajustado pela velocidade do vento.
+     * @pre windSpeed != null e linearSpeed > 0.0
+     * @pos O estado do Autopilot não é alterado e o valor retornado ≥ 0.0
      */
     public double time(Vetor windSpeed, double linearSpeed) {
         Vetor diferenca = r.sub(windSpeed);

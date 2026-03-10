@@ -9,7 +9,6 @@ import java.util.List;
  *
  * @author Léo Souza
  * @version 09/03/26
- * @inv A rota deve ter pelo menos dois pontos
  */
 public class Route {
     private final List<Ponto> pontos;

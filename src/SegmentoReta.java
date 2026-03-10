@@ -18,6 +18,8 @@ public class SegmentoReta {
      *
      * @param p O ponto de origem do segmento de reta.
      * @param v O vetor que define a direção e o comprimento do segmento de reta.
+     * @pre p != null e v != null.
+     * @pos getA() == p e getB() == new Ponto(p.getX() + v.getX(), p.getY() + v.getY()).
      */
     public SegmentoReta(Ponto p, Vetor v) {
         Ponto ponto = new Ponto(p.getX() + v.getX(), p.getY() + v.getY());
@@ -31,6 +33,9 @@ public class SegmentoReta {
      *
      * @param a O primeiro ponto extremo do segmento de reta.
      * @param b O segundo ponto extremo do segmento de reta.
+     * @pre a != null, b != null e a != b.
+     * @pos getA() == a
+     * @pos getB() == b
      */
     public SegmentoReta(Ponto a, Ponto b) {
         this.a = a;
@@ -112,6 +117,8 @@ public class SegmentoReta {
      *
      * @param p O ponto a ser verificado.
      * @return {@code true} se o ponto está dentro dos limites do segmento de reta, {@code false} caso contrário.
+     * @pre p != null
+     * @pos O estado do segmento de reta não é alterado.
      * @see <a href="https://www.geeksforgeeks.org/dsa/check-if-two-given-line-segments-intersect/">Geeks for geeks</a>
      */
     private boolean noSegmento(Ponto p) {
@@ -130,6 +137,8 @@ public class SegmentoReta {
      * @param seg O segmento de reta com o qual será calculada a interseção.
      * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso não exista
      * interseção, os segmentos sejam paralelos ou não compartilhem uma região comum.
+     * @pre seg != null
+     * @pos O estado dos segmentos de reta não são alterados.
      * @see <a href="https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect">Stack Overflow</a>,
      * <a href="https://theswissbay.ch/pdf/Gentoomen%20Library/Game%20Development/Programming/Graphics%20Gems%201.pdf">Livro de referência</a>
      */

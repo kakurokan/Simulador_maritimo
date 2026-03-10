@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Léo Souza
- * @version 09/03/26
  * <p>
  * Classe que representa o ponto de entrada para execução do programa, lidando
  * com a criação e manipulação de rotas, cálculo de comprimentos e verificação
@@ -16,6 +14,9 @@ import java.util.List;
  * - Ler coordenadas da entrada padrão para formar uma guia de rota composta por pontos.
  * - Calcular o comprimento total da rota gerada.
  * - Identificar e exibir os pontos de interseção da rota com um segmento de reta especificado.
+ *
+ * @author Léo Souza
+ * @version 09/03/26
  */
 public class Cliente {
 

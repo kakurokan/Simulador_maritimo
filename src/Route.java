@@ -2,13 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Representa uma rota no espaço 2D definida por uma sequência de pontos.
+ * Os pontos na lista fornecem a ordem na qual a rota é seguida,
+ * e ela pode conter múltiplos segmentos consecutivos formados entre pares de pontos.
+ * A classe é imutável.
+ *
  * @author Léo Souza
  * @version 09/03/26
- * @inv A rota deve ter pelo menos dois pontos e dois pontos consecutivos da rota devem ser diferentes
+ * @inv A rota deve ter pelo menos dois pontos
  */
 public class Route {
     private final List<Ponto> pontos;
 
+    /**
+     * Constrói um objeto {@code Route} com base em uma lista de pontos fornecida.
+     * A rota é imutável e representada pela sequência de pontos especificada.
+     *
+     * @param pontos A lista de {@code Ponto} que define a sequência de pontos da rota.
+     *               Deve conter pelo menos dois pontos, e dois pontos consecutivos
+     *               na rota devem ser diferentes.
+     * @pre pontos != null e pontos.size() >= 2
+     * @pos Uma cópia da lista pontos é armazenada internamente
+     */
     public Route(List<Ponto> pontos) {
         this.pontos = List.copyOf(pontos);
     }
@@ -19,6 +34,7 @@ public class Route {
      * na sequência de pontos que compõem a rota.
      *
      * @return O comprimento total da rota como um valor numérico de ponto flutuante.
+     * @pos O valor retornado é ≥ 0.0.
      */
     public double Comprimento() {
         double total = 0;
@@ -39,6 +55,8 @@ public class Route {
      * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
      * entre o segmento fornecido e a rota. Retorna {@code null} se não houver
      * pontos de interseção.
+     * @pre sr != null
+     * @pos O estado interno dos objetos não é alterado.
      */
     public List<Ponto> Intersect(SegmentoReta sr) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();

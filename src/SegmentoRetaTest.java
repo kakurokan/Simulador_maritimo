@@ -5,6 +5,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class SegmentoRetaTest {
 
     @Test
+    void getA() {
+        Ponto a = new Ponto(1, 2);
+        Ponto b = new Ponto(3, 4);
+        SegmentoReta sr = new SegmentoReta(a, b);
+        assertEquals(a, sr.getA());
+    }
+
+    @Test
+    void getB() {
+        Ponto a = new Ponto(1, 2);
+        Ponto b = new Ponto(3, 4);
+        SegmentoReta sr = new SegmentoReta(a, b);
+        assertEquals(b, sr.getB());
+    }
+
+    @Test
     void testToString() {
         assertEquals("sr((1.00,2.00); (2.00,2.00))", new SegmentoReta(new Ponto(2, 2), new Vetor(-1, 0)).toString());
         assertEquals("sr((3.00,3.00); (5.00,7.50))", new SegmentoReta(new Ponto(3, 3), new Vetor(2, 4.5)).toString());

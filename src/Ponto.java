@@ -15,6 +15,8 @@ public class Ponto {
      *
      * @param x Coordenada x do ponto.
      * @param y Coordenada y do ponto.
+     * @pos getX == x
+     * @pos getY == y
      */
     public Ponto(double x, double y) {
         this.x = x;
@@ -75,6 +77,8 @@ public class Ponto {
      *
      * @param p O ponto fornecido para calcular o produto vetorial com o ponto atual.
      * @return O valor do produto vetorial entre os dois pontos.
+     * @pre p != null
+     * @pos o objeto retornado não é nulo
      */
     public double produtoVetorial(Ponto p) {
         return this.x * p.getY() - this.y * p.getX();
@@ -86,6 +90,8 @@ public class Ponto {
      *
      * @param p O ponto cujas coordenadas serão subtraídas do ponto atual.
      * @return Um novo objeto Ponto representando a subtração das coordenadas dos dois pontos.
+     * @pre p != null
+     * @pos o objeto retornado não é nulo
      */
     public Ponto subtracao(Ponto p) {
         return new Ponto(this.x - p.getX(), this.y - p.getY());
@@ -100,6 +106,7 @@ public class Ponto {
      * @param p O ponto de destino para o qual a distância será calculada.
      * @return A distância entre o ponto atual e o ponto fornecido.
      * Retorna {@code 0.0} se os pontos forem iguais.
+     * @pre p != null
      */
     public Double distanciaPara(Ponto p) {
         return (this.equals(p)) ? 0.0 : new Vetor(this, p).modulo();

@@ -32,11 +32,6 @@ class PontoTest {
     }
 
     @Test
-    void produtoVetorial() {
-        assertEquals(-25.84, new Ponto(5.6, 7.8).produtoVetorial(new Ponto(9.2, 8.2)), Ponto.eps);
-    }
-
-    @Test
     void subtracao() {
         Ponto resultado = new Ponto(5.5, 10).subtracao(new Ponto(2, 3));
         assertEquals(3.5, resultado.getX(), Ponto.eps);

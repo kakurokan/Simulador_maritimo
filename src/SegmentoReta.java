@@ -142,10 +142,10 @@ public class SegmentoReta {
      * @see <a href="https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect">Stack Overflow</a>,
      * <a href="https://theswissbay.ch/pdf/Gentoomen%20Library/Game%20Development/Programming/Graphics%20Gems%201.pdf">Livro de referência</a>
      */
-    Ponto intersect(SegmentoReta seg) {
-        Ponto r = this.b.subtracao(this.a);
-        Ponto s = seg.b.subtracao(seg.a);
-        Ponto k = seg.a.subtracao(this.a);
+    public Ponto intersect(SegmentoReta seg) {
+        Vetor r = new Vetor(this.a, this.b);
+        Vetor s = new Vetor(seg.getA(), seg.getB());
+        Vetor k = new Vetor(this.a, seg.getA());
 
         double numerador = (k).produtoVetorial(r);
         double denominador = r.produtoVetorial(s);
@@ -191,9 +191,28 @@ public class SegmentoReta {
      * @pre v != null
      * @pos Os objetos não sofrem alterações
      */
-    Ponto intersect(Vetor v) {
+    public Ponto intersect(Vetor v) {
         SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);
         return this.intersect(seg);
     }
 
+    /**
+     * Calcula o comprimento do segmento de reta baseado na distância entre os seus dois pontos extremos.
+     * O comprimento é determinado utilizando o método {@code distanciaPara} da classe {@code Ponto},
+     * que calcula a distância entre dois pontos no espaço bidimensional.
+     *
+     * @return O comprimento do segmento de reta, correspondente à distância entre os dois pontos extremos.
+     * @pos O objeto permance inalterado
+     */
+    public double Comprimento() {
+        return this.a.distanciaPara(this.b);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        SegmentoReta seg = (SegmentoReta) o;
+
+        return seg.getA().equals(this.a) && seg.getB().equals(this.b);
+    }
 }

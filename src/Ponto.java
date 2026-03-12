@@ -72,19 +72,6 @@ public class Ponto {
     }
 
     /**
-     * Calcula o produto vetorial (ou determinante) entre o ponto atual e outro ponto fornecido.
-     * O produto vetorial é definido como (this.x * p.getY()) - (this.y * p.getX()).
-     *
-     * @param p O ponto fornecido para calcular o produto vetorial com o ponto atual.
-     * @return O valor do produto vetorial entre os dois pontos.
-     * @pre p != null
-     * @pos o objeto retornado não é nulo
-     */
-    public double produtoVetorial(Ponto p) {
-        return this.x * p.getY() - this.y * p.getX();
-    }
-
-    /**
      * Subtrai as coordenadas do ponto fornecido das coordenadas do ponto atual,
      * resultando em um novo ponto representando a diferença vetorial entre eles.
      *

@@ -18,6 +18,11 @@ class VetorTest {
     }
 
     @Test
+    void produtoVetorial() {
+        assertEquals(-25.84, new Vetor(5.6, 7.8).produtoVetorial(new Vetor(9.2, 8.2)), Ponto.eps);
+    }
+
+    @Test
     void modulo() {
         assertEquals(4.471028964, new Vetor(3.74, -2.45).modulo(), Ponto.eps);
     }

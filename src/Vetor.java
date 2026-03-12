@@ -179,6 +179,19 @@ public class Vetor {
     }
 
     /**
+     * Calcula o produto vetorial (ou determinante) entre o vetor atual e outro vetor fornecido.
+     * O produto vetorial é definido como (this.x * p.getY()) - (this.y * p.getX()).
+     *
+     * @param v O vetor fornecido para calcular o produto vetorial com o vetor atual.
+     * @return O valor do produto vetorial entre os dois vetores.
+     * @pre p != null
+     * @pos o objeto retornado não é nulo
+     */
+    public double produtoVetorial(Vetor v) {
+        return this.x * v.getY() - this.y * v.getX();
+    }
+
+    /**
      * Retorna uma representação em formato textual do vetor no sistema de coordenadas cartesianas.
      * A representação segue o formato "[x, y]", onde x e y são as componentes do vetor
      * arredondadas para duas casas decimais.

@@ -11,6 +11,7 @@ import java.util.Arrays;
  *
  * @author Léo Souza
  * @version 13/03/26
+ * @inv Têm que ter pelo menos três vértices
  */
 public class Poligono extends FiguraGeometrica {
     private final Ponto[] vertices;
@@ -28,6 +29,11 @@ public class Poligono extends FiguraGeometrica {
      * @pos getVertices() == uma cópia de pontos
      */
     public Poligono(Ponto[] pontos) {
+        if (pontos.length < 3) {
+            IO.println("Poligono:iv");
+            System.exit(0);
+        }
+
         this.vertices = Arrays.copyOf(pontos, pontos.length);
     }
 

@@ -218,15 +218,8 @@ public class SegmentoReta {
      * @pre seg != null
      * @pos O estado dos segmentos de reta não é alterado.
      */
-    public boolean comprimentoIgual(SegmentoReta seg) {
-        return Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps;
+    public boolean comprimentoDiferente(SegmentoReta seg) {
+        return !(Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        SegmentoReta seg = (SegmentoReta) o;
-
-        return seg.getA().equals(this.a) && seg.getB().equals(this.b);
-    }
 }

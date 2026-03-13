@@ -1,11 +1,11 @@
+import java.util.Arrays;
+
 /**
  * @author Léo Souza
  * @version 12/03/26
  * @inv os lados devem ser iguais, as diagonais devem ter o mesmo comprimento e deve ter exatamente quatro lados
  */
-public class Quadrado {
-    private final SegmentoReta[] lados;
-
+public class Quadrado extends Poligono {
     /**
      * Constrói um objeto da classe Quadrado verificando a validade dos pontos fornecidos.
      * O objeto será considerado válido se atender às seguintes condições:
@@ -22,20 +22,18 @@ public class Quadrado {
      * instâncias válidas de {@code SegmentoReta} que conectam os pontos adjacentes fornecidos.
      */
     public Quadrado(Ponto[] pontos) {
+        super(Arrays.copyOf(pontos, pontos.length));
+
         if (pontos.length != 4) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }
 
-        lados = new SegmentoReta[4];
-
-        for (int i = 0; i < pontos.length; i++) {
-            lados[i] = new SegmentoReta(pontos[i], pontos[(i + 1) % 4]);
-        }
+        SegmentoReta[] lados = this.lados();
 
         //Verifica se todos os lados são iguais
         for (int i = 1; i < lados.length; i++) {
-            if (!lados[i].equals(lados[0])) {
+            if (lados[i].comprimentoDiferente(lados[0])) {
                 IO.println("Quadrado:iv");
                 System.exit(0);
             }
@@ -45,7 +43,7 @@ public class Quadrado {
         SegmentoReta diagonal2 = new SegmentoReta(pontos[1], pontos[3]);
 
         //Verifica se as diagonais são iguais
-        if (!diagonal1.comprimentoIgual(diagonal2)) {
+        if (diagonal1.comprimentoDiferente(diagonal2)) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Representa um triângulo definido por três segmentos de reta que conectam três pontos no espaço.
  * O triângulo é formado apenas se os três pontos fornecidos não forem colineares.
@@ -7,8 +9,7 @@
  * @version 12/03/26
  * @inv os vértices não podem ser colineares
  */
-public class Triangulo {
-    private SegmentoReta[] lados;
+public class Triangulo extends Poligono {
 
     /**
      * Constrói um triângulo a partir de um array de pontos fornecido.
@@ -20,6 +21,8 @@ public class Triangulo {
      *               Caso contrário, o programa imprimirá "Triangulo:iv" e será encerrado.
      */
     public Triangulo(Ponto[] pontos) {
+        super(Arrays.copyOf(pontos, pontos.length));
+
         if (pontos.length != 3) {
             IO.println("Triangulo:iv");
             System.exit(0);
@@ -31,12 +34,6 @@ public class Triangulo {
         if (Math.abs(ab.produtoVetorial(ac)) < Ponto.eps) {
             IO.println("Triangulo:iv");
             System.exit(0);
-        }
-
-        lados = new SegmentoReta[3];
-
-        for (int i = 0; i < pontos.length; i++) {
-            lados[i] = new SegmentoReta(pontos[i], pontos[(i + 1) % 3]);
         }
     }
 }

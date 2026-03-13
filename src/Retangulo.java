@@ -1,11 +1,11 @@
+import java.util.Arrays;
+
 /**
  * @author Léo Souza
  * @version 13/03/26
  * @inv os lados opostos são iguais e as diagonais com o mesmo comprimento
  */
-public class Retangulo {
-    private final SegmentoReta[] lados;
-
+public class Retangulo extends Poligono {
     /**
      * Constrói um Retangulo a partir de um conjunto de pontos dados.
      * O Retangulo é validado garantindo que possui exatamente quatro pontos,
@@ -20,20 +20,18 @@ public class Retangulo {
      * instâncias válidas de {@code SegmentoReta} que conectam os pontos adjacentes fornecidos.
      */
     public Retangulo(Ponto[] pontos) {
+        super(Arrays.copyOf(pontos, pontos.length));
+
         if (pontos.length != 4) {
             IO.println("Retangulo:iv");
             System.exit(0);
         }
 
-        lados = new SegmentoReta[4];
-
-        for (int i = 0; i < pontos.length; i++) {
-            lados[i] = new SegmentoReta(pontos[i], pontos[(i + 1) % 4]);
-        }
+        SegmentoReta[] lados = this.lados();
 
         //Verifica se os lados opostos são iguais
-        if (!lados[0].comprimentoIgual(lados[2]) || !lados[1].comprimentoIgual(lados[3])) {
-            IO.println("Quadrado:iv");
+        if (lados[0].comprimentoDiferente(lados[2]) || lados[1].comprimentoDiferente(lados[3])) {
+            IO.println("Retangulo:iv");
             System.exit(0);
         }
 
@@ -41,8 +39,8 @@ public class Retangulo {
         SegmentoReta diagonal2 = new SegmentoReta(pontos[1], pontos[3]);
 
         //Verifica se as diagonais são iguais
-        if (!diagonal1.comprimentoIgual(diagonal2)) {
-            IO.println("Quadrado:iv");
+        if (diagonal1.comprimentoDiferente(diagonal2)) {
+            IO.println("Retangulo:iv");
             System.exit(0);
         }
     }

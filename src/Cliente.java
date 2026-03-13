@@ -16,61 +16,61 @@ import java.util.List;
  * - Identificar e exibir os pontos de interseção da rota com um segmento de reta especificado.
  *
  * @author Léo Souza
- * @version 09/03/26
+ * @version 13/03/26
  */
 public class Cliente {
 
 
-    /**
-     * Método principal que lê dados de entrada, cria uma rota a partir de pontos,
-     * calcula o comprimento da rota e identifica interseções com um segmento de reta.
-     *
-     * <p>A primeira linha de entrada contém coordenadas de pontos (x y x y ...) que formam a rota.
-     * A segunda linha contém quatro valores (xa ya xb yb) que definem um segmento de reta.</p>
-     *
-     * <p>O método imprime:
-     * <ul>
-     *   <li>O comprimento total da rota formatado com duas casas decimais</li>
-     *   <li>Os pontos de interseção entre a rota e o segmento, ou "null" se não houver interseções</li>
-     * </ul>
-     * </p>
-     *
-     * @throws IOException se ocorrer um erro durante a leitura da entrada padrão
-     */
     public static void main() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
         String[] parts = line.split(" ");
-        ArrayList<Ponto> pontos = new ArrayList<>();
+        ArrayList<Ponto> pontos;
 
-        double xa, ya, xb, yb;
-        Ponto a, b;
+        FiguraGeometrica figura = null;
+        double[] coordenadas = arrayStringParaDouble(parts, 1);
 
-        for (int i = 1; i < parts.length; i += 2) {
-            xa = Double.parseDouble(parts[i - 1]);
-            ya = Double.parseDouble(parts[i]);
-
-            a = new Ponto(xa, ya);
-            pontos.add(a);
+        switch (parts[0]) {
+            case "P":
+                pontos = getPontos(coordenadas);
+                figura = new Poligono((Ponto[]) pontos.toArray());
+                break;
+            case "S":
+                Ponto[] verticesQuadrado = {new Ponto(coordenadas[0], coordenadas[1]),
+                        new Ponto(coordenadas[2], coordenadas[3]),
+                        new Ponto(coordenadas[4], coordenadas[5]),
+                        new Ponto(coordenadas[6], coordenadas[7])};
+                figura = new Quadrado(verticesQuadrado);
+                break;
+            case "R":
+                Ponto[] verticesRetangulo = {new Ponto(coordenadas[0], coordenadas[1]),
+                        new Ponto(coordenadas[2], coordenadas[3]),
+                        new Ponto(coordenadas[4], coordenadas[5]),
+                        new Ponto(coordenadas[6], coordenadas[7])};
+                figura = new Retangulo(verticesRetangulo);
+                break;
+            case "T":
+                Ponto[] verticesTriangulo = {new Ponto(coordenadas[0], coordenadas[1]),
+                        new Ponto(coordenadas[2], coordenadas[3]),
+                        new Ponto(coordenadas[4], coordenadas[5])};
+                figura = new Triangulo(verticesTriangulo);
+                break;
+            case "C":
+                Ponto centro = new Ponto(coordenadas[0], coordenadas[1]);
+                figura = new Circulo(centro, coordenadas[2]);
+                break;
+            default:
+                System.exit(0);
         }
-
-        Route rota = new Route(pontos);
 
         line = br.readLine();
         parts = line.split(" ");
+        coordenadas = arrayStringParaDouble(parts, 0);
+        pontos = getPontos(coordenadas);
 
-        xa = Double.parseDouble(parts[0]);
-        ya = Double.parseDouble(parts[1]);
-        xb = Double.parseDouble(parts[2]);
-        yb = Double.parseDouble(parts[3]);
+        Route rota = new Route(pontos);
 
-        a = new Ponto(xa, ya);
-        b = new Ponto(xb, yb);
-
-        IO.println(String.format("%.2f", rota.Comprimento()));
-
-        SegmentoReta seg = new SegmentoReta(a, b);
-        List<Ponto> intersecoes = rota.Intersect(seg);
+        List<Ponto> intersecoes = rota.Intersect(figura);
 
         if (intersecoes == null) {
             IO.println("null");
@@ -85,5 +85,52 @@ public class Cliente {
                 }
             }
         }
+    }
+
+    /**
+     * Constrói uma lista de objetos {@code Ponto} baseada em um array de coordenadas.
+     * As coordenadas do array são processadas em pares consecutivos para formar os pontos
+     * correspondentes no sistema de coordenadas cartesianas.
+     *
+     * @param coordenadas Um array de números {@code Double} contendo as coordenadas (x, y)
+     *                    dos pontos. O tamanho do array deve ser par, contendo pares de
+     *                    coordenadas consecutivas.
+     * @return Uma lista de objetos {@code Ponto}, contendo os pontos gerados a partir
+     * das coordenadas fornecidas.
+     */
+    private static ArrayList<Ponto> getPontos(double[] coordenadas) {
+        ArrayList<Ponto> pontos = new ArrayList<>();
+
+        for (int i = 1; i < coordenadas.length; i += 2) {
+            double xa = coordenadas[i - 1];
+            double ya = coordenadas[i];
+
+            Ponto a = new Ponto(xa, ya);
+            pontos.add(a);
+        }
+
+        return pontos;
+    }
+
+    /**
+     * Converte uma parte de um array de strings num array de doubles, a partir do índice especificado.
+     * Cada string na parte especificada do array de entrada é convertida para um {@code double}.
+     *
+     * @param strings    Um array de strings que contém os valores numéricos a serem convertidos.
+     * @param startPoint O índice inicial no array {@code strings} a partir do qual a conversão deve começar.
+     *                   Deve estar dentro dos limites do array.
+     * @return Um array de doubles criado através da conversão dos valores em string da parte especificada do array de entrada.
+     * O tamanho do array resultante é {@code strings.length - startPoint}.
+     * @throws NumberFormatException          se alguma string na parte especificada da entrada não puder ser convertida num double válido.
+     * @throws ArrayIndexOutOfBoundsException se o {@code startPoint} for menor que 0 ou maior que {@code strings.length}.
+     */
+    private static double[] arrayStringParaDouble(String[] strings, int startPoint) {
+        double[] doubles = new double[strings.length - startPoint];
+
+        for (int i = startPoint; i < strings.length; i++) {
+            doubles[i - startPoint] = Double.parseDouble(strings[i]);
+        }
+
+        return doubles;
     }
 }

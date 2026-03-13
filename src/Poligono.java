@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * A classe abstrata {@code Poligono} define uma estrutura básica para representar polígonos
  * no plano cartesiano. Um polígono é descrito como uma sequência de vértices conectados
@@ -10,7 +12,7 @@
  * @author Léo Souza
  * @version 13/03/26
  */
-public abstract class Poligono {
+public class Poligono extends FiguraGeometrica {
     private final Ponto[] vertices;
 
     /**
@@ -23,23 +25,10 @@ public abstract class Poligono {
      * @throws IllegalArgumentException se o array {@code pontos} for nulo ou contiver
      *                                  menos do que três pontos.
      * @pre pontos != null
-     * @pos getVertices() == pontos
+     * @pos getVertices() == uma cópia de pontos
      */
     public Poligono(Ponto[] pontos) {
-        this.vertices = pontos;
-    }
-
-    /**
-     * Retorna o array de vértices que define o polígono.
-     * O array contém os objetos {@code Ponto} que representam as posições dos vértices
-     * em um plano cartesiano. A ordem dos elementos no array reflete a sequência
-     * em que os vértices estão conectados ao formar o polígono.
-     *
-     * @return Um array de objetos {@code Ponto} representando os vértices do polígono.
-     * O array nunca é nulo e contém pelo menos três elementos.
-     */
-    public Ponto[] getVertices() {
-        return vertices;
+        this.vertices = Arrays.copyOf(pontos, pontos.length);
     }
 
     /**
@@ -51,7 +40,7 @@ public abstract class Poligono {
      * array de vértices do polígono.
      * @pos O objeto não é alterado
      */
-    public SegmentoReta[] lados() {
+    public SegmentoReta[] getlados() {
         SegmentoReta[] lados = new SegmentoReta[vertices.length];
         for (int i = 0; i < vertices.length; i++) {
             lados[i] = new SegmentoReta(vertices[i], vertices[(i + 1) % vertices.length]);

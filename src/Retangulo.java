@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * A classe Retangulo representa um polígono específico de quatro lados no plano cartesiano,
  * onde os lados opostos possuem o mesmo comprimento e as diagonais têm o mesmo tamanho.
@@ -23,14 +21,14 @@ public class Retangulo extends Poligono {
      * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Retangulo(Ponto[] pontos) {
-        super(Arrays.copyOf(pontos, pontos.length));
+        super(pontos);
 
         if (pontos.length != 4) {
             IO.println("Retangulo:iv");
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.lados();
+        SegmentoReta[] lados = this.getlados();
 
         //Verifica se os lados opostos são iguais
         if (lados[0].comprimentoDiferente(lados[2]) || lados[1].comprimentoDiferente(lados[3])) {

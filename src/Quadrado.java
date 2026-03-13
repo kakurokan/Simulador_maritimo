@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Representa um quadrado no plano cartesiano, sendo uma extensão de {@code Poligono}.
  * Um quadrado é definido por quatro vértices sequenciais.
@@ -24,14 +22,14 @@ public class Quadrado extends Poligono {
      * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Quadrado(Ponto[] pontos) {
-        super(Arrays.copyOf(pontos, pontos.length));
+        super(pontos);
 
         if (pontos.length != 4) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.lados();
+        SegmentoReta[] lados = this.getlados();
 
         double comprimentoLado0 = lados[0].Comprimento();
 

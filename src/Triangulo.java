@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Representa um triângulo definido por três segmentos de reta que conectam três pontos no espaço.
  *
@@ -21,7 +19,7 @@ public class Triangulo extends Poligono {
      * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Triangulo(Ponto[] pontos) {
-        super(Arrays.copyOf(pontos, pontos.length));
+        super(pontos);
 
         if (pontos.length != 3) {
             IO.println("Triangulo:iv");

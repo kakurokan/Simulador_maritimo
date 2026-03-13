@@ -6,7 +6,7 @@
  * @version 12/03/26
  * @inv o raio têm que ser maior que zero
  */
-public class Circulo {
+public class Circulo extends FiguraGeometrica {
     private final Ponto centro;
     private final double raio;
 

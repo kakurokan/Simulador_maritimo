@@ -70,4 +70,28 @@ public class Route {
 
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
+
+    public List<Ponto> Intersect(FiguraGeometrica obstaculo) {
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+
+        if (obstaculo.getClass() == Circulo.class) {
+            Circulo circulo = (Circulo) obstaculo;
+            for (Ponto ponto : this.pontos) {
+                if (Math.abs(ponto.distanciaPara((circulo.getCentro()))) < Ponto.eps) {
+                    intersecoes.add(ponto);
+                }
+            }
+        } else {
+            Poligono poligono = (Poligono) obstaculo;
+            SegmentoReta[] lados = poligono.getlados();
+
+            for (SegmentoReta lado : lados) {
+                if (lado != null) {
+                    intersecoes.addAll(this.Intersect(lado));
+                }
+            }
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
 }

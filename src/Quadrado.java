@@ -18,8 +18,7 @@ public class Quadrado extends Poligono {
      *               O array deve conter exatamente quatro pontos dispostos em sequência.
      *               Caso contrário, o programa será encerrado.
      * @pre pontos != null e pontos.length == 4
-     * @pos Um array interno {@code lados} é inicializado e preenchido com 4
-     * instâncias válidas de {@code SegmentoReta} que conectam os pontos adjacentes fornecidos.
+     * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Quadrado(Ponto[] pontos) {
         super(Arrays.copyOf(pontos, pontos.length));

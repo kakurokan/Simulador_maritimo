@@ -16,8 +16,7 @@ public class Retangulo extends Poligono {
      *               Deve conter exatamente 4 elementos, em ordem que permita formar o retângulo.
      *               Caso contrário, o programa será finalizado indicando estrutura inválida.
      * @pre pontos != null e pontos.length == 4
-     * @pos Um array interno {@code lados} é inicializado e preenchido com 4
-     * instâncias válidas de {@code SegmentoReta} que conectam os pontos adjacentes fornecidos.
+     * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Retangulo(Ponto[] pontos) {
         super(Arrays.copyOf(pontos, pontos.length));

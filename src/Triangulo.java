@@ -19,6 +19,8 @@ public class Triangulo extends Poligono {
      * @param pontos Um array de objetos da classe Ponto representando os vértices do triângulo.
      *               O array deve conter exatamente três pontos e os pontos não podem ser colineares.
      *               Caso contrário, o programa imprimirá "Triangulo:iv" e será encerrado.
+     * @pre pontos != null e pontos.length == 3
+     * @pos Uma cópia do array pontos é guardada no objeto
      */
     public Triangulo(Ponto[] pontos) {
         super(Arrays.copyOf(pontos, pontos.length));

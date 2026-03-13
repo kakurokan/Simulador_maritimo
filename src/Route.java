@@ -71,6 +71,17 @@ public class Route {
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
 
+    /**
+     * Calcula os pontos de interseção entre a rota representada pela sequência de pontos
+     * e uma figura geométrica fornecida. A interseção pode ocorrer com diferentes tipos
+     * de figuras geométricas, como círculos ou polígonos.
+     *
+     * @param obstaculo A figura geométrica ({@code Circulo} ou {@code Poligono}) usada
+     *                  para determinar os pontos de interseção com a rota.
+     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
+     * entre a rota e o obstáculo fornecido. Retorna {@code null} se não houver
+     * interseções.
+     */
     public List<Ponto> Intersect(FiguraGeometrica obstaculo) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();
 
@@ -87,7 +98,10 @@ public class Route {
 
             for (SegmentoReta lado : lados) {
                 if (lado != null) {
-                    intersecoes.addAll(this.Intersect(lado));
+                    List<Ponto> pontosIntersecao = this.Intersect(lado);
+                    if (pontosIntersecao != null) {
+                        intersecoes.addAll(pontosIntersecao);
+                    }
                 }
             }
         }

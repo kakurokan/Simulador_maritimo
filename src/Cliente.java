@@ -27,13 +27,20 @@ public class Cliente {
         String[] parts = line.split(" ");
         ArrayList<Ponto> pontos;
 
+        double[] coordenadas = arrayStringParaDouble(parts, 0);
+        pontos = getPontos(coordenadas);
+        Route rota = new Route(pontos);
+
+        line = br.readLine();
+        parts = line.split(" ");
+
         FiguraGeometrica figura = null;
-        double[] coordenadas = arrayStringParaDouble(parts, 1);
+        coordenadas = arrayStringParaDouble(parts, 1);
 
         switch (parts[0]) {
             case "P":
                 pontos = getPontos(coordenadas);
-                figura = new Poligono((Ponto[]) pontos.toArray());
+                figura = new Poligono(pontos.toArray(new Ponto[0]));
                 break;
             case "S":
                 Ponto[] verticesQuadrado = {new Ponto(coordenadas[0], coordenadas[1]),
@@ -62,13 +69,6 @@ public class Cliente {
             default:
                 System.exit(0);
         }
-
-        line = br.readLine();
-        parts = line.split(" ");
-        coordenadas = arrayStringParaDouble(parts, 0);
-        pontos = getPontos(coordenadas);
-
-        Route rota = new Route(pontos);
 
         List<Ponto> intersecoes = rota.Intersect(figura);
 

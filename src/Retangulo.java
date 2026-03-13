@@ -1,6 +1,10 @@
 import java.util.Arrays;
 
 /**
+ * A classe Retangulo representa um polígono específico de quatro lados no plano cartesiano,
+ * onde os lados opostos possuem o mesmo comprimento e as diagonais têm o mesmo tamanho.
+ * Essa classe estende a classe Poligono, herdando suas propriedades e métodos básicos.
+ *
  * @author Léo Souza
  * @version 13/03/26
  * @inv os lados opostos são iguais e as diagonais com o mesmo comprimento

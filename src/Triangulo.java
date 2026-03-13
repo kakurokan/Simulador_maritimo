@@ -2,8 +2,6 @@ import java.util.Arrays;
 
 /**
  * Representa um triângulo definido por três segmentos de reta que conectam três pontos no espaço.
- * O triângulo é formado apenas se os três pontos fornecidos não forem colineares.
- * Caso contrário, o programa será encerrado.
  *
  * @author Léo Souza
  * @version 12/03/26

@@ -1,6 +1,9 @@
 import java.util.Arrays;
 
 /**
+ * Representa um quadrado no plano cartesiano, sendo uma extensão de {@code Poligono}.
+ * Um quadrado é definido por quatro vértices sequenciais.
+ *
  * @author Léo Souza
  * @version 12/03/26
  * @inv os lados devem ser iguais, as diagonais devem ter o mesmo comprimento e deve ter exatamente quatro lados

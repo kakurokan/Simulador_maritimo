@@ -45,7 +45,7 @@ public class Quadrado {
         SegmentoReta diagonal2 = new SegmentoReta(pontos[1], pontos[3]);
 
         //Verifica se as diagonais são iguais
-        if (Math.abs(diagonal1.Comprimento() - diagonal2.Comprimento()) < Ponto.eps) {
+        if (!diagonal1.comprimentoIgual(diagonal2)) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }

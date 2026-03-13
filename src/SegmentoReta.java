@@ -208,6 +208,20 @@ public class SegmentoReta {
         return this.a.distanciaPara(this.b);
     }
 
+    /**
+     * Verifica se o segmento de reta atual tem o mesmo comprimento que outro segmento de reta especificado.
+     * A comparação é feita a utilizar uma margem de erro definida por 1e-9.
+     *
+     * @param seg O segmento de reta a ser comparado com o segmento atual.
+     * @return {@code true} se os dois segmentos possuem comprimentos iguais dentro do limite de precisão definido,
+     * {@code false} caso contrário.
+     * @pre seg != null
+     * @pos O estado dos segmentos de reta não é alterado.
+     */
+    public boolean comprimentoIgual(SegmentoReta seg) {
+        return Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

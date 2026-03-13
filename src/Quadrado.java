@@ -31,9 +31,11 @@ public class Quadrado extends Poligono {
 
         SegmentoReta[] lados = this.lados();
 
+        double comprimentoLado0 = lados[0].Comprimento();
+
         //Verifica se todos os lados são iguais
         for (int i = 1; i < lados.length; i++) {
-            if (lados[i].comprimentoDiferente(lados[0])) {
+            if (!(Math.abs(comprimentoLado0 - lados[i].Comprimento()) < Ponto.eps)) {
                 IO.println("Quadrado:iv");
                 System.exit(0);
             }

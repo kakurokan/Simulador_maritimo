@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A classe {@code Cliente} é responsável pela leitura de dados de entrada,
+ * criação de objetos geométricos baseados nos dados fornecidos e cálculo de interseções
+ * entre uma rota e uma figura geométrica. Ela implementa a lógica principal para processar
+ * entradas e calcular resultados, integrando diversos tipos de figuras geométricas.
  * <p>
- * Classe que representa o ponto de entrada para execução do programa, lidando
- * com a criação e manipulação de rotas, cálculo de comprimentos e verificação
- * de interseções com segmentos de reta.
- * Essa classe é responsável por:
- * <p>
- * - Ler coordenadas da entrada padrão para formar uma guia de rota composta por pontos.
- * - Calcular o comprimento total da rota gerada.
- * - Identificar e exibir os pontos de interseção da rota com um segmento de reta especificado.
+ * Funcionalidades principais:
+ * - Construção de rotas a partir de pontos fornecidos.
+ * - Criação de diferentes tipos de figuras geométricas, como polígono, quadrado, retângulo,
+ * triângulo e círculo, com base em dados de entrada.
+ * - Cálculo das interseções entre uma rota e a figura geométrica selecionada.
  *
  * @author Léo Souza
  * @version 13/03/26

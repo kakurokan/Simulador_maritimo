@@ -85,22 +85,28 @@ public class Route {
     public List<Ponto> Intersect(FiguraGeometrica obstaculo) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();
 
-        if (obstaculo.getClass() == Circulo.class) {
-            Circulo circulo = (Circulo) obstaculo;
-            for (Ponto ponto : this.pontos) {
-                if (Math.abs(ponto.distanciaPara((circulo.getCentro()))) < Ponto.eps) {
-                    intersecoes.add(ponto);
-                }
-            }
-        } else {
-            Poligono poligono = (Poligono) obstaculo;
-            SegmentoReta[] lados = poligono.getlados();
+        for (int i = 1; i < pontos.size(); i++) {
+            SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
 
-            for (SegmentoReta lado : lados) {
-                if (lado != null) {
-                    List<Ponto> pontosIntersecao = this.Intersect(lado);
-                    if (pontosIntersecao != null) {
-                        intersecoes.addAll(pontosIntersecao);
+            if (obstaculo instanceof Poligono poligono) {
+                SegmentoReta[] lados = poligono.getlados();
+
+                for (SegmentoReta lado : lados) {
+                    if (lado != null) {
+                        Ponto intersecao = segmentoRota.intersect(lado);
+                        if (intersecao != null) {
+                            if (!intersecoes.contains(intersecao)) {
+                                intersecoes.add(intersecao);
+                            }
+                        }
+                    }
+                }
+            } else if (obstaculo instanceof Circulo circulo) {
+                List<Ponto> pontosIntersecao = segmentoRota.intersect(circulo);
+
+                for (Ponto intersecao : pontosIntersecao) {
+                    if (!intersecoes.contains(intersecao)) {
+                        intersecoes.add(intersecao);
                     }
                 }
             }

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Representa um segmento de reta num espaço bidimensional.
  * O segmento de reta é definido por dois pontos distintos,
@@ -194,6 +197,56 @@ public class SegmentoReta {
     public Ponto intersect(Vetor v) {
         SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);
         return this.intersect(seg);
+    }
+
+    /**
+     * Calcula os pontos de interseção entre o segmento de reta atual e um círculo especificado.
+     * Se o segmento de reta não intersectar o círculo, retorna {@code null}.
+     * Caso existam pontos de interseção, eles são retornados como uma lista de objetos da classe {@code Ponto}.
+     *
+     * @param circulo O círculo com o qual será calculada a interseção do segmento de reta.
+     *                Deve possuir um centro e um raio válidos (raio maior que zero).
+     * @return Uma lista contendo os pontos de interseção entre o segmento de reta e o círculo.
+     * Caso não haja interseção, retorna {@code null}.
+     * @pre circulo != null
+     * @pos O objeto não é alterado
+     * @see <a href="https://stackoverflow.com/a/1084899/13884223/">StackOverflow</a>
+     */
+    public List<Ponto> intersect(Circulo circulo) {
+        List<Ponto> intersecoes = new ArrayList<>();
+
+        Vetor d = new Vetor(this.a, this.b);
+        Vetor f = new Vetor(circulo.getCentro(), this.a);
+
+        double a = d.produtoInterno(d);
+        double b = 2 * f.produtoInterno(d);
+        double c = f.produtoInterno(f) - (circulo.getRaio() * circulo.getRaio());
+
+        double discriminante = (b * b) - (4 * a * c);
+
+        //Não há interseção
+        if (discriminante < 0) {
+            return null;
+        }
+
+        discriminante = Math.sqrt(discriminante);
+
+        //A solução pode estar atrás ou na frente do segmento, é ncessário testar os dois
+        //t1 é sempre o menor valor
+        double t1 = (-b - discriminante) / (2 * a);
+        double t2 = (-b + discriminante) / (2 * a);
+
+        // Verifica o t1 (sempre o primeiro ponto alcançado no sentido de A para B)
+        if (t1 >= 0 && t1 <= 1) {
+            intersecoes.add(new Ponto(this.a.getX() + t1 * d.getX(), this.a.getY() + t1 * d.getY()));
+        }
+
+        // Verifica o t2 (garantindo que não é o mesmo ponto em caso de tangência)
+        if (Math.abs(t1 - t2) > Ponto.eps && t2 >= 0 && t2 <= 1) {
+            intersecoes.add(new Ponto(this.a.getX() + t2 * d.getX(), this.a.getY() + t2 * d.getY()));
+        }
+
+        return intersecoes;
     }
 
     /**

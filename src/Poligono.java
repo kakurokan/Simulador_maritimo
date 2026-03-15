@@ -46,7 +46,7 @@ public class Poligono extends FiguraGeometrica {
      * array de vértices do polígono.
      * @pos O objeto não é alterado
      */
-    public SegmentoReta[] getlados() {
+    public SegmentoReta[] getLados() {
         SegmentoReta[] lados = new SegmentoReta[vertices.length];
         for (int i = 0; i < vertices.length; i++) {
             lados[i] = new SegmentoReta(vertices[i], vertices[(i + 1) % vertices.length]);

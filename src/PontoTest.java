@@ -18,12 +18,6 @@ class PontoTest {
     }
 
     @Test
-    void distanciaDaOrigem() {
-        assertEquals(3.605551275, new Ponto(2, 3).distanciaDaOrigem(), Ponto.eps);
-        assertEquals(5.0, new Ponto(-3, -4).distanciaDaOrigem(), Ponto.eps);
-    }
-
-    @Test
     void testEquals() {
         Ponto p1 = new Ponto(2, 3);
         assertEquals(new Ponto(2, 3), p1);           // Igualdade

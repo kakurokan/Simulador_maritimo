@@ -9,6 +9,7 @@ import java.util.List;
  *
  * @author Léo Souza
  * @version 09/03/26
+ * @inv Uma rota tem pelo menos dois pontos e dois pontos consecutivos devem ser diferentes.
  */
 public class Route {
     private final List<Ponto> pontos;
@@ -81,6 +82,8 @@ public class Route {
      * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
      * entre a rota e o obstáculo fornecido. Retorna {@code null} se não houver
      * interseções.
+     * @pre obstaculo != null
+     * @pos A rota e a figura permanecem inalterados
      */
     public List<Ponto> Intersect(FiguraGeometrica obstaculo) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();
@@ -89,7 +92,7 @@ public class Route {
             SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
 
             if (obstaculo instanceof Poligono poligono) {
-                SegmentoReta[] lados = poligono.getlados();
+                SegmentoReta[] lados = poligono.getLados();
 
                 for (SegmentoReta lado : lados) {
                     if (lado != null) {

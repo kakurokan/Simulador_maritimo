@@ -28,7 +28,7 @@ public class Retangulo extends Poligono {
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.getlados();
+        SegmentoReta[] lados = this.getLados();
 
         //Verifica se os lados opostos são iguais
         if (lados[0].comprimentoDiferente(lados[2]) || lados[1].comprimentoDiferente(lados[3])) {

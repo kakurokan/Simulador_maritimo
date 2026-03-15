@@ -90,4 +90,20 @@ class SegmentoRetaTest {
         SegmentoReta sr10 = new SegmentoReta(new Ponto(4, 0), new Ponto(6, 0));
         assertNull(sr9.intersect(sr10));
     }
+
+    @Test
+    void comprimento() {
+        SegmentoReta sr = new SegmentoReta(new Ponto(0, 0), new Ponto(3, 4));
+        assertEquals(5.0, sr.Comprimento(), Ponto.eps);
+    }
+
+    @Test
+    void comprimentoDiferente() {
+        SegmentoReta sr1 = new SegmentoReta(new Ponto(0, 0), new Ponto(3, 4)); // Comprimento 5
+        SegmentoReta sr2 = new SegmentoReta(new Ponto(1, 1), new Ponto(1, 6)); // Comprimento 5
+        SegmentoReta sr3 = new SegmentoReta(new Ponto(0, 0), new Ponto(10, 0)); // Comprimento 10
+
+        assertFalse(sr1.comprimentoDiferente(sr2));
+        assertTrue(sr1.comprimentoDiferente(sr3));
+    }
 }

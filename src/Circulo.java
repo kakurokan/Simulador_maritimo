@@ -17,7 +17,7 @@ public class Circulo extends FiguraGeometrica {
      * @param raio   O raio do círculo. Deve ser um valor positivo.
      * @pre raio > 0 e centro != null
      * @pos getRaio() = raio
-     * @pos getCentro() = uma copia do objeto centro
+     * @pos getCentro() = uma cópia do objeto centro
      */
     public Circulo(Ponto centro, double raio) {
         if (raio < Ponto.eps) {

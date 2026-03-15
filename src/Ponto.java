@@ -42,17 +42,6 @@ public class Ponto {
     }
 
     /**
-     * Calcula a distância do ponto atual à origem no sistema de coordenadas cartesianas.
-     * A distância é calculada usando a fórmula da distância euclidiana, dada como a
-     * raiz quadrada da soma dos quadrados das coordenadas x e y do ponto.
-     *
-     * @return a distância do ponto atual à origem.
-     */
-    public double distanciaDaOrigem() {
-        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
-    }
-
-    /**
      * Compara o objeto atual com outro objeto especificado para verificar a igualdade.
      * Dois objetos da classe Ponto são considerados iguais se as suas coordenadas x e y
      * diferem por valores menores que um limite estabelecido (eps).
@@ -94,6 +83,7 @@ public class Ponto {
      * @return A distância entre o ponto atual e o ponto fornecido.
      * Retorna {@code 0.0} se os pontos forem iguais.
      * @pre p != null
+     * @pos O valor retornado é ≥ 0.0
      */
     public Double distanciaPara(Ponto p) {
         return (this.equals(p)) ? 0.0 : new Vetor(this, p).modulo();

@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Léo Souza
  * @version 09/02/26
- * @inv As coordenadas do ponto p precisa ser diferentes das coordenadas do vetor v
+ * @inv Os dois pontos que definem o segmento de reta (A e B) têm de ser diferentes.
  */
 public class SegmentoReta {
     private final Ponto a;
@@ -93,8 +93,10 @@ public class SegmentoReta {
         StringBuilder sb = new StringBuilder();
         sb.append("sr(");
 
-        double distancia_a = a.distanciaDaOrigem();
-        double distancia_b = b.distanciaDaOrigem();
+        Ponto origem = new Ponto(0, 0);
+
+        double distancia_a = a.distanciaPara(origem);
+        double distancia_b = b.distanciaPara(origem);
 
         String primeiro;
         String segundo;
@@ -255,7 +257,7 @@ public class SegmentoReta {
      * que calcula a distância entre dois pontos no espaço bidimensional.
      *
      * @return O comprimento do segmento de reta, correspondente à distância entre os dois pontos extremos.
-     * @pos O objeto permance inalterado
+     * @pos O valor retornado é estritamente > 0.0.-
      */
     public double Comprimento() {
         return this.a.distanciaPara(this.b);
@@ -269,7 +271,7 @@ public class SegmentoReta {
      * @return {@code true} se os dois segmentos possuem comprimentos iguais dentro do limite de precisão definido,
      * {@code false} caso contrário.
      * @pre seg != null
-     * @pos O estado dos segmentos de reta não é alterado.
+     * @pos Os segmentos comparados permanecem inalterados.
      */
     public boolean comprimentoDiferente(SegmentoReta seg) {
         return !(Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps);

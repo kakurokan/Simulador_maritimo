@@ -29,7 +29,7 @@ public class Quadrado extends Poligono {
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.getlados();
+        SegmentoReta[] lados = this.getLados();
 
         double comprimentoLado0 = lados[0].Comprimento();
 

@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SegmentoRetaTest {
@@ -105,5 +107,27 @@ class SegmentoRetaTest {
 
         assertFalse(sr1.comprimentoDiferente(sr2));
         assertTrue(sr1.comprimentoDiferente(sr3));
+    }
+
+    @Test
+    void intersectCirculo() {
+        // Interseção em 2 pontos (Atravessa o círculo de um lado ao outro)
+        SegmentoReta sr = new SegmentoReta(new Ponto(0, 2), new Ponto(10, 2));
+        Circulo c = new Circulo(new Ponto(5, 2), 2);
+        List<Ponto> esperado = List.of(
+                new Ponto(3, 2),
+                new Ponto(7, 2)
+        );
+        assertEquals(esperado, sr.intersect(c));
+
+        // Nenhuma interseção
+        sr = new SegmentoReta(new Ponto(0, 0), new Ponto(2, 2));
+        c = new Circulo(new Ponto(10, 10), 1);
+        assertNull(sr.intersect(c));
+
+        // A reta infinita cruzaria o círculo, mas o segmento acaba antes de chegar no circulo
+        sr = new SegmentoReta(new Ponto(0, 2), new Ponto(2, 2));
+        c = new Circulo(new Ponto(5, 2), 2);
+        assertNull(sr.intersect(c));
     }
 }

@@ -248,7 +248,7 @@ public class SegmentoReta {
             intersecoes.add(new Ponto(this.a.getX() + t2 * d.getX(), this.a.getY() + t2 * d.getY()));
         }
 
-        return intersecoes;
+        return intersecoes.isEmpty() ? null : intersecoes;
     }
 
     /**

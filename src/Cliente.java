@@ -40,7 +40,7 @@ public class Cliente {
      *
      * @throws IOException se ocorrer erro ao realizar a entrada de dados pelo {@code BufferedReader}.
      */
-    public static void main() throws IOException {
+    static void main() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
         String[] parts = line.split(" ");

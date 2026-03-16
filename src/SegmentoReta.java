@@ -10,7 +10,7 @@ import java.util.List;
  * @version 09/02/26
  * @inv Os dois pontos que definem o segmento de reta (A e B) têm de ser diferentes.
  */
-public class SegmentoReta {
+public class SegmentoReta extends FiguraGeometrica {
     private final Ponto a;
     private final Ponto b;
 

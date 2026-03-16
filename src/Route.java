@@ -46,42 +46,17 @@ public class Route {
         return total;
     }
 
-    /**
-     * Calcula os pontos de interseção entre uma linha definida por um segmento de reta
-     * fornecido e os segmentos consecutivos que compõem a rota.
-     *
-     * @param sr O segmento de reta usado para calcular as interseções com os segmentos
-     *           da rota.
-     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
-     * entre o segmento fornecido e a rota. Retorna {@code null} se não houver
-     * pontos de interseção.
-     * @pre sr != null
-     * @pos O estado interno dos objetos não é alterado.
-     */
-    public List<Ponto> Intersect(SegmentoReta sr) {
-        ArrayList<Ponto> intersecoes = new ArrayList<>();
-
-        for (int i = 1; i < pontos.size(); i++) {
-            SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
-
-            Ponto p = segmentoRota.intersect(sr);
-            if (p != null)
-                intersecoes.add(p);
-        }
-
-        return (intersecoes.isEmpty()) ? null : intersecoes;
-    }
 
     /**
-     * Calcula os pontos de interseção entre a rota representada pela sequência de pontos
-     * e uma figura geométrica fornecida. A interseção pode ocorrer com diferentes tipos
-     * de figuras geométricas, como círculos ou polígonos.
+     * Calcula os pontos de interseção entre a rota atual e uma figura geométrica fornecida.
+     * A rota é definida pela sequência de segmentos de reta formada pelos pontos internos da classe.
+     * Dependendo do tipo da figura geométrica fornecida (polígono, círculo ou segmento de reta),
+     * os pontos de interseção são determinados e armazenados em uma lista.
      *
-     * @param obstaculo A figura geométrica ({@code Circulo} ou {@code Poligono}) usada
-     *                  para determinar os pontos de interseção com a rota.
-     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
-     * entre a rota e o obstáculo fornecido. Retorna {@code null} se não houver
-     * interseções.
+     * @param obstaculo A figura geométrica com a qual os pontos de interseção serão calculados.
+     *                  Pode ser uma instância de {@code Poligono}, {@code Circulo} ou {@code SegmentoReta}.
+     * @return Uma lista de {@code Ponto} representando os pontos de interseção,
+     * ou {@code null} se nenhum ponto de interseção for encontrado.
      * @pre obstaculo != null
      * @pos A rota e a figura permanecem inalterados
      */
@@ -112,6 +87,10 @@ public class Route {
                         intersecoes.add(intersecao);
                     }
                 }
+            } else if (obstaculo instanceof SegmentoReta sr) {
+                Ponto p = segmentoRota.intersect(sr);
+                if (p != null)
+                    intersecoes.add(p);
             }
         }
 

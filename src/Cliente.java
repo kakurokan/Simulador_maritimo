@@ -22,6 +22,24 @@ import java.util.List;
 public class Cliente {
 
 
+    /**
+     * Ponto de entrada da aplicação. Processa a entrada do usuário, cria objetos geométricos
+     * e calcula as interseções de uma rota com uma figura geométrica.
+     * <p>
+     * Este método realiza as seguintes etapas:
+     * 1. Lê uma sequência de coordenadas de entrada e cria uma lista de {@code Ponto}.
+     * 2. Constrói uma {@code Route} com base nos pontos fornecidos.
+     * 3. Lê as informações de descrição de uma figura geométrica e a inicializa, de acordo com o tipo:
+     * - "P" para {@code Polígono}
+     * - "S" para {@code Quadrado}
+     * - "R" para {@code Retângulo}
+     * - "T" para {@code Triângulo}
+     * - "C" para {@code Círculo}
+     * 4. Calcula as interseções entre a rota e a figura geométrica.
+     * 5. Exibe na saída padrão as interseções encontradas (ou "null" caso não haja interseções).
+     *
+     * @throws IOException se ocorrer erro ao realizar a entrada de dados pelo {@code BufferedReader}.
+     */
     public static void main() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
@@ -98,6 +116,8 @@ public class Cliente {
      *                    coordenadas consecutivas.
      * @return Uma lista de objetos {@code Ponto}, contendo os pontos gerados a partir
      * das coordenadas fornecidas.
+     * @pre coordenadas != null e coordenadas.length % 2 == 0
+     * @pos O vetor coordenadas não foi alterado
      */
     private static ArrayList<Ponto> getPontos(double[] coordenadas) {
         ArrayList<Ponto> pontos = new ArrayList<>();
@@ -124,6 +144,8 @@ public class Cliente {
      * O tamanho do array resultante é {@code strings.length - startPoint}.
      * @throws NumberFormatException          se alguma string na parte especificada da entrada não puder ser convertida num double válido.
      * @throws ArrayIndexOutOfBoundsException se o {@code startPoint} for menor que 0 ou maior que {@code strings.length}.
+     * @pre strings != null, startPoint < strings.length e os valores dentro de strings são doubles válidos
+     * @pos O vetor strings não é alterado
      */
     private static double[] arrayStringParaDouble(String[] strings, int startPoint) {
         double[] doubles = new double[strings.length - startPoint];

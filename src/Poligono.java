@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Léo Souza
  * @version 13/03/26
- * @inv Têm que ter pelo menos três vértices
+ * @inv Tem de ter pelo menos três vértices, definidos numa lista ordenada no sentido dos ponteiros do relógio.
  */
 public class Poligono extends FiguraGeometrica {
     private final Ponto[] vertices;
@@ -25,7 +25,7 @@ public class Poligono extends FiguraGeometrica {
      *               Deve conter pelo menos três pontos para formar um polígono válido.
      * @throws IllegalArgumentException se o array {@code pontos} for nulo ou contiver
      *                                  menos do que três pontos.
-     * @pre pontos != null
+     * @pre pontos != null e os pontos devem estar ordenados na ordem do ponteiro do relógio
      * @pos getVertices() == uma cópia de pontos
      */
     public Poligono(Ponto[] pontos) {

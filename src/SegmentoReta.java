@@ -41,8 +41,8 @@ public class SegmentoReta extends FiguraGeometrica {
      * @pos getB() == b
      */
     public SegmentoReta(Ponto a, Ponto b) {
-        this.a = a;
-        this.b = b;
+        this.a = new Ponto(a.getX(), a.getY());
+        this.b = new Ponto(b.getX(), b.getY());
 
         check();
     }

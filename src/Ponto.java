@@ -85,7 +85,7 @@ public class Ponto {
      * @pre p != null
      * @pos O valor retornado é ≥ 0.0
      */
-    public Double distanciaPara(Ponto p) {
+    public double distanciaPara(Ponto p) {
         return (this.equals(p)) ? 0.0 : new Vetor(this, p).modulo();
     }
 

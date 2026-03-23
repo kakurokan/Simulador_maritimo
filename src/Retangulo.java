@@ -30,7 +30,7 @@ public class Retangulo extends Poligono {
 
         //Verifica se os lados opostos são iguais
         if (!(Math.abs(pontos[0].distanciaPara(pontos[1]) - pontos[2].distanciaPara(pontos[3])) < Ponto.eps)
-                || !(Math.abs(pontos[1].distanciaPara(pontos[2]) - pontos[3].distanciaPara(pontos[1])) < Ponto.eps)) {
+                || !(Math.abs(pontos[1].distanciaPara(pontos[2]) - pontos[0].distanciaPara(pontos[3])) < Ponto.eps)) {
             IO.println("Retangulo:iv");
             System.exit(0);
         }

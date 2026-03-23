@@ -54,7 +54,7 @@ class RouteTest {
     }
 
     @Test
-    void intersectFiguraGeometrica() {
+    void intersectPoligono() {
         Route rota = new Route(List.of(
                 new Ponto(0, 0),
                 new Ponto(2, 2),
@@ -71,17 +71,6 @@ class RouteTest {
                 new Ponto(2, 3)
         );
         assertEquals(objetivo, rota.Intersect(quadrado));
-
-        rota = new Route(List.of(
-                new Ponto(0, 2),
-                new Ponto(10, 2)
-        ));
-        Circulo circulo = new Circulo(new Ponto(5, 2), 2);
-        objetivo = List.of(
-                new Ponto(3, 2),
-                new Ponto(7, 2)
-        );
-        assertEquals(objetivo, rota.Intersect(circulo));
 
         rota = new Route(List.of(
                 new Ponto(0, 2),
@@ -109,5 +98,19 @@ class RouteTest {
                 new Ponto(7, 10)
         });
         assertNull(rota.Intersect(triangulo));
+    }
+
+    @Test
+    void intersectCirculo() {
+        Route rota = new Route(List.of(
+                new Ponto(0, 2),
+                new Ponto(10, 2)
+        ));
+        Circulo circulo = new Circulo(new Ponto(5, 2), 2);
+        List<Ponto> objetivo = List.of(
+                new Ponto(3, 2),
+                new Ponto(7, 2)
+        );
+        assertEquals(objetivo, rota.Intersect(circulo));
     }
 }

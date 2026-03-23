@@ -48,50 +48,94 @@ public class Route {
 
 
     /**
-     * Calcula os pontos de interseção entre a rota atual e uma figura geométrica fornecida.
-     * A rota é definida pela sequência de segmentos de reta formada pelos pontos internos da classe.
-     * Dependendo do tipo da figura geométrica fornecida (polígono, círculo ou segmento de reta),
-     * os pontos de interseção são determinados e armazenados em uma lista.
+     * Calcula os pontos de interseção entre a rota atual, definida por uma sequência de
+     * segmentos de reta, e um polígono fornecido como parâmetro. A rota é representada
+     * pela sequência de pontos armazenados na classe, e os segmentos consecutivos formam
+     * os lados da rota, que são comparados aos lados do polígono para identificar as
+     * interseções.
      *
-     * @param obstaculo A figura geométrica com a qual os pontos de interseção serão calculados.
-     *                  Pode ser uma instância de {@code Poligono}, {@code Circulo} ou {@code SegmentoReta}.
-     * @return Uma lista de {@code Ponto} representando os pontos de interseção,
-     * ou {@code null} se nenhum ponto de interseção for encontrado.
-     * @pre obstaculo != null
-     * @pos A rota e a figura permanecem inalterados
+     * @param poligono Um objeto {@code Poligono} representando o polígono com o qual os
+     *                 pontos de interseção serão calculados. Deve ser uma instância válida
+     *                 e não nula de {@code Poligono}.
+     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
+     * entre a rota e o polígono fornecido, ou {@code null} caso não existam interseções.
+     * A lista não conterá pontos duplicados.
+     * @pre poligono != null
      */
-    public List<Ponto> Intersect(FiguraGeometrica obstaculo) {
+    public List<Ponto> Intersect(Poligono poligono) {
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+
+        for (int i = 1; i < pontos.size(); i++) {
+            SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
+            SegmentoReta[] lados = poligono.getLados();
+
+            for (SegmentoReta lado : lados) {
+                if (lado != null) {
+                    Ponto intersecao = segmentoRota.intersect(lado);
+                    if (intersecao != null) {
+                        if (!intersecoes.contains(intersecao)) {
+                            intersecoes.add(intersecao);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
+
+    /**
+     * Calcula os pontos de interseção entre a rota atual, representada por uma sequência de
+     * segmentos de reta, e um círculo fornecido como parâmetro. A rota é definida pela
+     * sequência de pontos armazenados na classe, formando segmentos consecutivos, e é comparada
+     * ao círculo para identificar os pontos de interseção.
+     *
+     * @param circulo Um objeto {@code Circulo} representando o círculo com o qual os pontos
+     *                de interseção serão calculados. Deve ser uma instância válida e não nula
+     *                de {@code Circulo}.
+     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção entre
+     * a rota e o círculo fornecido, ou {@code null} caso não existam interseções.
+     * A lista não conterá pontos duplicados.
+     * @pre circulo != null
+     */
+    public List<Ponto> Intersect(Circulo circulo) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();
 
         for (int i = 1; i < pontos.size(); i++) {
             SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
 
-            if (obstaculo instanceof Poligono poligono) {
-                SegmentoReta[] lados = poligono.getLados();
+            List<Ponto> pontosIntersecao = segmentoRota.intersect(circulo);
 
-                for (SegmentoReta lado : lados) {
-                    if (lado != null) {
-                        Ponto intersecao = segmentoRota.intersect(lado);
-                        if (intersecao != null) {
-                            if (!intersecoes.contains(intersecao)) {
-                                intersecoes.add(intersecao);
-                            }
-                        }
-                    }
+            for (Ponto intersecao : pontosIntersecao) {
+                if (!intersecoes.contains(intersecao)) {
+                    intersecoes.add(intersecao);
                 }
-            } else if (obstaculo instanceof Circulo circulo) {
-                List<Ponto> pontosIntersecao = segmentoRota.intersect(circulo);
-
-                for (Ponto intersecao : pontosIntersecao) {
-                    if (!intersecoes.contains(intersecao)) {
-                        intersecoes.add(intersecao);
-                    }
-                }
-            } else if (obstaculo instanceof SegmentoReta sr) {
-                Ponto p = segmentoRota.intersect(sr);
-                if (p != null)
-                    intersecoes.add(p);
             }
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
+
+    /**
+     * Calcula os pontos de interseção entre a rota atual, representada por uma sequência de
+     * segmentos de reta, e o segmento de reta fornecido como parâmetro.
+     *
+     * @param sr O segmento de reta com o qual se deseja calcular os pontos de interseção.
+     *           Deve ser uma instância válida de {@code SegmentoReta}.
+     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
+     * encontrados entre a rota e o segmento de reta fornecido, ou {@code null}
+     * caso não haja interseções.
+     * @pre sr != null
+     */
+    public List<Ponto> Intersect(SegmentoReta sr) {
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+
+        for (int i = 1; i < pontos.size(); i++) {
+            SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
+            Ponto p = segmentoRota.intersect(sr);
+            if (p != null)
+                intersecoes.add(p);
+
         }
 
         return (intersecoes.isEmpty()) ? null : intersecoes;

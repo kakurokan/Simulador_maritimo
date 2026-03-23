@@ -32,7 +32,7 @@ public class Quadrado extends Poligono {
         double comprimentoLado0 = pontos[0].distanciaPara(pontos[1]);
 
         //Verifica se todos os lados são iguais
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 4; i++) {
             if (!(Math.abs(comprimentoLado0 - pontos[i].distanciaPara(pontos[(i + 1) % 4])) < Ponto.eps)) {
                 IO.println("Quadrado:iv");
                 System.exit(0);

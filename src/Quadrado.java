@@ -40,7 +40,7 @@ public class Quadrado extends Poligono {
         }
 
         //Verifica se as diagonais são iguais
-        if (Math.abs(pontos[0].distanciaPara(pontos[2]) - pontos[1].distanciaPara(pontos[3])) < Ponto.eps) {
+        if (!(Math.abs(pontos[0].distanciaPara(pontos[2]) - pontos[1].distanciaPara(pontos[3])) < Ponto.eps)) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }

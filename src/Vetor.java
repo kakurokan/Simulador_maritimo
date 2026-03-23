@@ -86,7 +86,6 @@ public class Vetor {
      * da soma dos quadrados das componentes x e y.
      *
      * @return o módulo do vetor.
-     * @pos O valor retornado é estritamente > 0.
      */
     public double modulo() {
         double sum = Math.pow(x, 2) + Math.pow(y, 2);
@@ -100,7 +99,6 @@ public class Vetor {
      * @param v O vetor fornecido com o qual o produto interno será calculado.
      * @return o valor do produto interno entre os dois vetores.
      * @pre v != null
-     * @pos O estado dos vetores não é alterado
      */
     public double produtoInterno(Vetor v) {
 
@@ -115,7 +113,6 @@ public class Vetor {
      * @param v O vetor fornecido com o qual a similaridade cosseno será calculada.
      * @return o valor da similaridade cosseno entre os dois vetores.
      * @pre v != null
-     * @pos O estado dos vetores não é alterado e o valor retornado está no intervalo [-1.0, 1.0].
      */
     public double cossineSimilarity(Vetor v) {
 
@@ -132,7 +129,6 @@ public class Vetor {
      * @return O ponto de interseção entre o vetor atual e o segmento de reta fornecido,
      * ou {@code null} se não houver interseção.
      * @pre v != null
-     * @pos O estado do vetor e do segmento de reta não é alterado.
      * @see SegmentoReta#intersect(Vetor)
      */
     public Ponto intersect(SegmentoReta v) {
@@ -158,7 +154,6 @@ public class Vetor {
      * @param v O vetor a ser somado ao vetor atual.
      * @return Um novo vetor que é o resultado da soma dos dois vetores.
      * @pre v != null e a soma dos vetores não pode originar um vetor nulo.
-     * @pos Retorna um novo vetor não nulo válido
      */
     public Vetor add(Vetor v) {
         return new Vetor(v.getX() + this.x, v.getY() + this.y);
@@ -172,7 +167,6 @@ public class Vetor {
      * @return Um novo vetor que é o resultado da subtração do vetor fornecido
      * do vetor atual.
      * @pre v != null e os vetores não podem ser iguais.
-     * @pos Retorna um novo vetor não nulo válido.
      */
     public Vetor sub(Vetor v) {
         return new Vetor(this.x - v.getX(), this.y - v.getY());
@@ -185,7 +179,6 @@ public class Vetor {
      * @param v O vetor fornecido para calcular o produto vetorial com o vetor atual.
      * @return O valor do produto vetorial entre os dois vetores.
      * @pre p != null
-     * @pos o objeto retornado não é nulo
      */
     public double produtoVetorial(Vetor v) {
         return this.x * v.getY() - this.y * v.getX();

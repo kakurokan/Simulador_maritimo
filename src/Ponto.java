@@ -67,7 +67,6 @@ public class Ponto {
      * @param p O ponto cujas coordenadas serão subtraídas do ponto atual.
      * @return Um novo objeto Ponto representando a subtração das coordenadas dos dois pontos.
      * @pre p != null
-     * @pos o objeto retornado não é nulo
      */
     public Ponto subtracao(Ponto p) {
         return new Ponto(this.x - p.getX(), this.y - p.getY());
@@ -83,7 +82,6 @@ public class Ponto {
      * @return A distância entre o ponto atual e o ponto fornecido.
      * Retorna {@code 0.0} se os pontos forem iguais.
      * @pre p != null
-     * @pos O valor retornado é ≥ 0.0
      */
     public double distanciaPara(Ponto p) {
         return (this.equals(p)) ? 0.0 : new Vetor(this, p).modulo();

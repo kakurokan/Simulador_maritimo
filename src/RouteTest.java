@@ -98,5 +98,16 @@ class RouteTest {
                 new Ponto(4, 1)
         );
         assertEquals(objetivo, rota.Intersect(triangulo));
+
+        rota = new Route(List.of(
+                new Ponto(0, 0),
+                new Ponto(1, 1)
+        ));
+        triangulo = new Triangulo(new Ponto[]{
+                new Ponto(5, 5),
+                new Ponto(10, 5),
+                new Ponto(7, 10)
+        });
+        assertNull(rota.Intersect(triangulo));
     }
 }

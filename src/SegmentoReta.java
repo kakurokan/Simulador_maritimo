@@ -123,7 +123,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * @param p O ponto a ser verificado.
      * @return {@code true} se o ponto está dentro dos limites do segmento de reta, {@code false} caso contrário.
      * @pre p != null
-     * @pos O estado do segmento de reta não é alterado.
      * @see <a href="https://www.geeksforgeeks.org/dsa/check-if-two-given-line-segments-intersect/">Geeks for geeks</a>
      */
     private boolean noSegmento(Ponto p) {
@@ -143,7 +142,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso não exista
      * interseção, os segmentos sejam paralelos ou não compartilhem uma região comum.
      * @pre seg != null
-     * @pos O estado dos segmentos de reta não são alterados.
      * @see <a href="https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect">Stack Overflow</a>,
      * <a href="https://theswissbay.ch/pdf/Gentoomen%20Library/Game%20Development/Programming/Graphics%20Gems%201.pdf">Livro de referência</a>
      */
@@ -194,7 +192,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * @return O ponto de interseção entre os dois segmentos de reta, ou {@code null} caso
      * não exista interseção ou os segmentos sejam paralelos (incluindo o caso colinear).
      * @pre v != null
-     * @pos Os objetos não sofrem alterações
      */
     public Ponto intersect(Vetor v) {
         SegmentoReta seg = new SegmentoReta(new Ponto(0, 0), v);
@@ -211,7 +208,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * @return Uma lista contendo os pontos de interseção entre o segmento de reta e o círculo.
      * Caso não haja interseção, retorna {@code null}.
      * @pre circulo != null
-     * @pos O objeto não é alterado
      * @see <a href="https://stackoverflow.com/a/1084899/13884223/">StackOverflow</a>
      */
     public List<Ponto> intersect(Circulo circulo) {
@@ -257,7 +253,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * que calcula a distância entre dois pontos no espaço bidimensional.
      *
      * @return O comprimento do segmento de reta, correspondente à distância entre os dois pontos extremos.
-     * @pos O valor retornado é estritamente > 0.0.-
      */
     public double Comprimento() {
         return this.a.distanciaPara(this.b);
@@ -271,7 +266,6 @@ public class SegmentoReta extends FiguraGeometrica {
      * @return {@code true} se os dois segmentos possuem comprimentos iguais dentro do limite de precisão definido,
      * {@code false} caso contrário.
      * @pre seg != null
-     * @pos Os segmentos comparados permanecem inalterados.
      */
     public boolean comprimentoDiferente(SegmentoReta seg) {
         return !(Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps);

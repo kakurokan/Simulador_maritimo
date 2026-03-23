@@ -44,7 +44,6 @@ public class Poligono extends FiguraGeometrica {
      * @return Um array de objetos {@code SegmentoReta}, onde cada elemento representa um lado
      * do polígono. A ordem dos segmentos corresponde à sequência dos vértices no
      * array de vértices do polígono.
-     * @pos O objeto não é alterado
      */
     public SegmentoReta[] getLados() {
         SegmentoReta[] lados = new SegmentoReta[vertices.length];

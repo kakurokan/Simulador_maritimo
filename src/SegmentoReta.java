@@ -233,7 +233,7 @@ public class SegmentoReta extends FiguraGeometrica {
 
         discriminante = Math.sqrt(discriminante);
 
-        //A solução pode estar atrás ou na frente do segmento, é ncessário testar os dois
+        //A solução pode estar atrás ou na frente do segmento, é necessário testar os dois
         //t1 é sempre o menor valor
         double t1 = (-b - discriminante) / (2 * a);
         double t2 = (-b + discriminante) / (2 * a);

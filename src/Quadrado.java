@@ -13,7 +13,7 @@ public class Quadrado extends Poligono {
      * - Exatamente quatro pontos são fornecidos.
      * - Todos os lados formados pelos pontos são iguais.
      * - As diagonais formadas pelos pontos têm o mesmo comprimento.
-     * Caso qualquer uma dessas condições não seja satisfeita, o programa encerra sua execução.
+     * Caso qualquer uma dessas condições não seja satisfeita, o programa encerra a sua execução.
      *
      * @param pontos Um array de objetos da classe Ponto representando os vértices do quadrado.
      *               O array deve conter exatamente quatro pontos dispostos em sequência.
@@ -29,23 +29,18 @@ public class Quadrado extends Poligono {
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.getLados();
-
-        double comprimentoLado0 = lados[0].Comprimento();
+        double comprimentoLado0 = pontos[0].distanciaPara(pontos[1]);
 
         //Verifica se todos os lados são iguais
-        for (int i = 1; i < lados.length; i++) {
-            if (!(Math.abs(comprimentoLado0 - lados[i].Comprimento()) < Ponto.eps)) {
+        for (int i = 0; i < 4; i++) {
+            if (!(Math.abs(comprimentoLado0 - pontos[i].distanciaPara(pontos[(i + 1) % 4])) < Ponto.eps)) {
                 IO.println("Quadrado:iv");
                 System.exit(0);
             }
         }
 
-        SegmentoReta diagonal1 = new SegmentoReta(pontos[0], pontos[2]);
-        SegmentoReta diagonal2 = new SegmentoReta(pontos[1], pontos[3]);
-
         //Verifica se as diagonais são iguais
-        if (diagonal1.comprimentoDiferente(diagonal2)) {
+        if (Math.abs(pontos[0].distanciaPara(pontos[2]) - pontos[1].distanciaPara(pontos[3])) < Ponto.eps) {
             IO.println("Quadrado:iv");
             System.exit(0);
         }

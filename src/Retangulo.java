@@ -1,7 +1,7 @@
 /**
  * A classe Retangulo representa um polígono específico de quatro lados no plano cartesiano,
  * onde os lados opostos possuem o mesmo comprimento e as diagonais têm o mesmo tamanho.
- * Essa classe estende a classe Poligono, herdando suas propriedades e métodos básicos.
+ * Essa classe estende a classe Poligono, herdando as suas propriedades e métodos básicos.
  *
  * @author Léo Souza
  * @version 13/03/26
@@ -28,19 +28,15 @@ public class Retangulo extends Poligono {
             System.exit(0);
         }
 
-        SegmentoReta[] lados = this.getLados();
-
         //Verifica se os lados opostos são iguais
-        if (lados[0].comprimentoDiferente(lados[2]) || lados[1].comprimentoDiferente(lados[3])) {
+        if (!(Math.abs(pontos[0].distanciaPara(pontos[1]) - pontos[2].distanciaPara(pontos[3])) < Ponto.eps)
+                || !(Math.abs(pontos[1].distanciaPara(pontos[2]) - pontos[3].distanciaPara(pontos[1])) < Ponto.eps)) {
             IO.println("Retangulo:iv");
             System.exit(0);
         }
 
-        SegmentoReta diagonal1 = new SegmentoReta(pontos[0], pontos[2]);
-        SegmentoReta diagonal2 = new SegmentoReta(pontos[1], pontos[3]);
-
         //Verifica se as diagonais são iguais
-        if (diagonal1.comprimentoDiferente(diagonal2)) {
+        if (Math.abs(pontos[0].distanciaPara(pontos[2]) - pontos[1].distanciaPara(pontos[3])) < Ponto.eps) {
             IO.println("Retangulo:iv");
             System.exit(0);
         }

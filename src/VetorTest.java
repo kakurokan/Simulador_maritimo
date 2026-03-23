@@ -60,15 +60,6 @@ class VetorTest {
     }
 
     @Test
-    void add() {
-        Vetor expected = new Vetor(6, 4);
-        Vetor result = new Vetor(2, -3).add(new Vetor(4, 7));
-
-        assertEquals(result.getX(), expected.getX(), Ponto.eps);
-        assertEquals(result.getY(), expected.getY(), Ponto.eps);
-    }
-
-    @Test
     void sub() {
         Vetor expected = new Vetor(-2, -9);
         Vetor result = new Vetor(2, -3).sub(new Vetor(4, 6));

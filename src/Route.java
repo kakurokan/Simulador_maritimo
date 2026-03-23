@@ -9,13 +9,13 @@ import java.util.List;
  *
  * @author Léo Souza
  * @version 09/03/26
- * @inv Uma rota tem pelo menos dois pontos e dois pontos consecutivos devem ser diferentes.
+ * @inv Uma rota tem pelo menos dois pontos e quantidade de coordenadas deve ser par.
  */
 public class Route {
     private final List<Ponto> pontos;
 
     /**
-     * Constrói um objeto {@code Route} com base em uma lista de pontos fornecida.
+     * Constrói um objeto {@code Route} com base numa lista de pontos fornecida.
      * A rota é imutável e representada pela sequência de pontos especificada.
      *
      * @param pontos A lista de {@code Ponto} que define a sequência de pontos da rota.
@@ -26,6 +26,32 @@ public class Route {
      */
     public Route(List<Ponto> pontos) {
         this.pontos = List.copyOf(pontos);
+    }
+
+    /**
+     * Constrói um objeto {@code Route} com base em um array de coordenadas
+     * fornecido. Cada par de valores do array (x, y) representa as
+     * coordenadas de um ponto que compõe a rota. A rota é imutável e
+     * precisa conter pelo menos dois pontos para ser válida.
+     *
+     * @param coordenadas Um array de valores do tipo {@code double},
+     *                    onde cada par consecutivo (x, y) representa
+     *                    as coordenadas de um ponto da rota.
+     *                    O array deve ter um número par de elementos.
+     *                    Caso contrário, o programa será encerrado com um erro.
+     * @pre coordenadas != null
+     * @pos Uma lista com pontos criados a partir das coordenadas é guardada no objeto.
+     */
+    public Route(double[] coordenadas) {
+        if (coordenadas.length % 2 != 0) {
+            IO.println("Rota:iv");
+            System.exit(0);
+        }
+
+        pontos = new ArrayList<>();
+        for (int i = 1; i < coordenadas.length; i += 2) {
+            pontos.add(new Ponto(coordenadas[i - 1], coordenadas[i]));
+        }
     }
 
     /**

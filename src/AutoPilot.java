@@ -33,20 +33,18 @@ public class AutoPilot {
      * @pre windSpeed != null e time > 0.0
      */
     public Vetor speed(Vetor windSpeed, double time) {
-        return r.sub(windSpeed).mult(1 / time);
+        return r.mult(1 / time).sub(windSpeed);
     }
 
     /**
      * Calcula o tempo necessário para percorrer a rota do vetor com uma velocidade linear específica,
      * ajustando o cálculo pela influência de um vetor de velocidade do vento fornecido.
      *
-     * @param windSpeed   O vetor que representa a velocidade do vento, utilizado para ajustar a rota.
      * @param linearSpeed A velocidade linear constante utilizada na travessia da rota.
      * @return O tempo necessário para percorrer a rota, ajustado pela velocidade do vento.
      * @pre windSpeed != null e linearSpeed > 0.0
      */
-    public double time(Vetor windSpeed, double linearSpeed) {
-        Vetor diferenca = r.sub(windSpeed);
-        return diferenca.modulo() / linearSpeed;
+    public double time(double linearSpeed) {
+        return r.modulo() / linearSpeed;
     }
 }

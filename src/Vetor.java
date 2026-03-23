@@ -148,18 +148,6 @@ public class Vetor {
     }
 
     /**
-     * Soma o vetor atual com outro vetor fornecido.
-     * A soma é realizada componente a componente, resultando em um novo vetor.
-     *
-     * @param v O vetor a ser somado ao vetor atual.
-     * @return Um novo vetor que é o resultado da soma dos dois vetores.
-     * @pre v != null e a soma dos vetores não pode originar um vetor nulo.
-     */
-    public Vetor add(Vetor v) {
-        return new Vetor(v.getX() + this.x, v.getY() + this.y);
-    }
-
-    /**
      * Subtrai o vetor atual por outro vetor fornecido. A subtração é realizada
      * componente a componente, resultando em um novo vetor.
      *

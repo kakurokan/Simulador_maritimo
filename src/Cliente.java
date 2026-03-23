@@ -45,6 +45,7 @@ public class Cliente {
         String line = br.readLine();
         String[] parts = line.split(" ");
         ArrayList<Ponto> pontos;
+        List<Ponto> intersecoes = null;
 
         double[] coordenadas = arrayStringParaDouble(parts, 0);
         pontos = getPontos(coordenadas);
@@ -60,6 +61,7 @@ public class Cliente {
             case "P":
                 pontos = getPontos(coordenadas);
                 figura = new Poligono(pontos.toArray(new Ponto[0]));
+                intersecoes = rota.Intersect((Poligono) figura);
                 break;
             case "S":
                 Ponto[] verticesQuadrado = {new Ponto(coordenadas[0], coordenadas[1]),
@@ -67,6 +69,7 @@ public class Cliente {
                         new Ponto(coordenadas[4], coordenadas[5]),
                         new Ponto(coordenadas[6], coordenadas[7])};
                 figura = new Quadrado(verticesQuadrado);
+                intersecoes = rota.Intersect((Poligono) figura);
                 break;
             case "R":
                 Ponto[] verticesRetangulo = {new Ponto(coordenadas[0], coordenadas[1]),
@@ -74,22 +77,24 @@ public class Cliente {
                         new Ponto(coordenadas[4], coordenadas[5]),
                         new Ponto(coordenadas[6], coordenadas[7])};
                 figura = new Retangulo(verticesRetangulo);
+                intersecoes = rota.Intersect((Poligono) figura);
                 break;
             case "T":
                 Ponto[] verticesTriangulo = {new Ponto(coordenadas[0], coordenadas[1]),
                         new Ponto(coordenadas[2], coordenadas[3]),
                         new Ponto(coordenadas[4], coordenadas[5])};
                 figura = new Triangulo(verticesTriangulo);
+                intersecoes = rota.Intersect((Poligono) figura);
                 break;
             case "C":
                 Ponto centro = new Ponto(coordenadas[0], coordenadas[1]);
                 figura = new Circulo(centro, coordenadas[2]);
+                intersecoes = rota.Intersect((Circulo) figura);
                 break;
             default:
                 System.exit(0);
         }
 
-        List<Ponto> intersecoes = rota.Intersect(figura);
 
         if (intersecoes == null) {
             IO.println("null");

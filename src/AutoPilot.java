@@ -3,8 +3,11 @@ import java.util.List;
 
 /**
  * A classe AutoPilot representa um sistema de gestão de rotas para calcular posições, tempos e velocidades
- * em um percurso determinado. O percurso pode ser definido entre dois pontos ou por uma lista de pontos,
+ * num percurso determinado. O percurso pode ser definido entre dois pontos ou por uma lista de pontos,
  * sendo decomposto em segmentos representados por vetores.
+ *
+ * @author Léo Souza
+ * @version 24/03/26
  */
 public class AutoPilot {
     private final List<Ponto> pontos;

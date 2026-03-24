@@ -19,4 +19,9 @@ void main() throws IOException {
     double time = Double.parseDouble(line);
 
     Route rota = new Route(coordenadas);
+    IO.println(rota.Comprimento());
+
+    AutoPilot ap = new AutoPilot(rota);
+
+    IO.println(ap.time(linearSpeed));
 }

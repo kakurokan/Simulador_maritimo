@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Léo Souza
  * @version 24/02/26
@@ -7,7 +10,7 @@
  * levando em consideração fatores como velocidade do vento.
  */
 public class AutoPilot {
-    private final Vetor r;
+    private List<Vetor> vetores;
 
     /**
      * Constrói um objeto da classe AutoPilot representando a rota entre dois pontos.
@@ -18,22 +21,42 @@ public class AutoPilot {
      * @pos O objeto é inicializado com um vetor de rota válido (r != null e r.modulo() > 0)
      */
     public AutoPilot(Ponto a, Ponto b) {
-        this.r = new Vetor(a, b);
+        vetores = new ArrayList<>();
+        vetores.add(new Vetor(a, b));
     }
 
     /**
-     * Calcula a velocidade ajustada conforme o vetor de velocidade do vento e o tempo fornecido.
-     * A velocidade ajustada é obtida subtraindo o vetor da velocidade do vento do vetor de rota
-     * e multiplicando pelo inverso do tempo.
+     * Constrói um objeto da classe AutoPilot utilizando uma rota composta por múltiplos pontos.
+     * A rota é decomposta em vetores representando os segmentos entre os pontos consecutivos.
      *
-     * @param windSpeed O vetor que representa a velocidade do vento, que será subtraído do vetor de rota.
-     * @param time      O tempo em que a rota é percorrida, utilizado para ajustar a velocidade.
-     * @return Um novo vetor que representa a velocidade ajustada com base no vetor de rota,
-     * na velocidade do vento e no tempo.
+     * @param rota A rota composta por uma lista de pontos, da qual são gerados os vetores entre
+     *             os pontos consecutivos.
+     * @pre rota != null e rota.pontos != null
+     * @pos O objeto é inicializado com uma nova lista de vetores para cada segmento de reta da rota
+     */
+    public AutoPilot(Route rota) {
+        List<Ponto> pontos = rota.getPontos();
+        vetores = new ArrayList<>();
+        for (int i = 0; i < pontos.size(); i++) {
+            vetores.add(new Vetor(pontos.get(0), pontos.get(1)));
+        }
+    }
+
+    /**
+     * Calcula as velocidades ajustadas de cada vetor da rota com base no tempo fornecido,
+     * corrigidas pelo vetor de velocidade do vento.
+     *
+     * @param windSpeed O vetor de velocidade do vento que será subtraído de cada vetor de velocidade calculado.
+     * @param time      O tempo para calcular a velocidade ajustada. Deve ser maior que zero.
+     * @return Uma lista de vetores representando as velocidades ajustadas de cada segmento da rota.
      * @pre windSpeed != null e time > 0.0
      */
-    public Vetor speed(Vetor windSpeed, double time) {
-        return r.mult(1 / time).sub(windSpeed);
+    public List<Vetor> speed(Vetor windSpeed, double time) {
+        ArrayList<Vetor> velocidades = new ArrayList<>();
+        for (Vetor r : vetores) {
+            velocidades.add(r.mult(1 / time).sub(windSpeed));
+        }
+        return velocidades;
     }
 
     /**
@@ -45,6 +68,10 @@ public class AutoPilot {
      * @pre windSpeed != null e linearSpeed > 0.0
      */
     public double time(double linearSpeed) {
-        return r.modulo() / linearSpeed;
+        double resultado = 0;
+        for (Vetor r : vetores) {
+            resultado += r.modulo() / linearSpeed;
+        }
+        return resultado;
     }
 }

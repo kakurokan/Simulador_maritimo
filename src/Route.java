@@ -54,6 +54,10 @@ public class Route {
         }
     }
 
+    public List<Ponto> getPontos() {
+        return pontos;
+    }
+
     /**
      * Calcula o comprimento total da rota representada pelo conjunto de pontos.
      * O comprimento é a soma das distâncias entre pares consecutivos de pontos

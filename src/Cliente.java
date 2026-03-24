@@ -25,8 +25,11 @@ void main() throws IOException {
 
     IO.println(String.format("%.2f", ap.time(linearSpeed)));
 
+    IO.println(ap.posicao(linearSpeed, time));
+
     List<Vetor> velocidades = ap.speed(windSpeed, time);
     for (Vetor v : velocidades) {
         IO.println(v);
     }
+
 }

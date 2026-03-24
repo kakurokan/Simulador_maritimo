@@ -47,8 +47,28 @@ public class AutoPilot {
         }
     }
 
-    public Ponto posicao(double time) {
-    
+    public Ponto posicao(double linearSpeed, double time) {
+        double percorrer = linearSpeed * time;
+
+        for (int i = 0; i < vetores.size(); i++) {
+            Vetor segmento = vetores.get(i);
+
+            double distancia = segmento.modulo();
+
+            //Caso ele vá parar no meio do segmento
+            if (percorrer <= distancia) {
+                double percorreNoSegmento = percorrer / distancia;
+                Vetor deslocamento = segmento.mult(percorreNoSegmento);
+                Ponto inicio = pontos.get(i);
+
+                return new Ponto(inicio.getX() + deslocamento.getX(),
+                        inicio.getY() + deslocamento.getY());
+            }
+
+            percorrer -= distancia;
+        }
+
+        return pontos.getLast();
     }
 
     /**
@@ -60,12 +80,16 @@ public class AutoPilot {
      * @return Uma lista de vetores representando as velocidades ajustadas de cada segmento da rota.
      * @pre windSpeed != null e time > 0.0
      */
-    public List<Vetor> speed(Vetor windSpeed, List<Double> time) {
+    public List<Vetor> speed(Vetor windSpeed, double time) {
         ArrayList<Vetor> velocidades = new ArrayList<>();
-        for (int i = 0; i < vetores.size(); i++) {
-            velocidades.add(vetores.get(i).mult(1 / time.get(i)).sub(windSpeed));
+        for (Vetor r : vetores) {
+            velocidades.add(r.mult(1 / time).sub(windSpeed));
         }
         return velocidades;
+    }
+
+    public List<Vetor> speed(Vetor windSpeed) {
+
     }
 
     /**

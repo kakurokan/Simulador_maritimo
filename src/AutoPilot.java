@@ -2,12 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Léo Souza
- * @version 24/02/26
- * @inv o vetor r não pode ser nulo
- * A classe AutoPilot representa um sistema de navegação automatizado que calcula
- * a velocidade ajustada e o tempo necessário para percorrer uma rota entre dois pontos,
- * levando em consideração fatores como velocidade do vento.
+ * A classe AutoPilot representa um sistema de gestão de rotas para calcular posições, tempos e velocidades
+ * em um percurso determinado. O percurso pode ser definido entre dois pontos ou por uma lista de pontos,
+ * sendo decomposto em segmentos representados por vetores.
  */
 public class AutoPilot {
     private List<Ponto> pontos;
@@ -80,16 +77,43 @@ public class AutoPilot {
      * @return Uma lista de vetores representando as velocidades ajustadas de cada segmento da rota.
      * @pre windSpeed != null e time > 0.0
      */
-    public List<Vetor> speed(Vetor windSpeed, double time) {
-        ArrayList<Vetor> velocidades = new ArrayList<>();
-        for (Vetor r : vetores) {
-            velocidades.add(r.mult(1 / time).sub(windSpeed));
-        }
-        return velocidades;
+    public Vetor speed(Vetor windSpeed, double time) {
+        Vetor r = new Vetor(pontos.getFirst(), pontos.getLast());
+        return speed(windSpeed, time, r);
     }
 
-    public List<Vetor> speed(Vetor windSpeed) {
+    /**
+     * Calcula o vetor de velocidade ajustado para um segmento específico da rota,
+     * considerando a influência da velocidade do vento e o tempo fornecido.
+     *
+     * @param windSpeed O vetor que representa a velocidade do vento a ser subtraída da velocidade calculada. Não deve ser nulo.
+     * @param r         O vetor que representa o segmento da rota. Não deve ser nulo.
+     * @param time      O tempo para percorrer o segmento. Deve ser maior que zero.
+     * @return O vetor de velocidade para o segmento da rota, ajustado pela velocidade do vento.
+     * @pre windSpeed != null, r != null e time > 0.0.
+     */
+    private Vetor speed(Vetor windSpeed, double time, Vetor r) {
+        return r.mult(1 / time).sub(windSpeed);
+    }
 
+    /**
+     * Calcula as velocidades ajustadas para cada vetor da rota, baseadas na velocidade linear fornecida,
+     * corrigidas pela influência de um vetor de velocidade do vento.
+     *
+     * @param windSpeed   O vetor que representa a velocidade do vento, que irá influenciar as velocidades ajustadas.
+     *                    Não deve ser nulo.
+     * @param linearSpeed A velocidade linear a ser utilizada no cálculo do tempo para cada vetor.
+     *                    Deve ser maior que zero.
+     * @return Uma lista de vetores representando as velocidades ajustadas para cada segmento da rota.
+     * @pre windSpeed != null, linearSpeed > 0.0
+     */
+    public List<Vetor> speedPerVector(Vetor windSpeed, double linearSpeed) {
+        List<Vetor> velocidades = new ArrayList<>();
+        for (Vetor r : vetores) {
+            double time = time(linearSpeed, r);
+            velocidades.add(speed(windSpeed, time, r));
+        }
+        return velocidades;
     }
 
     /**
@@ -103,8 +127,23 @@ public class AutoPilot {
     public double time(double linearSpeed) {
         double resultado = 0;
         for (Vetor r : vetores) {
-            resultado += r.modulo() / linearSpeed;
+            resultado += time(linearSpeed, r);
         }
         return resultado;
+    }
+
+
+    /**
+     * Calcula o tempo necessário para percorrer um segmento de rota representado por um vetor,
+     * dada uma velocidade linear específica.
+     *
+     * @param linearSpeed A velocidade linear constante utilizada para percorrer o segmento.
+     *                    Deve ser maior que zero.
+     * @param r           O vetor que representa o segmento de rota a ser percorrido.
+     * @return O tempo necessário para percorrer o segmento de rota.
+     * @pre linearSpeed > 0.0 e r != null
+     */
+    private double time(double linearSpeed, Vetor r) {
+        return r.modulo() / linearSpeed;
     }
 }

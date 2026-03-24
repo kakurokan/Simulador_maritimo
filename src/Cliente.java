@@ -27,9 +27,14 @@ void main() throws IOException {
 
     IO.println(ap.posicao(linearSpeed, time));
 
-    List<Vetor> velocidades = ap.speed(windSpeed, time);
-    for (Vetor v : velocidades) {
-        IO.println(v);
+    List<Vetor> velocidades = ap.speedPerVector(windSpeed, linearSpeed);
+    int size = velocidades.size() - 1;
+    for (int i = 0; i <= size; i++) {
+        if (i != size) {
+            IO.print(velocidades.get(i) + " ");
+        } else {
+            IO.print(velocidades.get(i) + "\n");
+        }
     }
 
 }

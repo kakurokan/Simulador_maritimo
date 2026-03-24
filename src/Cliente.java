@@ -19,9 +19,14 @@ void main() throws IOException {
     double time = Double.parseDouble(line);
 
     Route rota = new Route(coordenadas);
-    IO.println(rota.Comprimento());
+    IO.println(String.format("%.2f", rota.Comprimento()));
 
     AutoPilot ap = new AutoPilot(rota);
 
-    IO.println(ap.time(linearSpeed));
+    IO.println(String.format("%.2f", ap.time(linearSpeed)));
+
+    List<Vetor> velocidades = ap.speed(windSpeed, time);
+    for (Vetor v : velocidades) {
+        IO.println(v);
+    }
 }

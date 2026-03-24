@@ -10,6 +10,7 @@ import java.util.List;
  * levando em consideração fatores como velocidade do vento.
  */
 public class AutoPilot {
+    private List<Ponto> pontos;
     private List<Vetor> vetores;
 
     /**
@@ -21,7 +22,10 @@ public class AutoPilot {
      * @pos O objeto é inicializado com um vetor de rota válido (r != null e r.modulo() > 0)
      */
     public AutoPilot(Ponto a, Ponto b) {
+        pontos = new ArrayList<>();
         vetores = new ArrayList<>();
+        pontos.add(new Ponto(a.getX(), a.getY()));
+        pontos.add(new Ponto(b.getX(), b.getY()));
         vetores.add(new Vetor(a, b));
     }
 
@@ -35,11 +39,16 @@ public class AutoPilot {
      * @pos O objeto é inicializado com uma nova lista de vetores para cada segmento de reta da rota
      */
     public AutoPilot(Route rota) {
-        List<Ponto> pontos = rota.getPontos();
+        pontos = rota.getPontos();
         vetores = new ArrayList<>();
-        for (int i = 0; i < pontos.size(); i++) {
-            vetores.add(new Vetor(pontos.get(0), pontos.get(1)));
+        int size = pontos.size() - 1;
+        for (int i = 0; i < size; i++) {
+            vetores.add(new Vetor(pontos.get(i), pontos.get(i + 1)));
         }
+    }
+
+    public Ponto posicao(double time) {
+    
     }
 
     /**
@@ -51,10 +60,10 @@ public class AutoPilot {
      * @return Uma lista de vetores representando as velocidades ajustadas de cada segmento da rota.
      * @pre windSpeed != null e time > 0.0
      */
-    public List<Vetor> speed(Vetor windSpeed, double time) {
+    public List<Vetor> speed(Vetor windSpeed, List<Double> time) {
         ArrayList<Vetor> velocidades = new ArrayList<>();
-        for (Vetor r : vetores) {
-            velocidades.add(r.mult(1 / time).sub(windSpeed));
+        for (int i = 0; i < vetores.size(); i++) {
+            velocidades.add(vetores.get(i).mult(1 / time.get(i)).sub(windSpeed));
         }
         return velocidades;
     }

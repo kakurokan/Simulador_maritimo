@@ -7,8 +7,8 @@ import java.util.List;
  * sendo decomposto em segmentos representados por vetores.
  */
 public class AutoPilot {
-    private List<Ponto> pontos;
-    private List<Vetor> vetores;
+    private final List<Ponto> pontos;
+    private final List<Vetor> vetores;
 
     /**
      * Constrói um objeto da classe AutoPilot representando a rota entre dois pontos.
@@ -69,12 +69,13 @@ public class AutoPilot {
     }
 
     /**
-     * Calcula as velocidades ajustadas de cada vetor da rota com base no tempo fornecido,
-     * corrigidas pelo vetor de velocidade do vento.
+     * Calcula o vetor de velocidade para um segmento específico da rota,
+     * levando em conta a influência da velocidade do vento e o tempo especificado.
      *
-     * @param windSpeed O vetor de velocidade do vento que será subtraído de cada vetor de velocidade calculado.
-     * @param time      O tempo para calcular a velocidade ajustada. Deve ser maior que zero.
-     * @return Uma lista de vetores representando as velocidades ajustadas de cada segmento da rota.
+     * @param windSpeed O vetor que representa a velocidade do vento a ser subtraída
+     *                  da velocidade calculada. Não deve ser nulo.
+     * @param time      O tempo para percorrer o segmento. Deve ser maior que zero.
+     * @return O vetor de velocidade ajustado para o segmento da rota.
      * @pre windSpeed != null e time > 0.0
      */
     public Vetor speed(Vetor windSpeed, double time) {

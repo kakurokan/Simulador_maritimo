@@ -183,4 +183,26 @@ public class Vetor {
     public String toString() {
         return String.format("[%.2f,%.2f]", this.x, this.y);
     }
+
+    /**
+     * Compara o vetor atual com outro objeto para verificar igualdade.
+     * Dois vetores são considerados iguais se suas componentes x e y diferem
+     * do vetor fornecido por menos que um epsilon definido.
+     *
+     * @param o O objeto a ser comparado com o vetor atual.
+     * @return {@code true} se o objeto fornecido for um vetor e suas componentes
+     * forem iguais ao vetor atual dentro da tolerância epsilon; {@code false} caso contrário.
+     * @pre o != null
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Vetor vetor = (Vetor) o;
+
+        double distancia_y = Math.abs(this.y - vetor.getY());
+        double distancia_x = Math.abs(this.x - vetor.getX());
+
+        return distancia_y < Ponto.eps && distancia_x < Ponto.eps;
+    }
+
 }

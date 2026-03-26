@@ -42,13 +42,11 @@ public class Cliente {
         Route rota = new Route(coordenadas);
         IO.println(String.format("%.2f", rota.Comprimento()));
 
-        AutoPilot ap = new AutoPilot(rota);
+        IO.println(String.format("%.2f", rota.tempoParaPercorrer(linearSpeed)));
 
-        IO.println(String.format("%.2f", ap.time(linearSpeed)));
+        IO.println(rota.posicao(linearSpeed, time));
 
-        IO.println(ap.posicao(linearSpeed, time));
-
-        List<Vetor> velocidades = ap.speedPerVector(windSpeed, linearSpeed);
+        List<Vetor> velocidades = rota.velocidadePorSegmento(windSpeed, linearSpeed);
         int size = velocidades.size() - 1;
         for (int i = 0; i <= size; i++) {
             if (i != size) {

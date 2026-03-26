@@ -182,7 +182,7 @@ public class Route {
      */
     public List<Vetor> velocidadePorSegmento(Vetor windSpeed, double linearSpeed) {
         List<Vetor> velocidades = new ArrayList<>();
-        for (int i = 1; i < this.pontos.size(); i += 2) {
+        for (int i = 1; i < this.pontos.size(); i++) {
             AutoPilot ap = new AutoPilot(this.pontos.get(i - 1), this.pontos.get(i));
             double time = ap.time(linearSpeed);
             velocidades.add(ap.speed(windSpeed, time));
@@ -209,17 +209,30 @@ public class Route {
      */
     public double tempoParaPercorrer(double linearSpeed) {
         double resultado = 0;
-        for (int i = 1; i < this.pontos.size(); i += 2) {
+        for (int i = 1; i < this.pontos.size(); i++) {
             AutoPilot ap = new AutoPilot(this.pontos.get(i - 1), this.pontos.get(i));
             resultado += ap.time(linearSpeed);
         }
         return resultado;
     }
 
+    /**
+     * Determina a posição de um ponto na rota com base em uma velocidade linear constante
+     * e o tempo transcorrido. O método calcula o ponto onde o percurso atinge após o tempo
+     * especificado, ao longo dos segmentos consecutivos definidos pela lista de pontos na rota.
+     *
+     * @param linearSpeed A velocidade linear constante utilizada para calcular o percurso.
+     *                    Deve ser um valor positivo maior que zero.
+     * @param time        O tempo transcorrido em que a posição será calculada.
+     *                    Deve ser um valor positivo maior ou igual a zero.
+     * @return Um objeto {@code Ponto} representando a posição na rota após o percurso calculado.
+     * Se o percurso for maior que o comprimento total da rota, o último ponto da rota será retornado.
+     * @pre time > 0 e linearSpeed > 0
+     */
     public Ponto posicao(double linearSpeed, double time) {
         double percorrer = linearSpeed * time;
 
-        for (int i = 1; i < this.pontos.size(); i += 2) {
+        for (int i = 1; i < this.pontos.size(); i++) {
             Vetor r = new Vetor(this.pontos.get(i - 1), this.pontos.get(i));
 
             double distancia = r.modulo();

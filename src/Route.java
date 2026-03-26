@@ -54,10 +54,6 @@ public class Route {
         }
     }
 
-    public List<Ponto> getPontos() {
-        return pontos;
-    }
-
     /**
      * Calcula o comprimento total da rota representada pelo conjunto de pontos.
      * O comprimento é a soma das distâncias entre pares consecutivos de pontos
@@ -169,5 +165,77 @@ public class Route {
         }
 
         return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
+
+    /**
+     * Calcula a velocidade resultante por segmento de uma rota, levando em consideração
+     * a velocidade do vento e a velocidade linear fornecida. Para cada segmento da rota,
+     * o método utiliza a sequência de pontos para calcular o tempo necessário e assim determinar
+     * a velocidade resultante no segmento.
+     *
+     * @param windSpeed   Um objeto do tipo {@code Vetor} que representa a velocidade do vento.
+     *                    Este valor é considerado nas operações para calcular a velocidade resultante.
+     * @param linearSpeed Um valor do tipo {@code double} que indica a velocidade linear utilizada
+     *                    para percorrer os segmentos da rota. Deve ser um valor positivo.
+     * @return Uma lista de objetos do tipo {@code Vetor}, onde cada vetor representa
+     * a velocidade resultante de cada segmento da rota calculada.
+     */
+    public List<Vetor> velocidadePorSegmento(Vetor windSpeed, double linearSpeed) {
+        List<Vetor> velocidades = new ArrayList<>();
+        for (int i = 1; i < this.pontos.size(); i += 2) {
+            AutoPilot ap = new AutoPilot(this.pontos.get(i - 1), this.pontos.get(i));
+            double time = ap.time(linearSpeed);
+            velocidades.add(ap.speed(windSpeed, time));
+        }
+        return velocidades;
+    }
+
+    /**
+     * Calcula o tempo total necessário para percorrer a rota utilizando uma
+     * velocidade linear constante fornecida.
+     * <p>
+     * O método percorre os segmentos consecutivos da rota, definidos pelos
+     * pontos armazenados na classe, e acumula o tempo necessário para cada
+     * segmento com base na velocidade linear fornecida. A precisão do cálculo
+     * depende da implementação do método {@code time} da classe {@code AutoPilot}.
+     *
+     * @param linearSpeed A velocidade linear constante utilizada para calcular o
+     *                    tempo de percurso em cada segmento. Deve ser um valor
+     *                    positivo maior que zero.
+     * @return O tempo total necessário para percorrer a rota, calculado como a
+     * soma dos tempos de percurso em cada segmento, retornado como um
+     * valor numérico de ponto flutuante.
+     * @pre linearSpeed > 0
+     */
+    public double tempoParaPercorrer(double linearSpeed) {
+        double resultado = 0;
+        for (int i = 1; i < this.pontos.size(); i += 2) {
+            AutoPilot ap = new AutoPilot(this.pontos.get(i - 1), this.pontos.get(i));
+            resultado += ap.time(linearSpeed);
+        }
+        return resultado;
+    }
+
+    public Ponto posicao(double linearSpeed, double time) {
+        double percorrer = linearSpeed * time;
+
+        for (int i = 1; i < this.pontos.size(); i += 2) {
+            Vetor r = new Vetor(this.pontos.get(i - 1), this.pontos.get(i));
+
+            double distancia = r.modulo();
+
+            if (percorrer <= distancia) {
+                double percorreNoSegmento = percorrer / distancia;
+                Vetor deslocamento = r.mult(percorreNoSegmento);
+                Ponto inicio = pontos.get(i - 1);
+
+                return new Ponto(inicio.getX() + deslocamento.getX(),
+                        inicio.getY() + deslocamento.getY());
+            }
+
+            percorrer -= distancia;
+        }
+
+        return pontos.getLast();
     }
 }

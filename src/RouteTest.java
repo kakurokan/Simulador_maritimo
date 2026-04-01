@@ -2,8 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RouteTest {
 
@@ -114,98 +113,25 @@ class RouteTest {
         assertEquals(objetivo, rota.Intersect(circulo));
     }
 
-
     @Test
-    void posicao() {
-        Route rota = new Route(List.of(
-                new Ponto(5, 1),
-                new Ponto(5, 5),
-                new Ponto(7, 5)
-        ));
-        Ponto esperado = new Ponto(5.5, 5);
-        assertEquals(esperado, rota.posicao(2, 2.25));
+    void getSegmento() {
+        Ponto p1 = new Ponto(0, 0);
+        Ponto p2 = new Ponto(2, 4);
+        Ponto p3 = new Ponto(5, 1);
 
-        rota = new Route(List.of(
-                new Ponto(100, 100),
-                new Ponto(75, 100),
-                new Ponto(50, 50),
-                new Ponto(25, 50)
-        ));
-        esperado = new Ponto(62.48, 74.96);
-        Ponto resultado = rota.posicao(20, 2.65);
+        List<Ponto> pontos = List.of(p1, p2, p3);
+        Route rota = new Route(pontos);
 
-        assertEquals(esperado.getX(), resultado.getX(), 0.01);
-        assertEquals(esperado.getY(), resultado.getY(), 0.01);
-    }
+        List<SegmentoReta> result = rota.getSegmentos();
 
-    @Test
-    void velocidadePorSegmento() {
-        Route rota = new Route(List.of(
-                new Ponto(5, 1),
-                new Ponto(5, 5),
-                new Ponto(7, 5)
-        ));
-        List<Vetor> esperado = List.of(
-                new Vetor(-1, 1),
-                new Vetor(1, -1)
-        );
-        List<Vetor> resultado = rota.velocidadePorSegmento(new Vetor(1, 1), 2);
+        assertNotNull(result);
 
-        assertListasVetorIguais(esperado, resultado);
+        assertEquals(2, result.size());
 
-        rota = new Route(List.of(
-                new Ponto(100, 100),
-                new Ponto(75, 100),
-                new Ponto(50, 50),
-                new Ponto(25, 50)
-        ));
-        esperado = List.of(
-                new Vetor(-21, -2),
-                new Vetor(-9.94, -19.89), // Aproximado
-                new Vetor(-21, -2)
-        );
-        resultado = rota.velocidadePorSegmento(new Vetor(1, 2), 20);
+        assertEquals(p1, result.get(0).getA(), "A origem do primeiro segmento deve ser o Ponto 1.");
+        assertEquals(p2, result.get(0).getB(), "O destino do primeiro segmento deve ser o Ponto 2.");
 
-        assertListasVetorIguais(esperado, resultado);
-    }
-
-    private void assertListasVetorIguais(List<Vetor> esperado, List<Vetor> resultado) {
-        assertEquals(esperado.size(), resultado.size(), "As listas têm tamanhos diferentes");
-
-        for (int i = 0; i < esperado.size(); i++) {
-            assertEquals(esperado.get(i).getX(), resultado.get(i).getX(), 0.01, "Erro no X do vetor " + i);
-            assertEquals(esperado.get(i).getY(), resultado.get(i).getY(), 0.01, "Erro no Y do vetor " + i);
-        }
-    }
-
-    @Test
-    void tempoParaPercorrer() {
-        Route rota1 = new Route(List.of(
-                new Ponto(0, 0),
-                new Ponto(10, 0)
-        ));
-        assertEquals(5.0, rota1.tempoParaPercorrer(2.0), 0.01);
-
-        Route rota2 = new Route(List.of(
-                new Ponto(0, 0),
-                new Ponto(0, 4),
-                new Ponto(3, 4)
-        ));
-        assertEquals(3.5, rota2.tempoParaPercorrer(2.0), 0.01);
-
-        Route rota3 = new Route(List.of(
-                new Ponto(5, 1),
-                new Ponto(5, 5),
-                new Ponto(7, 5)
-        ));
-        assertEquals(3.0, rota3.tempoParaPercorrer(2.0), 0.01);
-
-        Route rota4 = new Route(List.of(
-                new Ponto(100, 100),
-                new Ponto(75, 100),
-                new Ponto(50, 50),
-                new Ponto(25, 50)
-        ));
-        assertEquals(5.295, rota4.tempoParaPercorrer(20.0), 0.01);
+        assertEquals(p2, result.get(1).getA(), "A origem do segundo segmento deve ser o Ponto 2.");
+        assertEquals(p3, result.get(1).getB(), "O destino do segundo segmento deve ser o Ponto 3.");
     }
 }

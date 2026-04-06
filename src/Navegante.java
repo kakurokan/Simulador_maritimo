@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A classe {@code Navegante} é responsável por realizar cálculos relacionados à navegação
+ * numa rota composta por segmentos de reta. Os cálculos incluem a determinação da
+ * velocidade em cada segmento considerando a interferência de um vetor de vento, o tempo
+ * total necessário para percorrer a rota e a posição em função de uma velocidade constante
+ * e o tempo transcorrido.
+ *
  * @author Léo Souza
  * @version 01/04/26
  */

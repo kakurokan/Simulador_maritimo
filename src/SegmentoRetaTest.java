@@ -130,4 +130,25 @@ class SegmentoRetaTest {
         c = new Circulo(new Ponto(5, 2), 2);
         assertNull(sr.intersect(c));
     }
+
+    @Test
+    void intersectRota() {
+        List<Ponto> pontos = List.of(
+                new Ponto(0, 1),
+                new Ponto(1, 1),
+                new Ponto(4, 4),
+                new Ponto(4, 3)
+        );
+        SegmentoReta seg = new SegmentoReta(new Ponto(2, 1), new Ponto(2, 4));
+        List<Ponto> esperado = List.of(new Ponto(2, 2));
+        assertEquals(esperado, seg.intersect(new Route(pontos)));
+
+        pontos = List.of(
+                new Ponto(4, 4),
+                new Ponto(6, 6),
+                new Ponto(7, 7)
+        );
+        seg = new SegmentoReta(new Ponto(2, 2), new Ponto(4, 2));
+        assertNull(seg.intersect(new Route(pontos)));
+    }
 }

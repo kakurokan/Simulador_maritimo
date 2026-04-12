@@ -15,7 +15,7 @@ public class SegmentoReta extends FiguraGeometrica {
     private final Ponto b;
 
     /**
-     * Constrói um segmento de reta em um espaço bidimensional.
+     * Constrói um segmento de reta num espaço bidimensional.
      * O segmento de reta é definido por um ponto de origem e um vetor
      * que indica direção e comprimento do segmento.
      *
@@ -271,4 +271,30 @@ public class SegmentoReta extends FiguraGeometrica {
         return !(Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps);
     }
 
+    /**
+     * Calcula os pontos de interseção entre o segmento de reta atual e uma rota especificada.
+     * A rota é representada como uma coleção de segmentos de reta, e este método determina os
+     * pontos nos quais os segmentos de reta da rota intersetam o segmento atual. Se não houver
+     * interseções, o método retorna {@code null}.
+     *
+     * @param rota A rota com a qual calcular os pontos de interseção. A rota é definida
+     *             como uma coleção de segmentos de reta.
+     * @return Uma lista contendo os pontos de interseção entre o segmento de reta atual e a rota.
+     * Se nenhuma interseção for encontrada, retorna {@code null}.
+     * @pre rota != null
+     */
+    @Override
+    public List<Ponto> intersect(Route rota) {
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+        List<SegmentoReta> segmentos = rota.getSegmentos();
+
+        for (SegmentoReta segmentoRota : segmentos) {
+            Ponto p = this.intersect(segmentoRota);
+            if (p != null)
+                intersecoes.add(p);
+
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
 }

@@ -32,27 +32,6 @@ class RouteTest {
     }
 
     @Test
-    void intersectSegmentoReta() {
-        List<Ponto> pontos = List.of(
-                new Ponto(0, 1),
-                new Ponto(1, 1),
-                new Ponto(4, 4),
-                new Ponto(4, 3)
-        );
-        SegmentoReta seg = new SegmentoReta(new Ponto(2, 1), new Ponto(2, 4));
-        List<Ponto> esperado = List.of(new Ponto(2, 2));
-        assertEquals(esperado, new Route(pontos).Intersect(seg));
-
-        pontos = List.of(
-                new Ponto(4, 4),
-                new Ponto(6, 6),
-                new Ponto(7, 7)
-        );
-        seg = new SegmentoReta(new Ponto(2, 2), new Ponto(4, 2));
-        assertNull(new Route(pontos).Intersect(seg));
-    }
-
-    @Test
     void intersectPoligono() {
         Route rota = new Route(List.of(
                 new Ponto(0, 0),

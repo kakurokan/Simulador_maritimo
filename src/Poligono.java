@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A classe abstrata {@code Poligono} define uma estrutura básica para representar polígonos
@@ -51,5 +52,11 @@ public class Poligono extends FiguraGeometrica {
             lados[i] = new SegmentoReta(vertices[i], vertices[(i + 1) % vertices.length]);
         }
         return lados;
+    }
+
+
+    @Override
+    public List<Ponto> intersect(Route rota) {
+        return List.of();
     }
 }

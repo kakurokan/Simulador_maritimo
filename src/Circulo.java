@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Representa um círculo no sistema de coordenadas cartesianas definido
  * por um ponto central e um raio.
@@ -48,5 +50,10 @@ public class Circulo extends FiguraGeometrica {
      */
     public double getRaio() {
         return raio;
+    }
+
+    @Override
+    public List<Ponto> intersect(Route rota) {
+        return List.of();
     }
 }

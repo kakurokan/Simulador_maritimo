@@ -62,7 +62,7 @@ public class Route {
      *
      * @return Uma lista de objetos {@code SegmentoReta}, onde cada segmento
      * representa uma ligação consecutiva entre dois pontos da rota. A lista
-     * retornada nunca é nula e possui um número de elementos igual a
+     * retornada nunca é nula e possui uma composição igual a
      * {@code pontos.size() - 1}.
      */
     public List<SegmentoReta> getSegmentos() {
@@ -156,31 +156,6 @@ public class Route {
                     intersecoes.add(intersecao);
                 }
             }
-        }
-
-        return (intersecoes.isEmpty()) ? null : intersecoes;
-    }
-
-    /**
-     * Calcula os pontos de interseção entre a rota atual, representada por uma sequência de
-     * segmentos de reta, e o segmento de reta fornecido como parâmetro.
-     *
-     * @param sr O segmento de reta com o qual se deseja calcular os pontos de interseção.
-     *           Deve ser uma instância válida de {@code SegmentoReta}.
-     * @return Uma lista de objetos {@code Ponto} representando os pontos de interseção
-     * encontrados entre a rota e o segmento de reta fornecido, ou {@code null}
-     * caso não haja interseções.
-     * @pre sr != null
-     */
-    public List<Ponto> Intersect(SegmentoReta sr) {
-        ArrayList<Ponto> intersecoes = new ArrayList<>();
-
-        for (int i = 1; i < pontos.size(); i++) {
-            SegmentoReta segmentoRota = new SegmentoReta(pontos.get(i - 1), pontos.get(i));
-            Ponto p = segmentoRota.intersect(sr);
-            if (p != null)
-                intersecoes.add(p);
-
         }
 
         return (intersecoes.isEmpty()) ? null : intersecoes;

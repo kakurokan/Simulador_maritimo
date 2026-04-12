@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,8 +53,33 @@ public class Circulo extends FiguraGeometrica {
         return raio;
     }
 
+    /**
+     * Calcula os pontos de interseção entre o círculo atual e uma rota fornecida.
+     * Uma rota é definida por uma coleção de segmentos de reta, e o método verifica
+     * todos os segmentos da rota para identificar os pontos de interseção únicos
+     * com o círculo atual.
+     *
+     * @param rota A rota contendo os segmentos de reta a serem verificados quanto à interseção
+     *             com o círculo. Não pode ser nula.
+     * @return Uma lista de pontos de interseção únicos entre o círculo e os segmentos da rota,
+     * ou {@code null} se não houver interseções.
+     * @pre rota != null
+     */
     @Override
     public List<Ponto> intersect(Route rota) {
-        return List.of();
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+        List<SegmentoReta> segmentosRota = rota.getSegmentos();
+
+        for (SegmentoReta segmentoRota : segmentosRota) {
+            List<Ponto> pontosIntersecao = segmentoRota.intersect(this);
+
+            for (Ponto intersecao : pontosIntersecao) {
+                if (!intersecoes.contains(intersecao)) {
+                    intersecoes.add(intersecao);
+                }
+            }
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
     }
 }

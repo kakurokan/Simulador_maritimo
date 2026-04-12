@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,24 +40,34 @@ public class Poligono extends FiguraGeometrica {
     }
 
     /**
-     * Retorna os lados do polígono representados como segmentos de reta. Cada lado é definido
-     * pelos vértices consecutivos do polígono, com o último vértice conectado ao primeiro.
+     * Verifica a interseção entre os lados do polígono atual e os segmentos de reta
+     * da rota fornecida, retornando uma lista de pontos onde essas interseções ocorrem.
      *
-     * @return Um array de objetos {@code SegmentoReta}, onde cada elemento representa um lado
-     * do polígono. A ordem dos segmentos corresponde à sequência dos vértices no
-     * array de vértices do polígono.
+     * @param rota A rota (instância de {@code Route}) que contém os segmentos de reta
+     *             a serem verificados para interseção com os lados do polígono.
+     * @return Uma lista de pontos ({@code List<Ponto>}) que representam as interseções entre
+     * os lados do polígono e os segmentos de reta da rota. Retorna {@code null} se
+     * não houver interseções.
+     * @pre rota != null
      */
-    public SegmentoReta[] getLados() {
-        SegmentoReta[] lados = new SegmentoReta[vertices.length];
-        for (int i = 0; i < vertices.length; i++) {
-            lados[i] = new SegmentoReta(vertices[i], vertices[(i + 1) % vertices.length]);
-        }
-        return lados;
-    }
-
-
     @Override
     public List<Ponto> intersect(Route rota) {
-        return List.of();
+        ArrayList<Ponto> intersecoes = new ArrayList<>();
+        List<SegmentoReta> segmentosRota = rota.getSegmentos();
+
+        for (SegmentoReta segmentoRota : segmentosRota) {
+            for (int i = 0; i < vertices.length; i++) {
+                SegmentoReta lado = new SegmentoReta(vertices[i], vertices[(i + 1) % vertices.length]);
+                Ponto intersecao = segmentoRota.intersect(lado);
+                if (intersecao != null) {
+                    if (!intersecoes.contains(intersecao)) {
+                        intersecoes.add(intersecao);
+                    }
+                }
+            }
+        }
+
+        return (intersecoes.isEmpty()) ? null : intersecoes;
     }
+
 }

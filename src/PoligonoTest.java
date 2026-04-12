@@ -1,37 +1,56 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PoligonoTest {
 
     @Test
-    void getLados() {
-        Ponto p1 = new Ponto(0, 0);
-        Ponto p2 = new Ponto(0, 4);
-        Ponto p3 = new Ponto(4, 0);
-
-        Poligono poligono = new Poligono(new Ponto[]{
-                p1,
-                p2,
-                p3
+    void intersectRota() {
+        Route rota = new Route(List.of(
+                new Ponto(0, 0),
+                new Ponto(2, 2),
+                new Ponto(2, 6)
+        ));
+        Quadrado quadrado = new Quadrado(new Ponto[]{
+                new Ponto(1, 0),
+                new Ponto(1, 3),
+                new Ponto(4, 3),
+                new Ponto(4, 0)
         });
+        List<Ponto> objetivo = List.of(
+                new Ponto(1, 1),
+                new Ponto(2, 3)
+        );
+        assertEquals(objetivo, quadrado.intersect(rota));
 
-        SegmentoReta[] lados = poligono.getLados();
+        rota = new Route(List.of(
+                new Ponto(0, 2),
+                new Ponto(3, 2),
+                new Ponto(5, 0)
+        ));
+        Triangulo triangulo = new Triangulo(new Ponto[]{
+                new Ponto(1, 1),
+                new Ponto(3, 3),
+                new Ponto(5, 1),
+        });
+        objetivo = List.of(
+                new Ponto(2, 2),
+                new Ponto(4, 1)
+        );
+        assertEquals(objetivo, triangulo.intersect(rota));
 
-        assertNotNull(lados);
-        assertEquals(3, lados.length);
-
-        // Verifica o Lado 0 (Aresta entre o Ponto 1 e Ponto 2)
-        assertEquals(p1, lados[0].getA());
-        assertEquals(p2, lados[0].getB());
-
-        // Verifica o Lado 1 (Aresta entre o Ponto 2 e Ponto 3)
-        assertEquals(p2, lados[1].getA());
-        assertEquals(p3, lados[1].getB());
-
-        // Verifica o Lado 2 (entre o Ponto 3 e o Ponto 1)
-        assertEquals(p3, lados[2].getA());
-        assertEquals(p1, lados[2].getB());
+        rota = new Route(List.of(
+                new Ponto(0, 0),
+                new Ponto(1, 1)
+        ));
+        triangulo = new Triangulo(new Ponto[]{
+                new Ponto(5, 5),
+                new Ponto(10, 5),
+                new Ponto(7, 10)
+        });
+        assertNull(triangulo.intersect(rota));
     }
 }

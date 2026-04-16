@@ -9,7 +9,7 @@ import java.util.List;
  * @version 12/03/26
  * @inv o raio têm que ser maior que zero
  */
-public class Circulo extends FiguraGeometrica {
+public class Circulo extends Obstaculo {
     private final Ponto centro;
     private final double raio;
 

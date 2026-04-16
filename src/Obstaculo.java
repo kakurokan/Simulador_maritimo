@@ -15,6 +15,6 @@ import java.util.List;
  * @author Léo Souza
  * @version 13/03/26
  */
-public abstract class Obstaculo {
+public interface Obstaculo {
     public abstract List<Ponto> intersect(Route rota);
 }

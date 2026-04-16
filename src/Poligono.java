@@ -15,7 +15,7 @@ import java.util.List;
  * @version 13/03/26
  * @inv Tem de ter pelo menos três vértices, definidos numa lista ordenada no sentido dos ponteiros do relógio.
  */
-public class Poligono extends Obstaculo {
+public class Poligono implements Obstaculo {
     private final Ponto[] vertices;
 
     /**

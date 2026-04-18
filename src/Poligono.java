@@ -25,15 +25,14 @@ public class Poligono implements Obstaculo {
      *
      * @param pontos Um array de objetos {@code Ponto} que representam os vértices do polígono.
      *               Deve conter pelo menos três pontos para formar um polígono válido.
-     * @throws IllegalArgumentException se o array {@code pontos} for nulo ou contiver
+     * @throws IllegalArgumentException se o array {@code pontos} contiver
      *                                  menos do que três pontos.
      * @pre pontos != null e os pontos devem estar ordenados na ordem do ponteiro do relógio
      * @pos getVertices() == uma cópia de pontos
      */
     public Poligono(Ponto[] pontos) {
         if (pontos.length < 3) {
-            IO.println("Poligono:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Poligono:iv");
         }
 
         this.vertices = Arrays.copyOf(pontos, pontos.length);

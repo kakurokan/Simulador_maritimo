@@ -18,6 +18,7 @@ public class Vetor {
      *
      * @param x Componente x do vetor.
      * @param y Componente y do vetor.
+     * @throws IllegalArgumentException Se as componentes x e y forem ambas consideradas zero
      * @pre Math.abs(x) >= 1e-9 e Math.abs(y) >= 1e-9.
      * @pos O modulo do vetor é > 0.
      * @pos getX() == x
@@ -25,8 +26,7 @@ public class Vetor {
      */
     public Vetor(double x, double y) {
         if (Math.abs(x) < Ponto.eps && Math.abs(y) < Ponto.eps) {
-            System.out.println("Vetor:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Vetor:iv");
         }
 
         this.x = x;

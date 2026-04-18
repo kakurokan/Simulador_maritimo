@@ -32,7 +32,7 @@ public class SegmentoReta implements Obstaculo {
     /**
      * Constrói um segmento de reta definido por dois pontos distintos no espaço bidimensional.
      * Os pontos fornecidos representam as extremidades do segmento de reta.
-     * Caso ambos os pontos sejam iguais, o programa será encerrado.
+     * Caso ambos os pontos sejam iguais, será lançada uma IllegalArgumentException.
      *
      * @param a O primeiro ponto extremo do segmento de reta.
      * @param b O segundo ponto extremo do segmento de reta.
@@ -67,16 +67,14 @@ public class SegmentoReta implements Obstaculo {
 
     /**
      * Verifica a validade do segmento de reta com base nas extremidades definidas.
-     * Se as extremidades do segmento de reta forem consideradas iguais,
-     * conforme o critério de igualdade estabelecido na classe {@code Ponto},
-     * imprime uma mensagem de erro e encerra a execução do programa.
+     * Conforme o critério de igualdade estabelecido na classe {@code Ponto},
      *
-     * @inv Os dois pontos que definem o segmento de reta devem ser distintos.
+     * @throws IllegalArgumentException Se as extremidades do segmento de reta forem consideradas iguais,
+     * com a mensagem "SegmentoReta:iv".
      */
     private void check() {
         if (this.a.equals(this.b)) {
-            System.out.println("SegmentoReta:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("SegmentoReta:iv");
         }
     }
 

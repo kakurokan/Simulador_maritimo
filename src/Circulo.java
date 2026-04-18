@@ -18,14 +18,14 @@ public class Circulo implements Obstaculo {
      *
      * @param centro O ponto representando o centro do círculo. Não pode ser nulo.
      * @param raio   O raio do círculo. Deve ser um valor positivo.
+     * @throws IllegalArgumentException Se o raio não for um valor positivo válido
      * @pre raio > 0 e centro != null
      * @pos getRaio() = raio
      * @pos getCentro() = uma cópia do objeto centro
      */
     public Circulo(Ponto centro, double raio) {
         if (raio < Ponto.eps) {
-            IO.println("Circulo:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Circulo:iv");
         }
 
         this.centro = new Ponto(centro.getX(), centro.getY());

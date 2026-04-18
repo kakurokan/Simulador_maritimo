@@ -13,11 +13,13 @@ public class Quadrado extends Poligono {
      * - Exatamente quatro pontos são fornecidos.
      * - Todos os lados formados pelos pontos são iguais.
      * - As diagonais formadas pelos pontos têm o mesmo comprimento.
-     * Caso qualquer uma dessas condições não seja satisfeita, o programa encerra a sua execução.
+     * Caso qualquer uma dessas condições não seja satisfeita, será lançada uma IllegalArgumentException.
      *
      * @param pontos Um array de objetos da classe Ponto representando os vértices do quadrado.
      *               O array deve conter exatamente quatro pontos dispostos em sequência.
-     *               Caso contrário, o programa será encerrado.
+     *               Caso contrário, será lançada uma IllegalArgumentException.
+     * @throws IllegalArgumentException Se o array não contiver exatamente quatro pontos,
+     *               os lados não forem todos iguais ou as diagonais não tiverem o mesmo comprimento
      * @pre pontos != null e pontos.length == 4
      * @pos Uma cópia do array pontos é guardada no objeto
      */
@@ -25,8 +27,7 @@ public class Quadrado extends Poligono {
         super(pontos);
 
         if (pontos.length != 4) {
-            IO.println("Quadrado:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Quadrado:iv");
         }
 
         double comprimentoLado0 = pontos[0].distanciaPara(pontos[1]);
@@ -34,15 +35,13 @@ public class Quadrado extends Poligono {
         //Verifica se todos os lados são iguais
         for (int i = 1; i < 4; i++) {
             if (!(Math.abs(comprimentoLado0 - pontos[i].distanciaPara(pontos[(i + 1) % 4])) < Ponto.eps)) {
-                IO.println("Quadrado:iv");
-                System.exit(0);
+                throw new IllegalArgumentException("Quadrado:iv");
             }
         }
 
         //Verifica se as diagonais são iguais
         if (!(Math.abs(pontos[0].distanciaPara(pontos[2]) - pontos[1].distanciaPara(pontos[3])) < Ponto.eps)) {
-            IO.println("Quadrado:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Quadrado:iv");
         }
     }
 }

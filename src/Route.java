@@ -38,14 +38,14 @@ public class Route {
      *                    onde cada par consecutivo (x, y) representa
      *                    as coordenadas de um ponto da rota.
      *                    O array deve ter um número par de elementos.
-     *                    Caso contrário, o programa será encerrado com um erro.
+     *                    Caso contrário, será lançada uma IllegalArgumentException.
+     * @throws IllegalArgumentException Se o array não contiver um número par de elementos
      * @pre coordenadas != null
      * @pos Uma lista com pontos criados a partir das coordenadas é guardada no objeto.
      */
     public Route(double[] coordenadas) {
         if (coordenadas.length % 2 != 0) {
-            IO.println("Rota:iv");
-            System.exit(0);
+            throw new IllegalArgumentException("Rota:iv");
         }
 
         pontos = new ArrayList<>();

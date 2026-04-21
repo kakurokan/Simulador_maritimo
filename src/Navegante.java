@@ -12,7 +12,7 @@ import java.util.List;
  * @version 01/04/26
  */
 public class Navegante {
-    private final List<SegmentoReta> segmentos;
+    private List<SegmentoReta> segmentos;
 
     /**
      * Constrói uma instância de Navegante utilizando a rota fornecida.
@@ -21,9 +21,21 @@ public class Navegante {
      * @pre rota != null e rota.getSegmentos() != null
      */
     public Navegante(Route rota) {
-        segmentos = rota.getSegmentos();
+        mudarRota(rota);
     }
 
+    /**
+     * Altera a rota associada à instância do objeto, substituindo os segmentos
+     * existentes pelos segmentos da nova rota fornecida.
+     *
+     * @param rota A nova rota contendo os segmentos a serem associados à instância.
+     *             Deve ser um objeto {@code Route} válido cuja lista de segmentos
+     *             não seja nula.
+     * @pre rota != null e rota.getSegmentos() != null
+     */
+    public void mudarRota(Route rota) {
+        this.segmentos = rota.getSegmentos();
+    }
 
     /**
      * Calcula a velocidade por segmento de uma rota, considerando a velocidade do vento

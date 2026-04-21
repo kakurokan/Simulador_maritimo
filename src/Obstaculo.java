@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * A classe abstrata {@code FiguraGeometrica} define a estrutura base para representar
  * figuras geométricas no plano cartesiano. Ela serve como uma superclasse para outros
@@ -16,5 +14,4 @@ import java.util.List;
  * @version 13/03/26
  */
 public interface Obstaculo {
-    List<Ponto> intersect(Route rota);
 }

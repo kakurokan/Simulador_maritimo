@@ -82,4 +82,9 @@ public class Circulo implements Obstaculo {
 
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
+
+
+    public boolean intersectCirculo(Circulo circle){
+        return  (this.centro.distanciaPara(circle.centro)) <= Math.abs(this.raio+circle.raio) ;
+    }
 }

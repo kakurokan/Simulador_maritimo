@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,14 +37,14 @@ class CirculoTest {
     }
 
     @Test
-    void intersectCirculo(){
-        Circulo a = new  Circulo(new Ponto(0, 0), 5);
+    void intersectCirculo() {
+        Circulo a = new Circulo(new Ponto(0, 0), 5);
         Circulo b = new Circulo(new Ponto(6, 0), 4);
 
-        assertTrue(b.intersectCirculo(a));
+        assertTrue(b.intersect(a));
 
         Circulo c = new Circulo(new Ponto(15, 10), 3);
 
-        Assertions.assertFalse(a.intersectCirculo(c));
+        Assertions.assertFalse(a.intersect(c));
     }
 }

@@ -83,8 +83,17 @@ public class Circulo implements Obstaculo {
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
 
-
-    public boolean intersectCirculo(Circulo circle){
-        return  (this.centro.distanciaPara(circle.centro)) <= Math.abs(this.raio+circle.raio) ;
+    /**
+     * Verifica se o círculo atual intercepta outro círculo fornecido.
+     * Dois círculos são considerados como interceptando se a distância entre
+     * os seus centros for menor ou igual à soma de seus raios.
+     *
+     * @param circulo O círculo a ser verificado quanto à interseção com o círculo atual.
+     *                Não pode ser nulo.
+     * @return {@code true} se os círculos se interceptarem, {@code false} caso contrário.
+     * @pre circulo != null
+     */
+    public boolean intersect(Circulo circulo) {
+        return (this.centro.distanciaPara(circulo.centro)) <= Math.abs(this.raio + circulo.raio);
     }
 }

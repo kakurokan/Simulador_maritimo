@@ -69,7 +69,6 @@ public class Circulo extends ObstaculoEstatico {
     public List<Ponto> intersect(Route rota) {
         ArrayList<Ponto> intersecoes = new ArrayList<>();
         List<SegmentoReta> segmentosRota = rota.getSegmentos();
-
         for (SegmentoReta segmentoRota : segmentosRota) {
             List<Ponto> pontosIntersecao = segmentoRota.intersect(this);
 

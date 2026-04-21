@@ -5,7 +5,9 @@ public class Navio extends ObstaculoMovel implements Comparable<Navio> {
     private EstadoNavio estado;
     private TorreDeControlo torre;
 
-    public Navio(Circulo area, double velocidadeLinear, Vetor direcao) {
+    public Navio(Circulo area, double velocidadeLinear, Vetor direcao, String codigoViagem, Porto destino) {
+        this.destino = destino;
+        this.codigoViagem = codigoViagem;
         super(area, velocidadeLinear, direcao);
     }
 
@@ -14,7 +16,7 @@ public class Navio extends ObstaculoMovel implements Comparable<Navio> {
     }
 
     public void mudarEstado(EstadoNavio estado) {
-
+        this.estado = estado;
     }
 
     public void setTorre(TorreDeControlo torre) {

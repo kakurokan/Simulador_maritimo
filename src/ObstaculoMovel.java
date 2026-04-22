@@ -18,4 +18,6 @@ public abstract class ObstaculoMovel implements Obstaculo {
     public Ponto getPosicao() {
         return null;
     }
+
+    public abstract void atualizar(double delta);
 }

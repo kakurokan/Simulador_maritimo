@@ -1,13 +1,13 @@
 import java.util.List;
 
-public class gestorMaritimo implements TorreDeControlo {
+public class GestorMaritimo implements TorreDeControlo {
     private Grafo grafo;
     private List<Navio> navios;
     private List<ObstaculoEstatico> obstaculoEstaticos;
     private List<Tempestade> tempestades;
     private EstrategiaRota estrategiaRota;
 
-    public gestorMaritimo(List<Navio> navios, List<Route> rotas, List<ObstaculoEstatico> obstaculoEstaticos, List<Tempestade> tempestades) {
+    public GestorMaritimo(List<Navio> navios, List<Route> rotas, List<ObstaculoEstatico> obstaculoEstaticos, List<Tempestade> tempestades) {
         this.grafo = new Grafo(rotas, obstaculoEstaticos);
         this.estrategiaRota = new EstrategiaDijkstra(this.grafo);
         this.navios = navios;

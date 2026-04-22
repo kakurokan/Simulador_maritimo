@@ -1,17 +1,29 @@
 import java.util.Iterator;
+import java.util.List;
 
 public class Porto {
     private String nome;
+    private List<Navio> naviosEmEspera;
+    private TorreDeControlo torre;
 
-    public Iterator<Navio> naviosProntos(double tempo) {
-
-
-        return null;
+    public Porto(String nome, List<Navio> naviosEmEspera, TorreDeControlo torre) {
+        this.nome = nome;
+        this.naviosEmEspera = naviosEmEspera;
+        this.torre = torre;
     }
 
-    private class iteradorNaviosPontos implements Iterator {
+    public Iterator<Navio> naviosProntos(double tempo) {
+        return new IteradorNaviosProntos(tempo);
+    }
+
+    private class IteradorNaviosProntos implements Iterator<Navio> {
         private double tempoAtual;
         private int indexAtual;
+
+        public IteradorNaviosProntos(double tempo) {
+            this.tempoAtual = tempo;
+            this.indexAtual = 0;
+        }
 
         @Override
         public boolean hasNext() {
@@ -19,7 +31,7 @@ public class Porto {
         }
 
         @Override
-        public Object next() {
+        public Navio next() {
             return null;
         }
     }

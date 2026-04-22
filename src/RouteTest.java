@@ -2,8 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RouteTest {
 
@@ -52,5 +51,24 @@ class RouteTest {
 
         assertEquals(p2, result.get(1).getA(), "A origem do segundo segmento deve ser o Ponto 2.");
         assertEquals(p3, result.get(1).getB(), "O destino do segundo segmento deve ser o Ponto 3.");
+    }
+
+    @Test
+    void equals(){
+        Ponto p1 = new Ponto(0, 0);
+        Ponto p2 = new Ponto(2, 4);
+        Ponto p3 = new Ponto(5, 1);
+
+        List<Ponto> pontos = List.of(p1, p2, p3);
+        Route rota = new Route(pontos);
+
+        Route rota1 = new Route(pontos);
+
+        assertEquals(rota, rota1);
+
+        pontos = List.of(p2, p1, p3);
+        rota1 = new Route(pontos);
+
+        assertNotEquals(rota, rota1);
     }
 }

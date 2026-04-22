@@ -10,7 +10,7 @@ import java.util.List;
  * @version 09/02/26
  * @inv Os dois pontos que definem o segmento de reta (A e B) têm de ser diferentes.
  */
-public class SegmentoReta implements Obstaculo {
+public class SegmentoReta extends ObstaculoEstatico {
     private final Ponto a;
     private final Ponto b;
 
@@ -294,5 +294,14 @@ public class SegmentoReta implements Obstaculo {
         }
 
         return (intersecoes.isEmpty()) ? null : intersecoes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if( o ==null || getClass() != o.getClass() ) return false;
+        SegmentoReta seg = (SegmentoReta) o;
+
+        return ((this.a.equals(seg.getA()) || this.a.equals(seg.getB())) && (this.b.equals(seg.getA()) || this.b.equals(seg.getB())));
     }
 }

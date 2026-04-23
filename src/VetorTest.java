@@ -5,6 +5,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class VetorTest {
 
     @Test
+    void testConstructorExceptions() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Vetor(0, 0);
+        });
+        assertEquals("Vetor:iv", exception.getMessage());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Vetor(1e-10, 1e-10);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Vetor(-0.5e-9, -0.5e-9);
+        });
+
+        assertDoesNotThrow(() -> new Vetor(1, 0));
+        assertDoesNotThrow(() -> new Vetor(0, 1));
+    }
+
+    @Test
     void getX() {
         assertEquals(2, new Vetor(2, 3).getX());
         assertEquals(1.752, new Vetor(1.752, 0.2).getX());

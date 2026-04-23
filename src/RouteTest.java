@@ -1,9 +1,6 @@
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RouteTest {
 
@@ -30,6 +27,44 @@ class RouteTest {
                 new Ponto(6, 7)
         );
         assertEquals(3.61, new Route(pontos).Comprimento(), 0.01);
+    }
+
+    @Test
+    void construtorComArray_double() {
+        double[] coords = {0, 0, 3, 4, 6, 8};
+
+        Route rota = new Route(coords);
+
+        assertEquals(10.0, rota.Comprimento(), 0.01);
+    }
+
+    @Test
+    void testConstrutorPontosIguais() {
+        double[] coords = {1.0, 1.0, 1.0, 1.0, 2.0, 2.0};
+        Route rota = new Route(coords);
+
+        assertEquals(1.414, rota.Comprimento(), 0.01);
+    }
+
+    @Test
+    void construtor_Par() {
+        double[] coords = {10.5};
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Route(coords);
+        });
+        assertEquals("Rota:iv", exception.getMessage());
+    }
+
+    @Test
+    void construtor_NaoPar() {
+        double[] coords = {0, 0, 3}; // 3 elementos = Ímpar
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Route(coords);
+        });
+
+        assertEquals("Rota:iv", exception.getMessage());
     }
 
     @Test

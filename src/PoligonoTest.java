@@ -2,10 +2,56 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PoligonoTest {
+
+    @Test
+    void test_ArrayVazio() {
+        Ponto[] vazio = {};
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Poligono(vazio);
+        });
+
+        assertEquals("Poligono:iv", exception.getMessage());
+    }
+
+    @Test
+    void test_um_Ponto() {
+        Ponto[] umPonto = { new Ponto(5, 5) };
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Poligono(umPonto);
+        });
+
+        assertEquals("Poligono:iv", exception.getMessage());
+    }
+
+    @Test
+    void test_dois_Pontos() {
+        Ponto[] doisPontos = {
+                new Ponto(0, 0),
+                new Ponto(1, 1)
+        };
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Poligono(doisPontos);
+        });
+
+        assertEquals("Poligono:iv", exception.getMessage());
+    }
+
+    @Test
+    void test_Tres_Pontos() {
+        Ponto[] tresPontos = {
+                new Ponto(0, 0),
+                new Ponto(1, 0),
+                new Ponto(0, 1)
+        };
+
+        assertDoesNotThrow(() -> new Poligono(tresPontos));
+    }
 
     @Test
     void intersectRota() {

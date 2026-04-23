@@ -23,6 +23,18 @@ class SegmentoRetaTest {
     }
 
     @Test
+    void test_PontosIguais() {
+        Ponto p1 = new Ponto(1.5, 2.0);
+        Ponto p2 = new Ponto(1.5, 2.0);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SegmentoReta(p1, p2);
+        });
+
+        assertEquals("SegmentoReta:iv", exception.getMessage());
+    }
+
+    @Test
     void testToString() {
         assertEquals("sr((1.00,2.00); (2.00,2.00))", new SegmentoReta(new Ponto(2, 2), new Vetor(-1, 0)).toString());
         assertEquals("sr((3.00,3.00); (5.00,7.50))", new SegmentoReta(new Ponto(3, 3), new Vetor(2, 4.5)).toString());

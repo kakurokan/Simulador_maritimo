@@ -1,12 +1,47 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 class CirculoTest {
+
+    @Test
+    void testConstructorExceptionRaioZero() {
+        Ponto centro = new Ponto(0, 0);
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            new Circulo(centro, 0.0);
+        });
+
+        assertEquals("Circulo:iv", ex.getMessage());
+    }
+
+    @Test
+    void testConstructorExceptionRaioNegativo() {
+        Ponto centro = new Ponto(5, 5);
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            new Circulo(centro, -1.0);
+        });
+
+        assertEquals("Circulo:iv", ex.getMessage());
+    }
+
+    @Test
+    void testConstructorExceptionRaioAbaixoEps() {
+        Ponto centro = new Ponto(1, 1);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Circulo(centro, 1e-10);
+        });
+    }
+
+    @Test
+    void testConstructorSucessoRaioNoLimite() {
+        Ponto centro = new Ponto(0, 0);
+
+        assertDoesNotThrow(() -> new Circulo(centro, Ponto.eps + 1e-12));
+    }
 
     @Test
     void getCentro() {

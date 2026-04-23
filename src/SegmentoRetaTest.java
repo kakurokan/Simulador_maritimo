@@ -163,4 +163,16 @@ class SegmentoRetaTest {
         seg = new SegmentoReta(new Ponto(2, 2), new Ponto(4, 2));
         assertNull(seg.intersect(new Route(pontos)));
     }
+
+    @Test
+    void equals(){
+        SegmentoReta seg = new SegmentoReta(new Ponto(0,0), new Ponto(10,10));
+        SegmentoReta seg2 = new SegmentoReta(new Ponto(10,10), new Ponto(0,0));
+
+        assertEquals(seg,seg2);
+
+        seg2 = new SegmentoReta(new Ponto(0,0), new Ponto(10,11));
+
+        assertNotEquals(seg,seg2);
+    }
 }

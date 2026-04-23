@@ -14,7 +14,7 @@ public class EstrategiaDijkstra implements EstrategiaRota {
     }
 
     @Override
-    public Route caminhos(Ponto origem, Ponto destino, List<Route> rotas, List<Tempestade> tempestades, List<Navio> navios) {
+    public Route caminhos(Ponto origem, Ponto destino, List<Tempestade> tempestades, List<Navio> navios) {
         return null;
     }
 

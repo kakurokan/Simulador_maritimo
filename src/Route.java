@@ -91,4 +91,12 @@ public class Route {
         return total;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if( o ==null || getClass() != o.getClass()) return false;
+        Route  r = (Route) o;
+
+        return this.pontos.equals(r.pontos);
+
+    }
 }

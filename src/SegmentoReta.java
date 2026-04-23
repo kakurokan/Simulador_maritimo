@@ -295,4 +295,13 @@ public class SegmentoReta extends ObstaculoEstatico {
 
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if( o ==null || getClass() != o.getClass() ) return false;
+        SegmentoReta seg = (SegmentoReta) o;
+
+        return ((this.a.equals(seg.getA()) || this.a.equals(seg.getB())) && (this.b.equals(seg.getA()) || this.b.equals(seg.getB())));
+    }
 }

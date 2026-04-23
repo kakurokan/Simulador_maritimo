@@ -1,6 +1,6 @@
 public class NavioNaOrigem implements EstadoNavio {
     @Override
-    public void atualizar(double delta) {
+    public void atualizar(Navio navio, double delta) {
 
     }
 }

@@ -3,13 +3,15 @@ import java.util.List;
 
 public class Porto {
     private String nome;
+    private Ponto origem;
     private List<Navio> naviosEmEspera;
     private TorreDeControlo torre;
 
-    public Porto(String nome, List<Navio> naviosEmEspera, TorreDeControlo torre) {
+    public Porto(String nome, List<Navio> naviosEmEspera, TorreDeControlo torre, Ponto origem) {
         this.nome = nome;
         this.naviosEmEspera = naviosEmEspera;
         this.torre = torre;
+        this.origem = new Ponto(origem.getX(), origem.getY());
     }
 
     public Iterator<Navio> naviosProntos(double tempo) {

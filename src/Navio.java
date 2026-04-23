@@ -1,14 +1,28 @@
-public class Navio extends ObstaculoMovel implements Comparable<Navio> {
+public class Navio implements Comparable<Navio>, Movel {
     private String codigoViagem;
     private Porto destino;
     private Navegante navegante;
     private EstadoNavio estado;
     private TorreDeControlo torre;
+    private double velocidadeLinear;
+    private Circulo area;
 
     public Navio(Circulo area, double velocidadeLinear, Vetor direcao, String codigoViagem, Porto destino) {
-        this.destino = destino;
-        this.codigoViagem = codigoViagem;
-        super(area, velocidadeLinear, direcao);
+    }
+
+    @Override
+    public boolean intersect(Circulo circulo) {
+        return false;
+    }
+
+    @Override
+    public void mover() {
+
+    }
+
+    @Override
+    public Ponto getPosicao() {
+        return null;
     }
 
     public void atualizar(double delta) {

@@ -1,13 +1,8 @@
-public class Tempestade extends ObstaculoMovel {
-    private double tempoVida;
+import java.util.List;
 
-    public Tempestade(Circulo area, double velocidadeLinear, Vetor direcao, double tempoVida) {
-        this.tempoVida = tempoVida;
-        super(area, velocidadeLinear, direcao);
-    }
+public class Tempestade {
+    private Circulo area;
 
-    @Override
-    public void atualizar(double delta) {
-        
+    public Tempestade(List<Route> routes) {
     }
 }

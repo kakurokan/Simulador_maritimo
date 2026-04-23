@@ -37,7 +37,7 @@ class EstrategiaDijkstraTest {
         pontos[0] = new Ponto(2,4);
         pontos[1] = new Ponto(4,5);
         pontos[2] = new Ponto(5,4);
-        List<ObstaculoEstatico> obstaculos = new ArrayList<>();
+        List<Obstaculo> obstaculos = new ArrayList<>();
 
         obstaculos.add(new Triangulo(pontos));
 

@@ -16,7 +16,7 @@ class PortoTest {
     void testNaviosProntos() {
         List<Navio> lista = new ArrayList<>();
         TorreDeControlo torre = new TorreDeControloAux();
-        Porto porto = new Porto("Porto Lisboa", lista, torre);
+        Porto porto = new Porto("Porto Lisboa", new Ponto(38.7, -9.1), lista, torre);
 
         Iterator<Navio> it = porto.naviosProntos(10.0);
 

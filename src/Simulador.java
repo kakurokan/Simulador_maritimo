@@ -37,4 +37,8 @@ public class Simulador {
     public List<Navio> getNavios() {
         return navios;
     }
+
+    public Tempestade criarTempestade() {
+        return null;
+    }
 }

@@ -3,7 +3,8 @@ import java.util.List;
 public class Tempestade implements Obstaculo {
     private Circulo area;
 
-    public Tempestade(List<Route> routes) {
+    public Tempestade(Circulo area) {
+        this.area = new Circulo(area.getCentro(), area.getRaio());
     }
 
     @Override

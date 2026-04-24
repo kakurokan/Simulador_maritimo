@@ -9,7 +9,7 @@ public class Simulador {
     private List<Obstaculo> obstaculo;
     private List<Navio> navios;
 
-    public Simulador(double delta, Vetor corrente, List<Route> rotas, List<Tempestade> tempestades, List<Porto> portos, List<Obstaculo> obstaculo, List<Navio> navios) {
+    public Simulador(double delta, Vetor corrente, List<Route> rotas, List<Tempestade> tempestades, List<Porto> portos, List<Obstaculo> obstaculo) {
         this.delta = delta;
         this.corrente = corrente;
         this.rotas = rotas;
@@ -30,7 +30,7 @@ public class Simulador {
         return tempestades;
     }
 
-    public List<Obstaculo> getObstaculoEstaticos() {
+    public List<Obstaculo> getObstaculos() {
         return obstaculo;
     }
 

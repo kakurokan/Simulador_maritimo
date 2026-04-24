@@ -14,10 +14,11 @@ public class Porto {
         this.torre = torre;
     }
 
-    public void adicionarNavio(double velocidadeLinear, int horario, Porto destino) {
+    public Navio adicionarNavio(double velocidadeLinear, int horario, Porto destino) {
         Circulo area = new Circulo(this.getPosicao(), 5); //raio temporario
-        Navio navio = new Navio(area, velocidadeLinear, horario, destino, torre);
+        Navio navio = new Navio(area, velocidadeLinear, horario, this, destino, torre);
         this.naviosEmEspera.put(horario, navio);
+        return navio;
     }
 
     public Ponto getPosicao() {

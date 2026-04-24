@@ -1,41 +1,21 @@
 import java.util.List;
 
 public class Simulador {
-    private double delta;
     private Vetor corrente;
     private List<Route> rotas;
-    private List<Tempestade> tempestades;
     private List<Porto> portos;
     private List<Obstaculo> obstaculo;
     private List<Navio> navios;
 
-    public Simulador(double delta, Vetor corrente, List<Route> rotas, List<Tempestade> tempestades, List<Porto> portos, List<Obstaculo> obstaculo) {
-        this.delta = delta;
+    public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Navio> navios, List<Obstaculo> obstaculo) {
         this.corrente = corrente;
         this.rotas = rotas;
-        this.tempestades = tempestades;
         this.portos = portos;
         this.obstaculo = obstaculo;
         this.navios = navios;
     }
 
-    public void atualizar() {
-    }
-
-    public List<Route> getRotas() {
-        return rotas;
-    }
-
-    public List<Tempestade> getTempestades() {
-        return tempestades;
-    }
-
-    public List<Obstaculo> getObstaculos() {
-        return obstaculo;
-    }
-
-    public List<Navio> getNavios() {
-        return navios;
+    public void atualizar(double delta) {
     }
 
     public Tempestade criarTempestade() {

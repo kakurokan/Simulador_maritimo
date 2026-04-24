@@ -7,7 +7,7 @@ public class GestorMaritimo implements TorreDeControlo {
     private List<Tempestade> tempestades;
     private EstrategiaRota estrategiaRota;
 
-    public GestorMaritimo(List<Route> rotas, List<Obstaculo> obstaculo, List<Navio> navios, List<Tempestade> tempestades) {
+    public GestorMaritimo(List<Route> rotas, List<Obstaculo> obstaculo, List<Navio> navios) {
         this.grafo = new Grafo(rotas, obstaculo);
         this.estrategiaRota = new EstrategiaDijkstra(this.grafo);
         this.navios = navios;

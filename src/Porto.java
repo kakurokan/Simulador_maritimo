@@ -14,6 +14,9 @@ public class Porto {
         this.torre = torre;
     }
 
+    public Ponto getPosicao(){
+        return this.posicao;
+    }
     public Iterator<Navio> naviosProntos(double tempo) {
         return new IteradorNaviosProntos(tempo);
     }
@@ -36,5 +39,7 @@ public class Porto {
         public Navio next() {
             return null;
         }
+
+
     }
 }

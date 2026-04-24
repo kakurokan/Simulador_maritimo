@@ -1,11 +1,12 @@
 import java.util.List;
 import java.util.Map;
 
+
 public class EstrategiaDijkstra implements EstrategiaRota {
     EstrategiaDijkstra(Grafo grafo) {
     }
 
-    private boolean caminhoLivre(SegmentoReta segmento, List<Tempestade> tempestades, List<Navio> navios) {
+    private boolean caminhoLivre(SegmentoReta segmento, List<Navio> navios) {
         return false;
     }
 
@@ -14,7 +15,7 @@ public class EstrategiaDijkstra implements EstrategiaRota {
     }
 
     @Override
-    public Route caminhos(Ponto origem, Ponto destino, List<Tempestade> tempestades, List<Navio> navios) {
+    public Route caminhos(Ponto origem, Ponto destino,List<Navio> navios) {
         return null;
     }
 

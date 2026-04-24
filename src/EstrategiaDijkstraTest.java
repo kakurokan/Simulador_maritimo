@@ -58,10 +58,9 @@ class EstrategiaDijkstraTest {
 
         EstrategiaDijkstra dijkstra = new EstrategiaDijkstra(grafo);
 
-        List<Tempestade> tempestades = new ArrayList<>();
         List<Navio> navios = new ArrayList<>();
 
-        assertEquals(routeesperada, dijkstra.caminhos(origem,destino,tempestades,navios));
+        assertEquals(routeesperada, dijkstra.caminhos(origem,destino,navios));
 
 
 
@@ -77,7 +76,7 @@ class EstrategiaDijkstraTest {
         routeesperada = new Route(pontosesperada);
         dijkstra = new EstrategiaDijkstra(grafo);
 
-        assertEquals(routeesperada,dijkstra.caminhos(origem,destino,tempestades,navios));
+        assertEquals(routeesperada,dijkstra.caminhos(origem,destino,navios));
 
     }
 }

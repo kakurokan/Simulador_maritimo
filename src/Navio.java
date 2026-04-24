@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Navio implements Comparable<Navio>, Movel {
     private String codigoViagem;
     private Porto destino;
@@ -57,5 +59,13 @@ public class Navio implements Comparable<Navio>, Movel {
     @Override
     public int compareTo(Navio o) {
         return this.codigoViagem.compareTo(o.getCodigoViagem());
+    }
+
+    public List<SegmentoReta> getSegmentosRota(){
+        return navegante.getSegmentos();
+    }
+
+    public EstadoNavio getEstado(){
+        return this.estado;
     }
 }

@@ -127,4 +127,8 @@ public class Navegante {
 
         return segmentos.isEmpty() ? null : segmentos.getLast().getB();
     }
+
+    public List<SegmentoReta> getSegmentos() {
+        return segmentos;
+    }
 }

@@ -10,8 +10,8 @@ import java.util.List;
  * @inv o raio têm que ser maior que zero
  */
 public class Circulo implements Obstaculo {
-    private final Ponto centro;
     private final double raio;
+    private Ponto centro;
 
     /**
      * Constrói um objeto Circulo com um ponto central e um raio especificado.
@@ -40,6 +40,10 @@ public class Circulo implements Obstaculo {
      */
     public Ponto getCentro() {
         return centro;
+    }
+
+    public void setCentro(Ponto centro) {
+        this.centro = new Ponto(centro.getX(), centro.getY());
     }
 
     /**

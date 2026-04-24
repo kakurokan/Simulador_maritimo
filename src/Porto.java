@@ -1,22 +1,33 @@
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class Porto {
     private String nome;
-    private List<Navio> naviosEmEspera;
+    private HashMap<Integer, Navio> naviosEmEspera;
     private TorreDeControlo torre;
     private Ponto posicao;
 
-    public Porto(String nome, Ponto posicao, List<Navio> naviosEmEspera, TorreDeControlo torre) {
+    public Porto(String nome, Ponto posicao, TorreDeControlo torre) {
         this.nome = nome;
         this.posicao = posicao;
-        this.naviosEmEspera = naviosEmEspera;
+        this.naviosEmEspera = new HashMap<>();
         this.torre = torre;
     }
 
-    public Ponto getPosicao(){
+    public void adicionarNavio(double velocidadeLinear, int horario, Porto destino) {
+        Circulo area = new Circulo(this.getPosicao(), 5); //raio temporario
+        Navio navio = new Navio(area, velocidadeLinear, horario, destino, torre);
+        this.naviosEmEspera.put(horario, navio);
+    }
+
+    public Ponto getPosicao() {
         return this.posicao;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
     public Iterator<Navio> naviosProntos(double tempo) {
         return new IteradorNaviosProntos(tempo);
     }

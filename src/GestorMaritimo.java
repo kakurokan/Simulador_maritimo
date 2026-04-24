@@ -1,18 +1,17 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class GestorMaritimo implements TorreDeControlo {
     private Grafo grafo;
     private List<Navio> navios;
     private List<Obstaculo> obstaculo;
-    private List<Tempestade> tempestades;
     private EstrategiaRota estrategiaRota;
 
-    public GestorMaritimo(List<Route> rotas, List<Obstaculo> obstaculo, List<Navio> navios) {
+    public GestorMaritimo(List<Route> rotas, List<Obstaculo> obstaculo) {
         this.grafo = new Grafo(rotas, obstaculo);
         this.estrategiaRota = new EstrategiaDijkstra(this.grafo);
-        this.navios = navios;
-        this.tempestades = tempestades;
         this.obstaculo = obstaculo;
+        this.navios = new ArrayList<>();
     }
 
     @Override
@@ -27,6 +26,11 @@ public class GestorMaritimo implements TorreDeControlo {
 
     @Override
     public void libertarNavio(Porto origem, Navio navio) {
+
+    }
+
+    @Override
+    public void navioTerminouPercurso(Navio navio) {
 
     }
 }

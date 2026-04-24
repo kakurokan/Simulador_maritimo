@@ -8,17 +8,17 @@ public class Navio implements Comparable<Navio>, Movel {
     private TorreDeControlo torre;
     private double velocidadeLinear;
     private Circulo area;
+    private double tempoNavegando;
 
-    public Navio(Circulo area, double velocidadeLinear, String codigoViagem) {
+    public Navio(Circulo area, double velocidadeLinear, int horario, Porto destino, TorreDeControlo torre) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
-        this.codigoViagem = codigoViagem;
+        this.destino = destino;
+        this.codigoViagem = horario + destino.getNome();
         this.velocidadeLinear = velocidadeLinear;
         this.navegante = new Navegante();
         this.estado = new NavioNaOrigem();
-    }
-
-    public void setDestino(Porto destino) {
-        this.destino = destino;
+        this.torre = torre;
+        this.tempoNavegando = 0;
     }
 
     @Override
@@ -48,10 +48,6 @@ public class Navio implements Comparable<Navio>, Movel {
         this.estado = estado;
     }
 
-    public void setTorre(TorreDeControlo torre) {
-        this.torre = torre;
-    }
-
     public void receberRota(Route rota) {
         this.navegante.mudarRota(rota);
     }
@@ -61,11 +57,11 @@ public class Navio implements Comparable<Navio>, Movel {
         return this.codigoViagem.compareTo(o.getCodigoViagem());
     }
 
-    public List<SegmentoReta> getSegmentosRota(){
+    public List<SegmentoReta> getSegmentosRota() {
         return navegante.getSegmentos();
     }
 
-    public EstadoNavio getEstado(){
+    public EstadoNavio getEstado() {
         return this.estado;
     }
 }

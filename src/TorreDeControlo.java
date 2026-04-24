@@ -4,4 +4,6 @@ public interface TorreDeControlo {
     public void atualizarPosicoes(Navio navio, Ponto posicao);
 
     public void libertarNavio(Porto origem, Navio navio);
+
+    public void navioTerminouPercurso(Navio navio);
 }

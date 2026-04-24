@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ class EstadoNavioTest {
         TorreDeControlo torreAux = new TorreDeControloSAux();
         Porto portoDestino = new Porto("Porto Faro", new Ponto(100.0, 100.0), new ArrayList<>(), torreAux);
 
-        navio = new Navio(areaNavio, 20.0, direcao, "NAV-001", portoDestino);
+        navio = new Navio(areaNavio, 20.0, "NAV-001");
     }
 
     @Test
@@ -65,5 +66,22 @@ class EstadoNavioTest {
         assertDoesNotThrow(() -> navio.mudarEstado(noDestino));
         assertDoesNotThrow(() -> noDestino.atualizar(navio, 2.0));
         assertInstanceOf(EstadoNavio.class, noDestino);
+    }
+
+
+    @Test
+    @Disabled
+    void testNavioMovePraNovaPosicao() {
+        EstadoNavio navegando = new NavioNavegando();
+        navio.mudarEstado(navegando);
+
+        navegando.atualizar(navio, 1.0);
+
+        Ponto posicaoAtual = navio.getPosicao();
+
+        assertNotNull(posicaoAtual, "A posição não deveria ser nula. O navio deve ter um centro.");
+
+        assertEquals(20.0, posicaoAtual.getX(), 0.01, "A coordenada X do navio deveria ser 20.0.");
+        assertEquals(20.0, posicaoAtual.getY(), 0.01, "A coordenada Y do navio deveria ser 20.0.");
     }
 }

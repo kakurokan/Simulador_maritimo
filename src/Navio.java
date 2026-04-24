@@ -22,7 +22,7 @@ public class Navio implements Comparable<Navio>, Movel {
 
     @Override
     public Ponto getPosicao() {
-        return null;
+        return area.getCentro();
     }
 
     public void atualizar(double delta) {

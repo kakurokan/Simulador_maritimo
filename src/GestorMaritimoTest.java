@@ -60,7 +60,6 @@ class GestorMaritimoTest {
 
     @Test
     void atualizarPosicoes() {
-
         Ponto posicaoFinal = new Ponto(3,5);
         gestor.atualizarPosicoes(navio,posicaoFinal);
 

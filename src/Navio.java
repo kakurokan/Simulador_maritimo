@@ -7,13 +7,16 @@ public class Navio implements Comparable<Navio>, Movel {
     private double velocidadeLinear;
     private Circulo area;
 
-    public Navio(Circulo area, double velocidadeLinear, String codigoViagem, Porto destino) {
+    public Navio(Circulo area, double velocidadeLinear, String codigoViagem) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
         this.codigoViagem = codigoViagem;
-        this.destino = destino;
         this.velocidadeLinear = velocidadeLinear;
         this.navegante = new Navegante();
         this.estado = new NavioNaOrigem();
+    }
+
+    public void setDestino(Porto destino) {
+        this.destino = destino;
     }
 
     @Override

@@ -34,6 +34,10 @@ public class Navio implements Comparable<Navio>, Movel {
         return area.getCentro();
     }
 
+    public String getCodigoViagem() {
+        return this.codigoViagem;
+    }
+
     public void atualizar(double delta) {
         estado.atualizar(this, delta);
     }
@@ -52,6 +56,6 @@ public class Navio implements Comparable<Navio>, Movel {
 
     @Override
     public int compareTo(Navio o) {
-        return 0;
+        return this.codigoViagem.compareTo(o.getCodigoViagem());
     }
 }

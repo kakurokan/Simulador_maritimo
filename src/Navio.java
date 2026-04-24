@@ -7,12 +7,18 @@ public class Navio implements Comparable<Navio>, Movel {
     private double velocidadeLinear;
     private Circulo area;
 
-    public Navio(Circulo area, double velocidadeLinear, Vetor direcao, String codigoViagem, Porto destino) {
+    public Navio(Circulo area, double velocidadeLinear, String codigoViagem, Porto destino) {
+        this.area = new Circulo(area.getCentro(), area.getRaio());
+        this.codigoViagem = codigoViagem;
+        this.destino = destino;
+        this.velocidadeLinear = velocidadeLinear;
+        this.navegante = new Navegante();
+        this.estado = new NavioNaOrigem();
     }
 
     @Override
     public boolean intersect(Circulo circulo) {
-        return false;
+        return this.area.intersect(circulo);
     }
 
     @Override
@@ -26,7 +32,7 @@ public class Navio implements Comparable<Navio>, Movel {
     }
 
     public void atualizar(double delta) {
-
+        estado.atualizar(this, delta);
     }
 
     public void mudarEstado(EstadoNavio estado) {

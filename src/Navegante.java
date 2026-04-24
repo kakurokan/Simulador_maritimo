@@ -14,6 +14,9 @@ import java.util.List;
 public class Navegante {
     private List<SegmentoReta> segmentos;
 
+    public Navegante() {
+    }
+
     /**
      * Constrói uma instância de Navegante utilizando a rota fornecida.
      *

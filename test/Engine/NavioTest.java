@@ -108,7 +108,7 @@ class NavioTest {
     }
 
     @Test
-    void gestDestino() {
+    void getDestino() {
         assertEquals(destino, navio.getDestino());
     }
 

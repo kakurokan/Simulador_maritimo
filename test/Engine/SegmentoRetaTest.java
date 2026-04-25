@@ -177,4 +177,12 @@ class SegmentoRetaTest {
 
         assertNotEquals(seg, seg2);
     }
+
+    @Test
+    void interseçaoTangente(){
+        SegmentoReta seg = new SegmentoReta(new Ponto(3,2), new Ponto(3,5));
+        Circulo circulo= new Circulo(new Ponto(4,3),1);
+        List<Ponto> interseca = seg.intersect(circulo);
+        assertFalse(interseca.isEmpty());
+    }
 }

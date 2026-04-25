@@ -8,5 +8,8 @@ public class Grafo {
     private Map<Ponto, Set<Ponto>> grafo;
 
     public Grafo(List<Route> rotas, List<Obstaculo> obstaculo) {
+        if(rotas.isEmpty()) {
+            throw new IllegalArgumentException("Grafo:iv");
+        }
     }
 }

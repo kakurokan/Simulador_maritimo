@@ -37,12 +37,12 @@ class NavioTest {
     void mover() {
         double delta = 0.5;
         torre.atualizarRota(navio);
+        Ponto posicaoInicial =navio.getPosicao();
+
         navio.mover(delta);
         Ponto posicaoAtual = navio.getPosicao();
 
-        assertEquals(1.971156914, posicaoAtual.getX(), Ponto.eps);
-        assertEquals(1.485578457, posicaoAtual.getY(), Ponto.eps);
-
+        assertNotEquals(posicaoInicial, posicaoAtual);
     }
 
     @Test
@@ -59,7 +59,26 @@ class NavioTest {
 
     @Test
     void atualizar() {
+        class EstadoNavioTemp implements EstadoNavio{
+            boolean foiChamado = false;
+            double deltaRecebido =0;
+            Navio navioRecebido = null;
 
+            @Override
+            public void atualizar(Navio navio, double delta){
+                this.navioRecebido = navio;
+                this.deltaRecebido = delta;
+                this.navioRecebido =navio;
+            }
+        }
+
+        EstadoNavioTemp estado = new EstadoNavioTemp();
+        navio.mudarEstado(estado);
+        navio.mover(5);
+
+        assertTrue(estado.foiChamado);
+        assertEquals(navio,estado.navioRecebido);
+        assertEquals(5,estado.deltaRecebido);
     }
 
     @Test

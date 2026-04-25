@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EstadoNavioTest {
@@ -18,10 +16,10 @@ class EstadoNavioTest {
         Vetor direcao = new Vetor(1, 1);
 
         TorreDeControlo torreAux = new TorreDeControloSAux();
-        Porto origem = new Porto("Albufeira",new Ponto(0,0),torreAux);
-        Porto portoDestino = new Porto("Engine.Porto Faro", new Ponto(100.0, 100.0),torreAux);
+        Porto origem = new Porto("Albufeira", new Ponto(0, 0), torreAux);
+        Porto portoDestino = new Porto("Engine.Porto Faro", new Ponto(100.0, 100.0), torreAux);
 
-        navio = new Navio(areaNavio, 20.0, 1,origem,portoDestino,torreAux);
+        navio = new Navio(areaNavio, 20.0, 1, origem, portoDestino, torreAux);
     }
 
     @Test
@@ -84,7 +82,7 @@ class EstadoNavioTest {
         }
 
         @Override
-        public void atualizarPosicoes(Navio navio, Ponto posicao) {
+        public void atualizarPosicoes(Navio navio) {
         }
 
         @Override

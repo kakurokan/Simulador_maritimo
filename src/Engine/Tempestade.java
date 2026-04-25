@@ -3,10 +3,14 @@ package Engine;
 import java.util.List;
 
 public class Tempestade implements Obstaculo {
-    private Circulo area;
+    private final Circulo area;
 
     public Tempestade(Circulo area) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
+    }
+
+    public Circulo getArea() {
+        return area;
     }
 
     @Override

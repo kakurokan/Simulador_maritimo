@@ -1,11 +1,13 @@
 package Engine;
 
 public interface Movel {
-    public boolean intersect(Circulo circulo);
+    public boolean intersect(Movel objeto);
 
     public void mover(double delta);
 
     public Ponto getPosicao();
 
-    public abstract void atualizar(double delta);
+    public void atualizar(double delta);
+
+    public Circulo getArea();
 }

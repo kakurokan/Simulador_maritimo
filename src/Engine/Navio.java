@@ -9,9 +9,9 @@ public class Navio implements Comparable<Navio>, Movel {
     private final TorreDeControlo torre;
     private final double velocidadeLinear;
     private final Circulo area;
+    private final int horarioPartida;
     private EstadoNavio estado;
     private double tempoNavegando;
-    private int horarioPartida;
 
     public Navio(Circulo area, double velocidadeLinear, int horario, Porto origem, Porto destino, TorreDeControlo torre) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
@@ -25,9 +25,13 @@ public class Navio implements Comparable<Navio>, Movel {
         this.tempoNavegando = 0;
     }
 
-    @Override
-    public boolean intersect(Circulo circulo) {
+    private boolean intersect(Circulo circulo) {
         return this.area.intersect(circulo);
+    }
+
+    @Override
+    public boolean intersect(Movel objeto) {
+        return this.intersect(objeto.getArea());
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Navio implements Comparable<Navio>, Movel {
         if (novaPosicao != null) {
             this.area.setCentro(novaPosicao);
 
-            torre.atualizarPosicoes(this, novaPosicao);
+            torre.atualizarPosicoes(this);
 
             double tempoTotalViagem = this.navegante.tempoParaPercorrer(velocidadeLinear);
 
@@ -59,6 +63,11 @@ public class Navio implements Comparable<Navio>, Movel {
 
     public void atualizar(double delta) {
         estado.atualizar(this, delta);
+    }
+
+    @Override
+    public Circulo getArea() {
+        return this.area;
     }
 
     public void mudarEstado(EstadoNavio estado) {

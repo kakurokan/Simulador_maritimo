@@ -9,6 +9,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class RouteTest {
 
     @Test
+    void testeArrayIncompleto(){
+        double coordenadas[] = {2.5,3.0,2.0};
+        Exception exception =  assertThrows(IllegalArgumentException.class, () -> {
+            new Route(coordenadas);
+        });
+        assertEquals("Rota:iv",  exception.getMessage());
+    }
+
+    @Test
+    void testeArrayCompleto(){
+        double coordenadas[] = {2.5,3.0,2.0,4.0};
+        assertDoesNotThrow(() -> {
+            new Route(coordenadas);
+        });
+    }
+
+    @Test
     void comprimento() {
         List<Ponto> pontos = List.of(
                 new Ponto(0, 1),

@@ -113,5 +113,8 @@ class NavioTest {
     }
 
 
-
+    @Test
+    void getHorarioPartida() {
+        assertEquals(2,navio.getHorarioPartida());
+    }
 }

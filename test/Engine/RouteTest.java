@@ -1,0 +1,77 @@
+package Engine;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RouteTest {
+
+    @Test
+    void comprimento() {
+        List<Ponto> pontos = List.of(
+                new Ponto(0, 1),
+                new Ponto(1, 1),
+                new Ponto(4, 4),
+                new Ponto(4, 3)
+        );
+        assertEquals(6.24, new Route(pontos).Comprimento(), 0.01);
+
+        pontos = List.of(
+                new Ponto(4, 4),
+                new Ponto(6, 6),
+                new Ponto(7, 7)
+        );
+        assertEquals(4.24, new Route(pontos).Comprimento(), 0.01);
+
+        pontos = List.of(
+                new Ponto(4, 4),
+                new Ponto(4, 4),
+                new Ponto(6, 7)
+        );
+        assertEquals(3.61, new Route(pontos).Comprimento(), 0.01);
+    }
+
+    @Test
+    void equals() {
+        Ponto p1 = new Ponto(0, 0);
+        Ponto p2 = new Ponto(2, 4);
+        Ponto p3 = new Ponto(5, 1);
+
+        List<Ponto> pontos = List.of(p1, p2, p3);
+        Route rota = new Route(pontos);
+
+        Route rota1 = new Route(pontos);
+
+        assertEquals(rota, rota1);
+
+        pontos = List.of(p2, p1, p3);
+        rota1 = new Route(pontos);
+
+        assertNotEquals(rota, rota1);
+    }
+
+    @Test
+    void getSegmento() {
+        Ponto p1 = new Ponto(0, 0);
+        Ponto p2 = new Ponto(2, 4);
+        Ponto p3 = new Ponto(5, 1);
+
+        List<Ponto> pontos = List.of(p1, p2, p3);
+        Route rota = new Route(pontos);
+
+        List<SegmentoReta> result = rota.getSegmentos();
+
+        assertNotNull(result);
+
+        assertEquals(2, result.size());
+
+        assertEquals(p1, result.get(0).getA(), "A origem do primeiro segmento deve ser o Engine.Ponto 1.");
+        assertEquals(p2, result.get(0).getB(), "O destino do primeiro segmento deve ser o Engine.Ponto 2.");
+
+        assertEquals(p2, result.get(1).getA(), "A origem do segundo segmento deve ser o Engine.Ponto 2.");
+        assertEquals(p3, result.get(1).getB(), "O destino do segundo segmento deve ser o Engine.Ponto 3.");
+    }
+
+}

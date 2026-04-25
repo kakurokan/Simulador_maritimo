@@ -11,5 +11,13 @@ public class Grafo {
         if(rotas.isEmpty()) {
             throw new IllegalArgumentException("Grafo:iv");
         }
+        /* Implementação*/
+        if(grafo.isEmpty()) {
+            throw new IllegalArgumentException("Não existe nenhum segmento livre");
+        }
+    }
+
+    public Map<Ponto, Set<Ponto>> getGrafo() {
+        return grafo;
     }
 }

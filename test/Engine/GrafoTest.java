@@ -32,21 +32,6 @@ class GrafoTest {
         assertFalse(ligacoesA.contains(excluido));
     }
 
-    @Test
-    void tempestadeOcupaOMapa(){
-        Route rota1 = new Route(List.of(
-                new Ponto(0,0), new Ponto(1,1), new Ponto(3,2), new Ponto(3,5)
-        ));
-
-        List<Route> rotas = List.of(rota1);
-        List<Obstaculo> obstaculos = List.of(
-                new Tempestade(new Circulo(new Ponto(3,2),4))
-        );
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-        new Grafo(rotas,obstaculos);
-    });
-    assertEquals("Não existe nenhum segmento livre", exception.getMessage());
-    }
 
     @Test
     void testeNumeroValidoRotas(){

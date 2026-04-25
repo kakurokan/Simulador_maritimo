@@ -102,12 +102,4 @@ public class Circulo implements Obstaculo {
         return (this.centro.distanciaPara(circulo.centro)) <= Math.abs(this.raio + circulo.raio);
     }
 
-    public boolean contemRota(Route rota){
-        for (SegmentoReta seg: rota.getSegmentos()){
-            if (this.centro.distanciaPara(seg.getA()) > raio || this.centro.distanciaPara(seg.getB())> raio){
-                return false;
-            }
-        }
-        return true;
-    }
 }

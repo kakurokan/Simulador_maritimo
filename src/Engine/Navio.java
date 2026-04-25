@@ -3,19 +3,21 @@ package Engine;
 import java.util.List;
 
 public class Navio implements Comparable<Navio>, Movel {
-    private String codigoViagem;
-    private Porto destino;
-    private Navegante navegante;
+    private final String codigoViagem;
+    private final Porto destino;
+    private final Navegante navegante;
+    private final TorreDeControlo torre;
+    private final double velocidadeLinear;
+    private final Circulo area;
     private EstadoNavio estado;
-    private TorreDeControlo torre;
-    private double velocidadeLinear;
-    private Circulo area;
     private double tempoNavegando;
+    private int horarioPartida;
 
     public Navio(Circulo area, double velocidadeLinear, int horario, Porto origem, Porto destino, TorreDeControlo torre) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
         this.destino = destino;
         this.codigoViagem = horario + origem.getNome();
+        this.horarioPartida = horario;
         this.velocidadeLinear = velocidadeLinear;
         this.navegante = new Navegante();
         this.estado = new NavioNaOrigem();
@@ -82,5 +84,9 @@ public class Navio implements Comparable<Navio>, Movel {
 
     public Porto getDestino() {
         return this.destino;
+    }
+
+    public int getHorarioPartida() {
+        return this.horarioPartida;
     }
 }

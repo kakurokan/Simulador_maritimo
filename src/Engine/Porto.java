@@ -1,25 +1,26 @@
 package Engine;
 
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.PriorityQueue;
 
 public class Porto {
-    private String nome;
-    private HashMap<Integer, Navio> naviosEmEspera;
-    private TorreDeControlo torre;
-    private Ponto posicao;
+    private final String nome;
+    private PriorityQueue<Navio> naviosEmEspera;
+    private final TorreDeControlo torre;
+    private final Ponto posicao;
 
     public Porto(String nome, Ponto posicao, TorreDeControlo torre) {
         this.nome = nome;
         this.posicao = posicao;
-        this.naviosEmEspera = new HashMap<>();
+        this.naviosEmEspera = new PriorityQueue<>(Comparator.comparingInt(Navio::getHorarioPartida));
         this.torre = torre;
     }
 
     public Navio adicionarNavio(double velocidadeLinear, int horario, Porto destino) {
         Circulo area = new Circulo(this.getPosicao(), 5); //raio temporario
         Navio navio = new Navio(area, velocidadeLinear, horario, this, destino, torre);
-        this.naviosEmEspera.put(horario, navio);
+        this.naviosEmEspera.add(navio);
         return navio;
     }
 
@@ -36,22 +37,20 @@ public class Porto {
     }
 
     private class IteradorNaviosProntos implements Iterator<Navio> {
-        private double tempoAtual;
-        private int indexAtual;
+        private final double tempoAtual;
 
         public IteradorNaviosProntos(double tempo) {
             this.tempoAtual = tempo;
-            this.indexAtual = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return !naviosEmEspera.isEmpty() && navio   sEmEspera.peek().getHorarioPartida() <= tempoAtual;
         }
 
         @Override
         public Navio next() {
-            return null;
+            return naviosEmEspera.poll();
         }
 
 

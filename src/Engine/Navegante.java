@@ -95,20 +95,20 @@ public class Navegante {
      * <p>
      * A posição é determinada percorrendo os segmentos sequencialmente, calculando a
      * distância a percorrer em cada segmento até que o tempo informado seja atingido.
-     * Se o tempo transcorrido resultar em uma posição além do último segmento,
+     * Se o tempo transcorrido resultar numa posição além do último segmento,
      * a posição final será o ponto final do último segmento.
      *
-     * @param linearSpeed A velocidade linear constante em unidades de comprimento por unidade
-     *                    de tempo. Deve ser um valor positivo maior que zero.
-     * @param time        O tempo transcorrido pelo movimento ao longo dos segmentos.
-     *                    Deve ser um valor positivo maior ou igual a zero.
+     * @param velocidadeLinear A velocidade linear constante em unidades de comprimento por unidade
+     *                         de tempo. Deve ser um valor positivo maior que zero.
+     * @param tempo            O tempo transcorrido pelo movimento ao longo dos segmentos.
+     *                         Deve ser um valor positivo maior ou igual a zero.
      * @return A posição representada por um ponto 2D no sistema de coordenadas cartesianas
      * correspondente ao local alcançado após o movimento. Se os segmentos estiverem
      * vazios, retorna null.
-     * @pre time > 0 e linearSpeed > 0
+     * @pre tempo > 0 e velocidadeLinear > 0
      */
-    public Ponto posicao(double linearSpeed, double time) {
-        double percorrer = linearSpeed * time;
+    public Ponto posicao(double velocidadeLinear, double tempo) {
+        double percorrer = velocidadeLinear * tempo;
 
         for (SegmentoReta seg : segmentos) {
             Vetor r = new Vetor(seg.getA(), seg.getB());

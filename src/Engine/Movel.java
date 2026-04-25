@@ -3,7 +3,7 @@ package Engine;
 public interface Movel {
     public boolean intersect(Circulo circulo);
 
-    public void mover();
+    public void mover(double delta);
 
     public Ponto getPosicao();
 

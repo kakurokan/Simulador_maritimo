@@ -23,4 +23,8 @@ public class Simulador {
     public Tempestade criarTempestade() {
         return null;
     }
+
+    public List<Obstaculo> getObstaculo() {
+        return obstaculo;
+    }
 }

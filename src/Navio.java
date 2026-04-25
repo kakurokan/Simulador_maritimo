@@ -19,7 +19,7 @@ public class Navio implements Comparable<Navio>, Movel {
         this.estado = new NavioNaOrigem();
         this.torre = torre;
         this.tempoNavegando = 0;
-    }
+       }
 
     @Override
     public boolean intersect(Circulo circulo) {
@@ -63,5 +63,9 @@ public class Navio implements Comparable<Navio>, Movel {
 
     public EstadoNavio getEstado() {
         return this.estado;
+    }
+
+    public Porto getDestino(){
+        return this.destino;
     }
 }

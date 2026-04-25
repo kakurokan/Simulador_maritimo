@@ -110,4 +110,33 @@ class NaveganteTest {
         navegante = new Navegante(rota);
         assertEquals(5.295, navegante.tempoParaPercorrer(20.0), 0.01);
     }
+
+    @Test
+    void mudarRota() {
+        Route rotaInicial = new Route(
+          List.of(
+                  new Ponto(0,0), new Ponto(1,1), new Ponto(2,3)
+          )
+        );
+        Navegante navegante = new Navegante(rotaInicial);
+
+        Route rotaNova = new Route(List.of(
+           new Ponto (0,0), new Ponto(2,4), new Ponto(4,5)
+        ));
+
+        navegante.mudarRota(rotaNova);
+
+        assertEquals(rotaNova.getSegmentos(),navegante.getSegmentos());
+    }
+
+    @Test
+    void getSegmentos() {
+        Route rotaInicial = new Route(
+                List.of(
+                        new Ponto(0,0), new Ponto(1,1), new Ponto(2,3)
+                )
+        );
+        Navegante navegante = new Navegante(rotaInicial);
+        assertEquals(rotaInicial.getSegmentos(),navegante.getSegmentos());
+    }
 }

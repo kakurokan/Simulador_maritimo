@@ -86,4 +86,12 @@ class CirculoTest {
 
         Assertions.assertFalse(a.intersect(c));
     }
+
+    @Test
+    void setCentro() {
+        Circulo circulo = new Circulo(new Ponto(0, 0), 5);
+        Ponto novoCentro = new Ponto (5,5);
+        circulo.setCentro(novoCentro);
+        assertEquals(novoCentro, circulo.getCentro());
+    }
 }

@@ -34,7 +34,15 @@ public class Navio implements Comparable<Navio>, Movel {
 
         Ponto novaPosicao = navegante.posicao(this.velocidadeLinear, this.tempoNavegando);
         if (novaPosicao != null) {
+            this.area.setCentro(novaPosicao);
 
+            torre.atualizarPosicoes(this, novaPosicao);
+
+            double tempoTotalViagem = this.navegante.tempoParaPercorrer(velocidadeLinear);
+
+            if (this.tempoNavegando >= tempoTotalViagem) {
+                this.torre.navioTerminouPercurso(this);
+            }
         }
     }
 

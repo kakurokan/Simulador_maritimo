@@ -18,9 +18,10 @@ class EstadoNavioTest {
         Vetor direcao = new Vetor(1, 1);
 
         TorreDeControlo torreAux = new TorreDeControloSAux();
-        Porto portoDestino = new Porto("Engine.Porto Faro", new Ponto(100.0, 100.0), new ArrayList<>(), torreAux);
+        Porto origem = new Porto("Albufeira",new Ponto(0,0),torreAux);
+        Porto portoDestino = new Porto("Engine.Porto Faro", new Ponto(100.0, 100.0),torreAux);
 
-        navio = new Navio(areaNavio, 20.0, "NAV-001");
+        navio = new Navio(areaNavio, 20.0, 1,origem,portoDestino,torreAux);
     }
 
     @Test

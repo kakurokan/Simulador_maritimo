@@ -3,6 +3,7 @@ package Engine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,14 +12,19 @@ class NavioTest {
 
     private Porto origem, destino;
     private Navio navio, navioInterseta;
-    private TorreDeControloAux torre;
+    private TorreDeControlo torre;
 
     @BeforeEach
     void setUp() {
-        torre = new TorreDeControloAux();
+        Route melhorRotaEsperada = new Route(List.of(
+                new Ponto(0,0), new Ponto(1,1), new Ponto(3,2), new Ponto(3,5)
+        ));
+        List<Route> rotas = List.of(melhorRotaEsperada);
+        List<Obstaculo> obstaculos = new ArrayList<>();
+        torre = new GestorMaritimo(rotas,obstaculos);
         origem = new Porto("Porto de Lisboa", new Ponto(0, 0), torre);
         destino = new Porto("Porto de Faro", new Ponto(10, 10), torre);
-        navio = origem.adicionarNavio(20, 2, destino);
+        navio = origem.adicionarNavio(5, 2, destino);
         navioInterseta = new Navio(new Circulo(new Ponto(1, 1), 1), 20, 5, origem, destino, torre);
     }
 
@@ -29,6 +35,13 @@ class NavioTest {
 
     @Test
     void mover() {
+        double delta = 0.5;
+        torre.atualizarRota(navio);
+        navio.mover(delta);
+        Ponto posicaoAtual = navio.getPosicao();
+
+        assertEquals(1.971156914, posicaoAtual.getX(), Ponto.eps);
+        assertEquals(1.485578457, posicaoAtual.getY(), Ponto.eps);
 
     }
 
@@ -80,18 +93,6 @@ class NavioTest {
         assertEquals(destino, navio.getDestino());
     }
 
-    static class TorreDeControloAux implements TorreDeControlo {
-        public void atualizarRota(Navio navio) {
-        }
 
-        public void atualizarPosicoes(Navio navio, Ponto posicao) {
-        }
-
-        public void libertarNavio(Porto origem, Navio navio) {
-        }
-
-        public void navioTerminouPercurso(Navio navio) {
-        }
-    }
 
 }

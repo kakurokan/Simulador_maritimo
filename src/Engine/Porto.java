@@ -6,9 +6,9 @@ import java.util.PriorityQueue;
 
 public class Porto {
     private final String nome;
-    private PriorityQueue<Navio> naviosEmEspera;
     private final TorreDeControlo torre;
     private final Ponto posicao;
+    private PriorityQueue<Navio> naviosEmEspera;
 
     public Porto(String nome, Ponto posicao, TorreDeControlo torre) {
         this.nome = nome;
@@ -45,7 +45,7 @@ public class Porto {
 
         @Override
         public boolean hasNext() {
-            return !naviosEmEspera.isEmpty() && navio   sEmEspera.peek().getHorarioPartida() <= tempoAtual;
+            return !naviosEmEspera.isEmpty() && naviosEmEspera.peek().getHorarioPartida() <= tempoAtual;
         }
 
         @Override

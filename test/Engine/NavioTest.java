@@ -30,7 +30,7 @@ class NavioTest {
 
     @Test
     void intersect() {
-        assertTrue(navio.intersect(new Circulo(navioInterseta.getPosicao(), 1)));
+        assertTrue(navio.intersect(navioInterseta));
     }
 
     @Test
@@ -66,15 +66,15 @@ class NavioTest {
 
             @Override
             public void atualizar(Navio navio, double delta){
+                this.foiChamado = true;
                 this.navioRecebido = navio;
                 this.deltaRecebido = delta;
-                this.navioRecebido =navio;
             }
         }
 
         EstadoNavioTemp estado = new EstadoNavioTemp();
         navio.mudarEstado(estado);
-        navio.mover(5);
+        navio.atualizar(5);
 
         assertTrue(estado.foiChamado);
         assertEquals(navio,estado.navioRecebido);

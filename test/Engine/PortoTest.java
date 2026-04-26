@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
+
 import java.util.Iterator;
-import java.util.List;
 
 class PortoTest {
 
@@ -15,7 +14,7 @@ class PortoTest {
 
     static class TorreDeControloAux implements TorreDeControlo {
         public void atualizarRota(Navio navio) {}
-        public void atualizarPosicoes(Navio navio, Ponto posicao) {}
+        public void atualizarPosicoes(Navio navio) {}
         public void libertarNavio(Porto origem, Navio navio) {}
         public void navioTerminouPercurso(Navio navio) {}
     }

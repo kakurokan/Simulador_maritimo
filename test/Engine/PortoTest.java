@@ -19,44 +19,38 @@ class PortoTest {
     }
 
     @Test
-    void testNaviosProntos() {
-        TorreDeControlo torre = new TorreDeControloAux();
+    void naviosProntos_PortoSemNavios_RetornaIteradorVazio() {
         Iterator<Navio> it = portoOrigem.naviosProntos(10.0);
 
-        assertFalse(it.hasNext(), "O hasNext deve ser false na implementação atual.");
-
-        assertNull(it.next(), "O next deve retornar null de acordo com a implementação atual.");
+        assertFalse(it.hasNext(), "O hasNext deve ser false quando não há navios na fila.");
+        assertNull(it.next(), "O next deve retornar null quando a fila está vazia.");
     }
 
     @Test
-    void adicionarNavio() {
+    void adicionarNavio_ParametrosValidos_CriaERegistaNovoNavio() {
         Navio navio = portoOrigem.adicionarNavio(20, 10, portoDestino);
-        assertNotNull(navio);
+
+        assertNotNull(navio, "O método deve criar e retornar uma instância válida de Navio.");
     }
 
     @Test
-    void getPosicao() {
+    void getPosicao_PortoInstanciado_RetornaPosicaoCorreta() {
         Ponto posicaoEsperada = new Ponto(0, 0);
-        assertEquals(posicaoEsperada, portoOrigem.getPosicao());
+
+        assertEquals(posicaoEsperada, portoOrigem.getPosicao(), "O porto deve retornar a posição com que foi instanciado.");
     }
 
     @Test
-    void getNome() {
+    void getNome_PortoInstanciado_RetornaNomeCorreto() {
         String nomeEsperado = "Porto de Lisboa";
-        assertEquals(nomeEsperado, portoOrigem.getNome());
+
+        assertEquals(nomeEsperado, portoOrigem.getNome(), "O porto deve retornar o nome com que foi instanciado.");
     }
 
     static class TorreDeControloAux implements TorreDeControlo {
-        public void atualizarRota(Navio navio) {
-        }
-
-        public void atualizarPosicoes(Navio navio) {
-        }
-
-        public void libertarNavio(Porto origem, Navio navio) {
-        }
-
-        public void navioTerminouPercurso(Navio navio) {
-        }
+        public void atualizarRota(Navio navio) {}
+        public void atualizarPosicoes(Navio navio) {}
+        public void libertarNavio(Porto origem, Navio navio) {}
+        public void navioTerminouPercurso(Navio navio) {}
     }
 }

@@ -1,6 +1,7 @@
 package Engine;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.w3c.dom.css.CSSImportRule;
 
 import java.util.ArrayList;
@@ -60,6 +61,27 @@ class GrafoTest {
             new Grafo(rotas, obstaculos);
         });
         assertEquals("Grafo:iv", exception.getMessage());
+    }
+
+    @Test
+    void testeTodosOsSegmentosBloqueados(){
+        Route rota1 = new Route(List.of(
+                new Ponto(0,0), new Ponto(1,1), new Ponto(3,2), new Ponto(3,5)
+        ));
+
+        List<Route> rotas = List.of(rota1);
+        Triangulo triangulo = new Triangulo(
+          new Ponto[]{new Ponto(2,1), new Ponto(2,3), new Ponto(5,2)}
+        );
+        Triangulo triangulo1 = new Triangulo(
+          new Ponto[]{ new Ponto(1,0), new Ponto(0,1), new Ponto(2,2)}
+        );
+        List<Obstaculo> obstaculos = List.of(triangulo1,triangulo);
+
+        Exception exception =assertThrows(IllegalArgumentException.class, () -> {
+            new Grafo(rotas,obstaculos);
+        });
+        assertEquals("Não existe nenhum segmento livre", exception.getMessage());
     }
 
 }

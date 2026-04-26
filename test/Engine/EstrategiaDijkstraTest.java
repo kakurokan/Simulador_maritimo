@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EstrategiaDijkstraTest {
     @Test
@@ -70,5 +70,30 @@ class EstrategiaDijkstraTest {
 
         assertEquals(rotaEsperada, rotaRetornada,
                 "Sem obstáculos no mapa, o algoritmo deveria escolher o trajeto mais direto (rota 1).");
+    }
+
+    @Test
+    void construtor_GrafoNulo_Excecao(){
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new EstrategiaDijkstra(null);
+        });
+        assertEquals("EstrategiaDijkstra:iv", exception.getMessage());
+    }
+
+    void caminho_GrafoDesconexo(){
+        Route rota1 = new Route(List.of(
+                new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)
+        ));
+        Route rota2 = new Route(List.of(
+                new Ponto(6,6), new Ponto(7,7)
+        ));
+        List<Route> rotas = List.of(rota1, rota2);
+        List<Obstaculo> obstaculos = new ArrayList<>();
+        Grafo grafo = new Grafo(rotas,obstaculos);
+        Ponto origem = new Ponto(0, 0);
+        Ponto destino = new Ponto(7,7);
+        List<Navio> navios = new ArrayList<>();
+        EstrategiaDijkstra dijkstra= new EstrategiaDijkstra(grafo);
+        assertNull(dijkstra.caminhos(origem, destino, navios),"Não existe caminho possivel entre a origem e o destino porque o grafo não é conexo");
     }
 }

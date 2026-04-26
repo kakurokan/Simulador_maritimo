@@ -41,7 +41,7 @@ public class Grafo {
                 List.of(segmento.getA(), segmento.getB()));
         for (Obstaculo o : obstaculo) {
             List<Ponto> pontos = o.intersect(rota);
-            if (!pontos.isEmpty() ) {
+            if (pontos != null) {
                 return true;
             }
         }

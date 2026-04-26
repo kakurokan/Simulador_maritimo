@@ -14,7 +14,7 @@ import java.util.List;
  * @version 01/04/26
  */
 public class Navegante {
-    private List<SegmentoReta> segmentos;
+    private List<SegmentoReta> segmentos = new ArrayList<>();
 
     public Navegante() {
     }

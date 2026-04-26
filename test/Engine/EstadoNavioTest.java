@@ -3,6 +3,8 @@ package Engine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EstadoNavioTest {
@@ -60,15 +62,19 @@ class EstadoNavioTest {
 
     @Test
     void atualizar_NavioNavegando_AlteraPosicaoGeometrica() {
+        Route rota = new Route(List.of(new Ponto(0, 0), new Ponto(20, 20)));
+        navio.receberRota(rota);
+
         EstadoNavio navegando = new NavioNavegando();
         navio.mudarEstado(navegando);
 
         navegando.atualizar(navio, 1.0);
+
         Ponto posicaoAtual = navio.getPosicao();
 
         assertNotNull(posicaoAtual, "A posição não deveria ser nula após o movimento.");
-        assertEquals(20.0, posicaoAtual.getX(), 0.01, "A coordenada X deveria refletir o deslocamento da velocidade.");
-        assertEquals(20.0, posicaoAtual.getY(), 0.01, "A coordenada Y deveria refletir o deslocamento da velocidade.");
+        assertEquals(14.14, posicaoAtual.getX(), 0.01, "A coordenada X deveria refletir o deslocamento da velocidade.");
+        assertEquals(14.14, posicaoAtual.getY(), 0.01, "A coordenada Y deveria refletir o deslocamento da velocidade.");
     }
 
     static class TorreDeControloSAux implements TorreDeControlo {

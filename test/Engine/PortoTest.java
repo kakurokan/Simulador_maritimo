@@ -1,30 +1,23 @@
 package Engine;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class PortoTest {
 
-    private TorreDeControloAux torre;
-    private Porto portoOrigem,portoDestino;
-
-    static class TorreDeControloAux implements TorreDeControlo {
-        public void atualizarRota(Navio navio) {}
-        public void atualizarPosicoes(Navio navio) {}
-        public void libertarNavio(Porto origem, Navio navio) {}
-        public void navioTerminouPercurso(Navio navio) {}
-    }
+    private Porto portoOrigem, portoDestino;
 
     @BeforeEach
     void setUp() {
-        torre = new TorreDeControloAux();
+        TorreDeControloAux torre = new TorreDeControloAux();
         portoOrigem = new Porto("Porto de Lisboa", new Ponto(0, 0), torre);
         portoDestino = new Porto("Porto de Faro", new Ponto(10, 10), torre);
     }
+
     @Test
     void testNaviosProntos() {
         TorreDeControlo torre = new TorreDeControloAux();
@@ -37,19 +30,33 @@ class PortoTest {
 
     @Test
     void adicionarNavio() {
-        Navio navio= portoOrigem.adicionarNavio(20,10,portoDestino);
+        Navio navio = portoOrigem.adicionarNavio(20, 10, portoDestino);
         assertNotNull(navio);
     }
 
     @Test
     void getPosicao() {
-        Ponto posicaoEsperada = new Ponto(0,0);
-        assertEquals(posicaoEsperada,portoOrigem.getPosicao());
+        Ponto posicaoEsperada = new Ponto(0, 0);
+        assertEquals(posicaoEsperada, portoOrigem.getPosicao());
     }
 
     @Test
     void getNome() {
         String nomeEsperado = "Porto de Lisboa";
-        assertEquals(nomeEsperado,portoOrigem.getNome());
+        assertEquals(nomeEsperado, portoOrigem.getNome());
+    }
+
+    static class TorreDeControloAux implements TorreDeControlo {
+        public void atualizarRota(Navio navio) {
+        }
+
+        public void atualizarPosicoes(Navio navio) {
+        }
+
+        public void libertarNavio(Porto origem, Navio navio) {
+        }
+
+        public void navioTerminouPercurso(Navio navio) {
+        }
     }
 }

@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EstadoNavioTest {
     private Navio navio;
+    private EstadoNavio navegando;
+    private EstadoNavio naOrigem;
+    private EstadoNavio noDestino;
+    private EstadoNavio aguardando;
 
     @BeforeEach
     void setUp() {
@@ -20,12 +24,15 @@ class EstadoNavioTest {
         Porto portoDestino = new Porto("Porto Faro", new Ponto(100.0, 100.0), torreAux);
 
         navio = new Navio(areaNavio, 20.0, 1, origem, portoDestino, torreAux);
+
+        navegando = new NavioNavegando();
+        naOrigem = new NavioNaOrigem();
+        noDestino = new NavioNoDestino();
+        aguardando = new NavioAguardando();
     }
 
     @Test
     void atualizar_EstadoNaOrigem_NaoLancaExcecoes() {
-        EstadoNavio naOrigem = new NavioNaOrigem();
-
         assertDoesNotThrow(() -> navio.mudarEstado(naOrigem));
         assertDoesNotThrow(() -> naOrigem.atualizar(navio, 1.0));
         assertEquals(new Ponto(0, 0), navio.getPosicao());
@@ -34,8 +41,6 @@ class EstadoNavioTest {
 
     @Test
     void atualizar_EstadoAguardando_NaoLancaExcecoes() {
-        EstadoNavio aguardando = new NavioAguardando();
-
         assertDoesNotThrow(() -> navio.mudarEstado(aguardando));
         assertDoesNotThrow(() -> aguardando.atualizar(navio, 5.0));
         assertInstanceOf(EstadoNavio.class, aguardando);
@@ -43,8 +48,6 @@ class EstadoNavioTest {
 
     @Test
     void atualizar_EstadoNavegando_NaoLancaExcecoesEValidaInterface() {
-        EstadoNavio navegando = new NavioNavegando();
-
         assertDoesNotThrow(() -> navio.mudarEstado(navegando));
         assertDoesNotThrow(() -> navegando.atualizar(navio, 10.0));
 
@@ -53,9 +56,22 @@ class EstadoNavioTest {
     }
 
     @Test
-    void atualizar_EstadoNoDestino_NaoLancaExcecoes() {
-        EstadoNavio noDestino = new NavioNoDestino();
+    void atualizar_ComTempoNegativo_LancaIllegalArgumentException() {
+        navio.mudarEstado(navegando);
+        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
 
+        navio.mudarEstado(naOrigem);
+        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
+
+        navio.mudarEstado(noDestino);
+        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
+
+        navio.mudarEstado(aguardando);
+        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
+    }
+
+    @Test
+    void atualizar_EstadoNoDestino_NaoLancaExcecoes() {
         assertDoesNotThrow(() -> navio.mudarEstado(noDestino));
         assertDoesNotThrow(() -> noDestino.atualizar(navio, 2.0));
         assertInstanceOf(EstadoNavio.class, noDestino);

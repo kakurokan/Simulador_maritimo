@@ -78,9 +78,11 @@ public class Circulo implements Obstaculo {
         for (SegmentoReta segmentoRota : segmentosRota) {
             List<Ponto> pontosIntersecao = segmentoRota.intersect(this);
 
-            for (Ponto intersecao : pontosIntersecao) {
-                if (!intersecoes.contains(intersecao)) {
-                    intersecoes.add(intersecao);
+            if (pontosIntersecao != null) {
+                for (Ponto intersecao : pontosIntersecao) {
+                    if (!intersecoes.contains(intersecao)) {
+                        intersecoes.add(intersecao);
+                    }
                 }
             }
         }

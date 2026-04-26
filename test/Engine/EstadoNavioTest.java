@@ -21,13 +21,14 @@ class EstadoNavioTest {
 
         navio = new Navio(areaNavio, 20.0, 1, origem, portoDestino, torreAux);
     }
-    
+
     @Test
     void atualizar_EstadoNaOrigem_NaoLancaExcecoes() {
         EstadoNavio naOrigem = new NavioNaOrigem();
 
         assertDoesNotThrow(() -> navio.mudarEstado(naOrigem));
         assertDoesNotThrow(() -> naOrigem.atualizar(navio, 1.0));
+        assertEquals(new Ponto(0, 0), navio.getPosicao());
         assertInstanceOf(EstadoNavio.class, naOrigem);
     }
 

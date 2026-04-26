@@ -214,11 +214,12 @@ public class SegmentoReta implements Obstaculo {
         List<Ponto> intersecoes = new ArrayList<>();
 
         Vetor d = new Vetor(this.a, this.b);
-        Vetor f = new Vetor(circulo.getCentro(), this.a);
+        double fX = this.a.getX() - circulo.getCentro().getX();
+        double fY = this.a.getY() - circulo.getCentro().getY();
 
         double a = d.produtoInterno(d);
-        double b = 2 * f.produtoInterno(d);
-        double c = f.produtoInterno(f) - (circulo.getRaio() * circulo.getRaio());
+        double b = 2 * (fX * d.getX() + fY * d.getY());
+        double c = (fX * fX + fY * fY) - (circulo.getRaio() * circulo.getRaio());
 
         double discriminante = (b * b) - (4 * a * c);
 

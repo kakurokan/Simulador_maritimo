@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimuladorTest {
 
     private GestorMaritimo gestor;
-    private List<Navio> naviosSistema;
+    private List<Movel> naviosSistema;
     private Navio navio;
     private List<Route> rotas;
     private List<Obstaculo> obstaculos;

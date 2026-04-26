@@ -33,7 +33,6 @@ class GestorMaritimoTest {
         gestor = new GestorMaritimo(rotas, obstaculos);
 
         navio = origem.adicionarNavio(20, 10, destino);
-        Navio navio1 = destino.adicionarNavio(20, 15, origem);
         navio2 = origem.adicionarNavio(20, 20, destino);
         origem = new Porto("Albufeira", new Ponto(0, 0), gestor);
         destino = new Porto("Lisboa", new Ponto(3, 5), gestor);
@@ -46,7 +45,6 @@ class GestorMaritimoTest {
 
     @Test
     void atualizarRota() {
-
         gestor.atualizarRota(navio2);
 
         Route melhorRotaEsperada = new Route(List.of(
@@ -57,7 +55,6 @@ class GestorMaritimoTest {
 
     @Test
     void atualizarPosicoes() {
-
         Ponto posicaoFinal = new Ponto(3, 5);
         gestor.atualizarPosicoes(navio);
 

@@ -45,7 +45,18 @@ class SimuladorTest {
 
     @Test
     void atualizar() {
+        navio.mudarEstado(new NavioNavegando());
 
+        double x_inicial = navio.getPosicao().getX();
+        double y_inicial = navio.getPosicao().getY();
+
+        simulador.atualizar(1.0);
+
+        Ponto novaPosicao = navio.getPosicao();
+
+        assertNotNull(novaPosicao);
+        boolean moveu = (novaPosicao.getX() != x_inicial) || (novaPosicao.getY() != y_inicial);
+        assertTrue(moveu);
     }
 
     @Test

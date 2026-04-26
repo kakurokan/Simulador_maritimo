@@ -10,111 +10,134 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NavioTest {
 
-    private Porto origem, destino;
-    private Navio navio, navioInterseta;
+    private Porto origem;
+    private Porto destino;
+    private Navio navio;
     private TorreDeControlo torre;
 
     @BeforeEach
     void setUp() {
         Route melhorRotaEsperada = new Route(List.of(
-                new Ponto(0,0), new Ponto(1,1), new Ponto(3,2), new Ponto(3,5)
+                new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)
         ));
         List<Route> rotas = List.of(melhorRotaEsperada);
         List<Obstaculo> obstaculos = new ArrayList<>();
-        torre = new GestorMaritimo(rotas,obstaculos);
+
+        torre = new GestorMaritimo(rotas, obstaculos);
         origem = new Porto("Porto de Lisboa", new Ponto(0, 0), torre);
         destino = new Porto("Porto de Faro", new Ponto(10, 10), torre);
+
+        // Navio principal usado na maioria dos testes
         navio = origem.adicionarNavio(5, 2, destino);
-        navioInterseta = new Navio(new Circulo(new Ponto(1, 1), 1), 20, 5, origem, destino, torre);
     }
 
     @Test
-    void intersect() {
-        assertTrue(navio.intersect(navioInterseta));
+    void intersect_ComNavioNaMesmaArea_RetornaTrue() {
+        // Cria um navio numa posição que interseta o navio principal na origem
+        Navio navioInterseta = new Navio(new Circulo(new Ponto(1, 1), 1), 20, 5, origem, destino, torre);
+
+        assertTrue(navio.intersect(navioInterseta), "Os navios deveriam intersetar-se devido à proximidade das suas áreas.");
     }
 
     @Test
-    void mover() {
+    void intersect_ComNavioDistante_RetornaFalse() {
+        // Cria um navio muito longe
+        Navio navioDistante = new Navio(new Circulo(new Ponto(100, 100), 1), 20, 5, origem, destino, torre);
+
+        assertFalse(navio.intersect(navioDistante), "Os navios não deveriam intersetar-se pois estão longe um do outro.");
+    }
+
+    @Test
+    void mover_ComDeltaPositivo_AtualizaPosicao() {
         double delta = 0.5;
         torre.atualizarRota(navio);
-        Ponto posicaoInicial =navio.getPosicao();
+        Ponto posicaoInicial = navio.getPosicao();
 
         navio.mover(delta);
         Ponto posicaoAtual = navio.getPosicao();
 
-        assertNotEquals(posicaoInicial, posicaoAtual);
+        assertNotEquals(posicaoInicial, posicaoAtual, "O navio deveria ter saído da posição inicial após invocar mover().");
     }
 
-    @Test
-    void getPosicao() {
-        Ponto posicaoEsperada = new Ponto(1, 1);
-        assertEquals(posicaoEsperada, navioInterseta.getPosicao());
-    }
 
     @Test
-    void getCodigoViagem() {
-        String codigoEsperado = "Porto de Lisboa2";
-        assertEquals(codigoEsperado, navio.getCodigoViagem());
-    }
-
-    @Test
-    void atualizar() {
-        class EstadoNavioTemp implements EstadoNavio{
+    void atualizar_DelegaAoEstadoAtual() {
+        // Criamos um estado falso (Mock) para ver se o navio o chama corretamente
+        class EstadoNavioTemp implements EstadoNavio {
             boolean foiChamado = false;
-            double deltaRecebido =0;
+            double deltaRecebido = 0;
             Navio navioRecebido = null;
 
             @Override
-            public void atualizar(Navio navio, double delta){
+            public void atualizar(Navio n, double d) {
                 this.foiChamado = true;
-                this.navioRecebido = navio;
-                this.deltaRecebido = delta;
+                this.navioRecebido = n;
+                this.deltaRecebido = d;
             }
         }
+        EstadoNavioTemp estadoMock = new EstadoNavioTemp();
+        navio.mudarEstado(estadoMock);
 
-        EstadoNavioTemp estado = new EstadoNavioTemp();
-        navio.mudarEstado(estado);
         navio.atualizar(5);
 
-        assertTrue(estado.foiChamado);
-        assertEquals(navio,estado.navioRecebido);
-        assertEquals(5,estado.deltaRecebido);
+        assertTrue(estadoMock.foiChamado, "O método atualizar do estado não foi invocado.");
+        assertEquals(navio, estadoMock.navioRecebido, "A referência do navio passada ao estado está incorreta.");
+        assertEquals(5.0, estadoMock.deltaRecebido, "O delta de tempo passado ao estado está incorreto.");
     }
 
     @Test
-    void mudarEstado() {
-        EstadoNavio estado = new NavioNoDestino();
-        navio.mudarEstado(estado);
-        assertInstanceOf(NavioNoDestino.class, navio.getEstado());
+    void mudarEstado_NovoEstadoDefinido_AlteraOEstadoDoNavio() {
+        EstadoNavio novoEstado = new NavioNoDestino();
+
+        navio.mudarEstado(novoEstado);
+
+        assertInstanceOf(NavioNoDestino.class, navio.getEstado(), "O estado do navio não foi atualizado corretamente.");
     }
 
     @Test
-    void receberRota() {
-        Route rota1 = new Route(List.of(
+    void receberRota_RotaValida_AtualizaSegmentosDaRotaDoNavio() {
+        Route novaRota = new Route(List.of(
                 new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)
         ));
-        navio.receberRota(rota1);
-        assertEquals(rota1.getSegmentos(), navio.getSegmentosRota());
+
+        navio.receberRota(novaRota);
+
+        assertEquals(novaRota.getSegmentos(), navio.getSegmentosRota(), "Os segmentos de rota do navio deveriam coincidir com a nova rota fornecida.");
     }
 
     @Test
-    void compareTo() {
-        assertTrue(navio.compareTo(navioInterseta) < 0);
+    void compareTo_ComparaPorCodigoDeViagem_RetornaValorCorreto() {
+        Navio navioComCodigoMaior = new Navio(new Circulo(new Ponto(1, 1), 1), 20, 5, origem, destino, torre);
+
+        assertTrue(navio.compareTo(navioComCodigoMaior) < 0, "A comparação deveria ser feita através da ordem lexicográfica do código de viagem.");
     }
 
     @Test
-    void getEstado() {
-        assertInstanceOf(NavioNaOrigem.class, navio.getEstado());
+    void getCodigoViagem_InstanciadoViaPorto_RetornaNomeDoPortoEHorario() {
+        assertEquals("Porto de Lisboa2", navio.getCodigoViagem());
     }
 
     @Test
-    void getDestino() {
+    void getEstado_NavioRecemCriado_RetornaNavioNaOrigem() {
+        assertInstanceOf(NavioNaOrigem.class, navio.getEstado(), "Um navio recém-criado deve ter o estado NavioNaOrigem.");
+    }
+
+    @Test
+    void getDestino_RetornaPortoDeDestinoCorreto() {
         assertEquals(destino, navio.getDestino());
     }
 
+    @Test
+    void getHorarioPartida_RetornaHorarioAtribuido() {
+        assertEquals(2, navio.getHorarioPartida());
+    }
 
     @Test
-    void getHorarioPartida() {
-        assertEquals(2,navio.getHorarioPartida());
+    void getArea_RetornaCirculoComRaioEPosicaoCorretos() {
+        Circulo areaRetornada = navio.getArea();
+
+        assertEquals(5.0, areaRetornada.getRaio(), "O raio da área gerado pelo Porto deveria ser 5.");
+        assertEquals(navio.getPosicao(), areaRetornada.getCentro(), "O centro da área deve ser idêntico à posição do navio.");
     }
+
 }

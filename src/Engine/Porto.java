@@ -8,7 +8,7 @@ public class Porto {
     private final String nome;
     private final TorreDeControlo torre;
     private final Ponto posicao;
-    private PriorityQueue<Navio> naviosEmEspera;
+    private final PriorityQueue<Navio> naviosEmEspera;
 
     public Porto(String nome, Ponto posicao, TorreDeControlo torre) {
         this.nome = nome;

@@ -13,7 +13,6 @@ class EstadoNavioTest {
     void setUp() {
         Ponto centro = new Ponto(0, 0);
         Circulo areaNavio = new Circulo(centro, 10.0);
-        Vetor direcao = new Vetor(1, 1);
 
         TorreDeControlo torreAux = new TorreDeControloSAux();
         Porto origem = new Porto("Albufeira", new Ponto(0, 0), torreAux);

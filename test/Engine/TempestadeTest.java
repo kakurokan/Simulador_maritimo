@@ -6,12 +6,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TempestadeTest {
-
     @Test
-    void intersect() {
+    void intersect_RotaCruzaTempestade_RetornaPontosDeIntersecao() {
         Route rota = new Route(List.of(
                 new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)
         ));
@@ -21,7 +20,20 @@ class TempestadeTest {
                 new Ponto(1.211, 1.105), new Ponto(3, 4)
         );
 
-        assertEquals(pontosEsperados, tempestade.intersect(rota));
+        List<Ponto> resultado = tempestade.intersect(rota);
+
+        assertNotNull(resultado, "A interseção deveria retornar uma lista válida de pontos.");
+        assertEquals(pontosEsperados, resultado, "Os pontos de interseção calculados não correspondem ao esperado.");
+    }
+
+    @Test
+    void intersect_RotaLongeDaTempestade_RetornaNull() {
+        Route rota = new Route(List.of(
+                new Ponto(0, 0), new Ponto(1, 1)
+        ));
+        Tempestade tempestade = new Tempestade(new Circulo(new Ponto(10, 10), 2));
+
+        assertNull(tempestade.intersect(rota), "Uma rota que passa longe da tempestade deveria retornar null (ou lista vazia, dependendo da implementação).");
     }
 
     @ParameterizedTest
@@ -37,7 +49,8 @@ class TempestadeTest {
 
         Circulo areaRetornada = tempestade.getArea();
 
-        assertEquals(areaOriginal.getCentro(), areaRetornada.getCentro());
-        assertEquals(areaOriginal.getRaio(), areaRetornada.getRaio());
+        assertNotNull(areaRetornada, "A área retornada pela tempestade não pode ser nula.");
+        assertEquals(areaOriginal.getCentro(), areaRetornada.getCentro(), "O centro da área da tempestade foi alterado.");
+        assertEquals(areaOriginal.getRaio(), areaRetornada.getRaio(), "O raio da área da tempestade foi alterado.");
     }
 }

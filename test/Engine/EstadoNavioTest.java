@@ -1,7 +1,6 @@
 package Engine;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,13 +15,13 @@ class EstadoNavioTest {
 
         TorreDeControlo torreAux = new TorreDeControloSAux();
         Porto origem = new Porto("Albufeira", new Ponto(0, 0), torreAux);
-        Porto portoDestino = new Porto("Engine.Porto Faro", new Ponto(100.0, 100.0), torreAux);
+        Porto portoDestino = new Porto("Porto Faro", new Ponto(100.0, 100.0), torreAux);
 
         navio = new Navio(areaNavio, 20.0, 1, origem, portoDestino, torreAux);
     }
-
+    
     @Test
-    void testNavioNaOrigem() {
+    void atualizar_EstadoNaOrigem_NaoLancaExcecoes() {
         EstadoNavio naOrigem = new NavioNaOrigem();
 
         assertDoesNotThrow(() -> navio.mudarEstado(naOrigem));
@@ -31,7 +30,7 @@ class EstadoNavioTest {
     }
 
     @Test
-    void testNavioAguardando() {
+    void atualizar_EstadoAguardando_NaoLancaExcecoes() {
         EstadoNavio aguardando = new NavioAguardando();
 
         assertDoesNotThrow(() -> navio.mudarEstado(aguardando));
@@ -40,18 +39,18 @@ class EstadoNavioTest {
     }
 
     @Test
-    void testNavioNavegando() {
+    void atualizar_EstadoNavegando_NaoLancaExcecoesEValidaInterface() {
         EstadoNavio navegando = new NavioNavegando();
 
         assertDoesNotThrow(() -> navio.mudarEstado(navegando));
         assertDoesNotThrow(() -> navegando.atualizar(navio, 10.0));
-        assertInstanceOf(EstadoNavio.class, navegando);
 
-        assertInstanceOf(Movel.class, navio, "O navio deve ser Engine.Movel para poder navegar.");
+        assertInstanceOf(EstadoNavio.class, navegando);
+        assertInstanceOf(Movel.class, navio, "O navio deve implementar a interface Movel para permitir a navegação.");
     }
 
     @Test
-    void testNavioNoDestino() {
+    void atualizar_EstadoNoDestino_NaoLancaExcecoes() {
         EstadoNavio noDestino = new NavioNoDestino();
 
         assertDoesNotThrow(() -> navio.mudarEstado(noDestino));
@@ -60,19 +59,16 @@ class EstadoNavioTest {
     }
 
     @Test
-    @Disabled
-    void testNavioMovePraNovaPosicao() {
+    void atualizar_NavioNavegando_AlteraPosicaoGeometrica() {
         EstadoNavio navegando = new NavioNavegando();
         navio.mudarEstado(navegando);
 
         navegando.atualizar(navio, 1.0);
-
         Ponto posicaoAtual = navio.getPosicao();
 
-        assertNotNull(posicaoAtual, "A posição não deveria ser nula. O navio deve ter um centro.");
-
-        assertEquals(20.0, posicaoAtual.getX(), 0.01, "A coordenada X do navio deveria ser 20.0.");
-        assertEquals(20.0, posicaoAtual.getY(), 0.01, "A coordenada Y do navio deveria ser 20.0.");
+        assertNotNull(posicaoAtual, "A posição não deveria ser nula após o movimento.");
+        assertEquals(20.0, posicaoAtual.getX(), 0.01, "A coordenada X deveria refletir o deslocamento da velocidade.");
+        assertEquals(20.0, posicaoAtual.getY(), 0.01, "A coordenada Y deveria refletir o deslocamento da velocidade.");
     }
 
     static class TorreDeControloSAux implements TorreDeControlo {
@@ -90,7 +86,6 @@ class EstadoNavioTest {
 
         @Override
         public void navioTerminouPercurso(Navio navio) {
-
         }
     }
 }

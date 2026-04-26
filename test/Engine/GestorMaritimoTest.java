@@ -11,12 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GestorMaritimoTest {
 
     private GestorMaritimo gestor;
-    private List<Navio> naviosSistema;
     private Navio navio;
-    private Navio navio1;
     private Navio navio2;
-    private List<Route> rotas;
-    private List<Obstaculo> obstaculos;
     private Porto origem, destino;
 
     @BeforeEach
@@ -30,24 +26,20 @@ class GestorMaritimoTest {
                 new Ponto(2, 3), new Ponto(0, 4), new Ponto(3, 5)
         ));
 
-        rotas = new ArrayList<>(List.of(rota1, rota2));
-        obstaculos = new ArrayList<>();
+        List<Route> rotas = new ArrayList<>(List.of(rota1, rota2));
+        List<Obstaculo> obstaculos = new ArrayList<>();
 
 
         gestor = new GestorMaritimo(rotas, obstaculos);
 
         navio = origem.adicionarNavio(20, 10, destino);
-        navio1 = destino.adicionarNavio(20, 15, origem);
+        Navio navio1 = destino.adicionarNavio(20, 15, origem);
         navio2 = origem.adicionarNavio(20, 20, destino);
         origem = new Porto("Albufeira", new Ponto(0, 0), gestor);
         destino = new Porto("Lisboa", new Ponto(3, 5), gestor);
 
         navio = origem.adicionarNavio(20, 10, destino);
-        navio1 = destino.adicionarNavio(20, 15, origem);
         navio2 = origem.adicionarNavio(20, 12, destino);
-
-        naviosSistema = new ArrayList<>(List.of(navio, navio1, navio2));
-
 
         gestor = new GestorMaritimo(rotas, obstaculos);
     }

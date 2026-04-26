@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PoligonoTest {
 
     @Test
-    void test_ArrayVazio() {
+    void construtor_ArrayVazio_LancaIllegalArgumentException() {
         Ponto[] vazio = {};
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -20,7 +20,7 @@ class PoligonoTest {
     }
 
     @Test
-    void test_um_Ponto() {
+    void construtor_UmPonto_LancaIllegalArgumentException() {
         Ponto[] umPonto = {new Ponto(5, 5)};
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -31,7 +31,7 @@ class PoligonoTest {
     }
 
     @Test
-    void test_dois_Pontos() {
+    void construtor_DoisPontos_LancaIllegalArgumentException() {
         Ponto[] doisPontos = {
                 new Ponto(0, 0),
                 new Ponto(1, 1)
@@ -45,7 +45,7 @@ class PoligonoTest {
     }
 
     @Test
-    void test_Tres_Pontos() {
+    void construtor_TresPontosValidos_NaoLancaExcecao() {
         Ponto[] tresPontos = {
                 new Ponto(0, 0),
                 new Ponto(1, 0),
@@ -56,7 +56,7 @@ class PoligonoTest {
     }
 
     @Test
-    void intersectRota() {
+    void intersectRota_RotaCruzaQuadrado_RetornaPontosDeIntersecao() {
         Route rota = new Route(List.of(
                 new Ponto(0, 0),
                 new Ponto(2, 2),
@@ -72,9 +72,13 @@ class PoligonoTest {
                 new Ponto(1, 1),
                 new Ponto(2, 3)
         );
-        assertEquals(objetivo, quadrado.intersect(rota));
 
-        rota = new Route(List.of(
+        assertEquals(objetivo, quadrado.intersect(rota));
+    }
+
+    @Test
+    void intersectRota_RotaCruzaTriangulo_RetornaPontosDeIntersecao() {
+        Route rota = new Route(List.of(
                 new Ponto(0, 2),
                 new Ponto(3, 2),
                 new Ponto(5, 0)
@@ -84,21 +88,26 @@ class PoligonoTest {
                 new Ponto(3, 3),
                 new Ponto(5, 1),
         });
-        objetivo = List.of(
+        List<Ponto> objetivo = List.of(
                 new Ponto(2, 2),
                 new Ponto(4, 1)
         );
-        assertEquals(objetivo, triangulo.intersect(rota));
 
-        rota = new Route(List.of(
+        assertEquals(objetivo, triangulo.intersect(rota));
+    }
+
+    @Test
+    void intersectRota_RotaForaDoTriangulo_RetornaNull() {
+        Route rota = new Route(List.of(
                 new Ponto(0, 0),
                 new Ponto(1, 1)
         ));
-        triangulo = new Triangulo(new Ponto[]{
+        Triangulo triangulo = new Triangulo(new Ponto[]{
                 new Ponto(5, 5),
                 new Ponto(10, 5),
                 new Ponto(7, 10)
         });
+
         assertNull(triangulo.intersect(rota));
     }
 }

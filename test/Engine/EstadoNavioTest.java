@@ -56,21 +56,6 @@ class EstadoNavioTest {
     }
 
     @Test
-    void atualizar_ComTempoNegativo_LancaIllegalArgumentException() {
-        navio.mudarEstado(navegando);
-        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
-
-        navio.mudarEstado(naOrigem);
-        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
-
-        navio.mudarEstado(noDestino);
-        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
-
-        navio.mudarEstado(aguardando);
-        assertThrows(IllegalArgumentException.class, () -> navegando.atualizar(navio, -1));
-    }
-
-    @Test
     void atualizar_EstadoNoDestino_NaoLancaExcecoes() {
         assertDoesNotThrow(() -> navio.mudarEstado(noDestino));
         assertDoesNotThrow(() -> noDestino.atualizar(navio, 2.0));

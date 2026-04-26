@@ -59,10 +59,14 @@ class NavioTest {
         assertNotEquals(posicaoInicial, posicaoAtual, "O navio deveria ter saído da posição inicial após invocar mover().");
     }
 
+    @Test
+    void atualizar_ComTempoNegativo_LancaIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> navio.atualizar(-1));
+    }
 
     @Test
     void atualizar_DelegaAoEstadoAtual() {
-        // Criamos um estado falso (Mock) para ver se o navio o chama corretamente
+        // Criamos um estado falso para ver se o navio o chama corretamente
         class EstadoNavioTemp implements EstadoNavio {
             boolean foiChamado = false;
             double deltaRecebido = 0;

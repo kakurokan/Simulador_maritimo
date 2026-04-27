@@ -1,39 +1,78 @@
 package Engine;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class EstrategiaDijkstra implements EstrategiaRota {
+    private final Grafo grafo;
     EstrategiaDijkstra(Grafo grafo) {
+        this.grafo = grafo;
     }
 
     private boolean caminhoLivre(SegmentoReta segmento, List<Navio> navios) {
-        return false;
+        return true;
     }
 
     private Route inverteCaminho(Map<Ponto, Ponto> caminhoInverso, Ponto destino) {
-        return null;
+        LinkedList<Ponto> caminhoCerto = new LinkedList<>();
+        Ponto passo = destino;
+
+        if (caminhoInverso.get(passo) == null) return null;
+
+        while (passo !=null){
+            caminhoCerto.addFirst(passo);
+            passo=caminhoInverso.get(passo);
+        }
+        List<Ponto> pontosRota = new ArrayList<>(caminhoCerto);
+        return new Route(pontosRota);
     }
 
     @Override
     public Route caminhos(Ponto origem, Ponto destino, List<Navio> navios) {
-        return null;
+
+        TreeMap<Ponto, Double> distancias =  new TreeMap<>(Grafo.comparador);
+
+        TreeMap<Ponto, Ponto> caminhoInverso = new TreeMap<>(Grafo.comparador);
+
+        PriorityQueue<No> pq = new PriorityQueue<>();
+
+        for (Ponto p: grafo.getGrafo().keySet()) {
+            distancias.put(p,Double.MAX_VALUE);
+        }
+        distancias.put(origem,0.0);
+        pq.add(new No(origem,0.0));
+        while (!pq.isEmpty()) {
+            No n = pq.poll();
+            Ponto pontoN = n.ponto;
+            Double distanciaN = n.distanciaAcumulada;
+            for (Ponto p: grafo.getGrafo().get(pontoN)) {
+                double distanciaParaP = pontoN.distanciaPara(p);
+                if (!caminhoLivre(new SegmentoReta(pontoN,p),navios)) continue;
+                double distanciaAcumuladaParaP =  distanciaN + distanciaParaP;
+                if (distanciaAcumuladaParaP < distancias.get(p)) {
+                    distancias.put(p,distanciaAcumuladaParaP);
+                    caminhoInverso.put(p,pontoN);
+                    pq.offer(new No(p,distanciaAcumuladaParaP));
+                }
+            }
+        }
+        return inverteCaminho(caminhoInverso,destino);
     }
 
-    private class No {
+    private class No implements  Comparable<No> {
         private Ponto ponto;
         private double distanciaAcumulada;
 
         No(Ponto ponto, double distanciaAcumulada) {
+            this.ponto= ponto;
+            this.distanciaAcumulada=distanciaAcumulada;
         }
 
-        public Ponto getPonto() {
-            return null;
-        }
 
-        public double getDistanciaAcumulada() {
-            return distanciaAcumulada;
+        @Override
+        public int compareTo(No n){
+            return Double.compare(this.distanciaAcumulada, n.distanciaAcumulada);
         }
     }
+
 }

@@ -80,6 +80,7 @@ class EstrategiaDijkstraTest {
         assertEquals("EstrategiaDijkstra:iv", exception.getMessage());
     }
 
+    @Test
     void caminho_GrafoDesconexo(){
         Route rota1 = new Route(List.of(
                 new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)

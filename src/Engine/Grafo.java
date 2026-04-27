@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Grafo {
     private final Map<Ponto, Set<Ponto>> grafo;
-    private final Comparator<Ponto> comparador;
+    static Comparator<Ponto> comparador;
 
     public Grafo(List<Route> rotas, List<Obstaculo> obstaculo) {
         if(rotas.isEmpty()) {

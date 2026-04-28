@@ -37,6 +37,7 @@ public class Navio implements Comparable<Navio>, Movel {
 
     @Override
     public void mover(double delta) {
+        //Incrementa o tempo apenas quando o navio se move.
         tempoNavegando += delta;
 
         Ponto novaPosicao = navegante.posicao(this.velocidadeLinear, this.tempoNavegando);
@@ -73,6 +74,11 @@ public class Navio implements Comparable<Navio>, Movel {
     @Override
     public Circulo getArea() {
         return this.area;
+    }
+
+    @Override
+    public Vetor getDirecao() {
+        return null;
     }
 
     public void mudarEstado(EstadoNavio estado) {

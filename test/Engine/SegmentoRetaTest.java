@@ -66,7 +66,7 @@ class SegmentoRetaTest {
     void comprimento_CalculaDistanciaEntrePontos_RetornaValorCorreto() {
         SegmentoReta sr = new SegmentoReta(new Ponto(0, 0), new Ponto(3, 4));
 
-        double resultado = sr.Comprimento();
+        double resultado = sr.comprimento();
 
         assertEquals(5.0, resultado, Ponto.eps, "O comprimento do segmento deve ser calculado usando o Teorema de Pitágoras.");
     }

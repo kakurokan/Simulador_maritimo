@@ -10,4 +10,6 @@ public interface Movel {
     public void atualizar(double delta);
 
     public Circulo getArea();
+
+    public Vetor getDirecao();
 }

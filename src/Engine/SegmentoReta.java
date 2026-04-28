@@ -153,7 +153,7 @@ public class SegmentoReta implements Obstaculo {
         double numerador = (k).produtoVetorial(r);
         double denominador = r.produtoVetorial(s);
 
-        //Neste caso, os segmentos de reta sao colineares
+        //Neste caso, os segmentos de reta são colineares
         if (Math.abs(numerador) < Ponto.eps && Math.abs(denominador) < Ponto.eps) {
             if (this.noSegmento(seg.a))
                 return seg.a;
@@ -255,7 +255,7 @@ public class SegmentoReta implements Obstaculo {
      *
      * @return O comprimento do segmento de reta, correspondente à distância entre os dois pontos extremos.
      */
-    public double Comprimento() {
+    public double comprimento() {
         return this.a.distanciaPara(this.b);
     }
 
@@ -269,7 +269,7 @@ public class SegmentoReta implements Obstaculo {
      * @pre seg != null
      */
     public boolean comprimentoDiferente(SegmentoReta seg) {
-        return !(Math.abs(this.Comprimento() - seg.Comprimento()) < Ponto.eps);
+        return !(Math.abs(this.comprimento() - seg.comprimento()) < Ponto.eps);
     }
 
     /**

@@ -1,18 +1,25 @@
 package GUI;
 
-import Engine.Simulador;
+import Engine.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.Map;
 
 public class JanelaPrincipal extends JFrame {
     private Timer timer;
     private PainelMapa painel;
     private Simulador simulador;
 
-    public JanelaPrincipal(Simulador simulador) {
+    public JanelaPrincipal(Simulador simulador,
+                           List<Route> rotas,
+                           List<Poligono> obstaculos,
+                           List<Tempestade> tempestades,
+                           Map<String, Ponto> posicoesPortos) {
+
         this.simulador = simulador;
-        this.painel = new PainelMapa();
+        this.painel = new PainelMapa(rotas, tempestades, obstaculos, posicoesPortos);
 
         setTitle("Simulador marítimo");
         setSize(1000, 700);

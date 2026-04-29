@@ -92,11 +92,39 @@ public class PainelMapa extends JPanel {
         int origemX = telaX(0);
         int origemY = telaY(0);
 
+        //Eixo x
         g.drawLine(origemX, origemY, origemX, 20);
         g.drawString("Y", origemX - 15, 20);
 
+        //Eixo y
         g.drawLine(origemX, origemY, getWidth() - 20, origemY);
         g.drawString("X", getWidth() - 20, origemY + 15);
+
+        //Traços dos eixos
+        g.setStroke(new BasicStroke(1));
+        g.setFont(new Font("Arial", Font.PLAIN, 10));
+
+        int maxX = (getWidth() - offsetX) / escala;
+        int maxY = (getHeight() - offsetY) / escala;
+
+        for (int i = 1; i <= maxX; i++) {
+            int posX = telaX(i);
+            // Desenha um pequeno traço vertical cruzando o eixo
+            g.drawLine(posX, origemY - 4, posX, origemY + 4);
+            // Escreve o número
+            g.drawString(String.valueOf(i), posX - 3, origemY + 18);
+        }
+
+        for (int i = 1; i <= maxY; i++) {
+            int posY = telaY(i);
+            // Desenha um pequeno traço horizontal cruzando o eixo
+            g.drawLine(origemX - 4, posY, origemX + 4, posY);
+            // Escreve o número
+            g.drawString(String.valueOf(i), origemX - 18, posY + 4);
+        }
+
+        // Coloca o 0 na origem
+        g.drawString("0", origemX - 12, origemY + 14);
     }
 
     private void desenharTempestades(Graphics2D g) {

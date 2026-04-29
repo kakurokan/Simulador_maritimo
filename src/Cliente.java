@@ -32,11 +32,11 @@ public class Cliente {
         Triangulo ilhaBege = new Triangulo(new Ponto[]{
                 new Ponto(5, 5), new Ponto(7, 8), new Ponto(9, 5)
         });
-        List<Poligono> obstaculosEstaticos = Arrays.asList(ilhaBege);
+        List<Poligono> obstaculosEstaticos = List.of(ilhaBege);
 
         // 5. TEMPESTADES (Zonas azuis)
         Tempestade tempestadeSul = new Tempestade(new Circulo(new Ponto(10, 2), 1.5));
-        List<Tempestade> tempestades = Arrays.asList(tempestadeSul);
+        List<Tempestade> tempestades = List.of(tempestadeSul);
 
         // 6. MOTOR DO JOGO (Juntar os obstáculos todos para a física funcionar)
         List<Obstaculo> todosObstaculos = new ArrayList<>();

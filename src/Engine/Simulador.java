@@ -74,13 +74,16 @@ public class Simulador {
             filaPorPorto.put(porto.getNome(), porto.getNaviosEmEspera());
         }
 
-        List<Ponto> posicoesNavios = new ArrayList<>();
         List<Navio> navios = gestorMaritimo.getNavios();
+        List<SnapshotSimulacao.DadosNavio> dadosNavios = new ArrayList<>();
 
         for (Navio navio : navios) {
-            posicoesNavios.add(navio.getPosicao());
+            dadosNavios.add(new SnapshotSimulacao.DadosNavio(
+                    navio.getPosicao(),
+                    navio.getDirecao()
+            ));
         }
 
-        return new SnapshotSimulacao(filaPorPorto, posicoesNavios);
+        return new SnapshotSimulacao(filaPorPorto, dadosNavios);
     }
 }

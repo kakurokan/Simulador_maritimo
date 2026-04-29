@@ -6,19 +6,23 @@ import java.util.Map;
 public class SnapshotSimulacao {
 
     private final Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto;
-    private final List<Ponto> posicoesNavios;
+    private final List<DadosNavio> dadosNavios;
 
-    public SnapshotSimulacao(Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto, List<Ponto> posicoesNavios) {
+    public SnapshotSimulacao(Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto, List<DadosNavio> dadosNavios) {
         this.naviosEmEsperaPorPorto = Map.copyOf(naviosEmEsperaPorPorto);
-        this.posicoesNavios = List.copyOf(posicoesNavios);
+        this.dadosNavios = dadosNavios;
     }
 
     public Map<String, List<NavioEmEspera>> getNaviosEmEsperaPorPorto() {
         return naviosEmEsperaPorPorto;
     }
 
-    public List<Ponto> getPosicoesNavios() {
-        return posicoesNavios;
+    public List<DadosNavio> getDadosNavios() {
+        return dadosNavios;
+    }
+
+    public Ponto[] getPosicoesNavios() {
+        return null;
     }
 
     public static class NavioEmEspera {
@@ -47,6 +51,24 @@ public class SnapshotSimulacao {
         @Override
         public String toString() {
             return String.format("T=%d, %s, %.2f", horarioSaida, destino, velocidadeLinear);
+        }
+    }
+
+    public static class DadosNavio {
+        private final Ponto posicao;
+        private final Vetor direcao;
+
+        public DadosNavio(Ponto posicao, Vetor direcao) {
+            this.posicao = posicao;
+            this.direcao = direcao;
+        }
+
+        public Ponto getPosicao() {
+            return posicao;
+        }
+
+        public Vetor getDirecao() {
+            return direcao;
         }
     }
 }

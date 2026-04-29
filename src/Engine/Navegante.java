@@ -108,26 +108,43 @@ public class Navegante {
      * @pre tempo > 0 e velocidadeLinear > 0
      */
     public Ponto posicao(double velocidadeLinear, double tempo) {
+        double[] percorrido = new double[1];
+        SegmentoReta seg = getSegmentoAtual(velocidadeLinear, tempo, percorrido);
+
+        Vetor r = new Vetor(seg.getA(), seg.getB());
+        double percorreNoSegmento = percorrido[0] / r.modulo();
+        Vetor deslocamento = r.mult(percorreNoSegmento);
+
+        Ponto inicio = seg.getA();
+
+        return new Ponto(inicio.getX() + deslocamento.getX(),
+                inicio.getY() + deslocamento.getY());
+    }
+
+    public Vetor direcao(double velocidadeLinear, double tempo) {
+        SegmentoReta seg = getSegmentoAtual(velocidadeLinear, tempo, new double[1]);
+
+        return new Vetor(seg.getA(), seg.getB());
+    }
+
+    private SegmentoReta getSegmentoAtual(double velocidadeLinear, double tempo, double[] percorrido) {
         double percorrer = velocidadeLinear * tempo;
 
-        for (SegmentoReta seg : segmentos) {
+        for (SegmentoReta seg : this.segmentos) {
             Vetor r = new Vetor(seg.getA(), seg.getB());
-
             double distancia = r.modulo();
 
             if (percorrer <= distancia) {
-                double percorreNoSegmento = percorrer / distancia;
-                Vetor deslocamento = r.mult(percorreNoSegmento);
-                Ponto inicio = seg.getA();
-
-                return new Ponto(inicio.getX() + deslocamento.getX(),
-                        inicio.getY() + deslocamento.getY());
+                percorrido[0] = percorrer;
+                return seg;
             }
 
             percorrer -= distancia;
         }
 
-        return segmentos.isEmpty() ? null : segmentos.getLast().getB();
+        SegmentoReta ultimo = this.segmentos.getLast();
+        percorrido[0] = new Vetor(ultimo.getA(), ultimo.getB()).modulo();
+        return ultimo;
     }
 
     public List<SegmentoReta> getSegmentos() {

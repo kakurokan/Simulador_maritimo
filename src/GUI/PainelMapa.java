@@ -4,6 +4,7 @@ import Engine.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,12 +165,35 @@ public class PainelMapa extends JPanel {
     }
 
     private void desenharNavios(Graphics2D g) {
-        g.setColor(Color.BLACK);
-        for (Ponto p : snapshot.getPosicoesNavios()) {
-            int x = telaX(p.getX());
-            int y = telaY(p.getY());
+        for (SnapshotSimulacao.DadosNavio navio : snapshot.getDadosNavios()) {
+            Ponto posAtual = navio.getPosicao();
+            Vetor direcao = navio.getDirecao();
 
-            g.fillOval(x - 6, y - 6, 12, 12);
+            int x = telaX(posAtual.getX());
+            int y = telaY(posAtual.getY());
+
+            double angulo = 0;
+            if (direcao != null) {
+                angulo = Math.atan2(-direcao.getY(), direcao.getX());
+            }
+
+            AffineTransform transformacaoOriginal = g.getTransform();
+
+            g.translate(x, y);
+            g.rotate(angulo);
+
+            int[] cascoX = {-10, 6, 12, 6, -10};
+            int[] cascoY = {-5, -5, 0, 5, 5};
+            g.setColor(Color.DARK_GRAY);
+            g.fillPolygon(cascoX, cascoY, 5);
+
+            g.setColor(Color.WHITE);
+            g.fillRect(-8, -3, 6, 6);
+
+            g.setColor(Color.BLACK);
+            g.drawPolygon(cascoX, cascoY, 5);
+
+            g.setTransform(transformacaoOriginal);
         }
     }
 

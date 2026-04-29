@@ -12,12 +12,12 @@ public class Simulador {
     private GestorMaritimo gestorMaritimo;
     private double tempoAcumulado;
 
-    public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo) {
+    public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo, TorreDeControlo torreDeControlo) {
         this.corrente = corrente;
         this.rotas = rotas;
         this.portos = portos;
         this.obstaculos = obstaculo;
-        this.gestorMaritimo = new GestorMaritimo(rotas, obstaculo);
+        this.gestorMaritimo = (GestorMaritimo) torreDeControlo;
         this.tempoAcumulado = 0;
     }
 
@@ -34,7 +34,7 @@ public class Simulador {
         }
 
         List<Navio> navios = gestorMaritimo.getNavios();
-        for (Navio navio : navios) {
+        for (Navio navio : new ArrayList<>(navios)) {
             navio.atualizar(delta);
         }
     }

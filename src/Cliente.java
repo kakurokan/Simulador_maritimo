@@ -57,16 +57,17 @@ public class Cliente {
                 new Vetor(1, 0), // Corrente nula neste teste
                 rotas,
                 portos,
-                todosObstaculos
+                todosObstaculos,
+                torre
         );
 
         // 7. CRIAR TRÁFEGO (Adicionar Navios)
         // (Assumindo que a assinatura é adicionarNavio(velocidade, tempoPartida, portoDestino))
         // Ajuste estes parâmetros caso o seu método adicionarNavio seja ligeiramente diferente
-        porto1.adicionarNavio(20, 0, porto2); // Navio arranca no tempo 0 para Faro
-        porto1.adicionarNavio(15, 5, porto3); // Navio arranca no tempo 5 para Vigo
-        porto2.adicionarNavio(25, 2, porto1); // Navio arranca no tempo 2 para Lisboa
-        porto3.adicionarNavio(10, 0, porto4); // Navio arranca no tempo 0 para Sagres
+        porto1.adicionarNavio(5, 0, porto2); // Navio arranca no tempo 0 para Faro
+        porto1.adicionarNavio(5, 5, porto3); // Navio arranca no tempo 5 para Vigo
+        porto2.adicionarNavio(5, 2, porto1); // Navio arranca no tempo 2 para Lisboa
+        porto3.adicionarNavio(5, 0, porto4); // Navio arranca no tempo 0 para Sagres
 
         // 8. ARRANCAR A INTERFACE GRÁFICA
         SwingUtilities.invokeLater(() -> {

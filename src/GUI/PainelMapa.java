@@ -221,14 +221,38 @@ public class PainelMapa extends JPanel {
 
             int larguraCaixa = 180;
             int alturaCaixa = (linhasTexto.size() * 15) + 10;
-            int boxX = cx + 15; // Deslocado um pouco para a direita
-            int boxY = cy - (alturaCaixa / 2); // Centrado verticalmente com o porto
 
-            g.setColor(new Color(255, 255, 255, 220)); // Branco ligeiramente transparente
+            int boxX = cx + 30; // Deslocado um pouco para a direita
+            int boxY = cy + 30; // Centrado verticalmente com o porto
+
+            // Se a caixa sair pela direita, atira-a para a esquerda do porto
+            if (boxX + larguraCaixa > getWidth() - 10) {
+                boxX = cx - larguraCaixa - 30;
+            }
+            // Se a caixa sair por baixo, atira-a para cima do porto
+            if (boxY + alturaCaixa > getHeight() - 10) {
+                boxY = cy - alturaCaixa - 30;
+            }
+
+            // 3. Desenhar a linha tracejada a ligar o porto à caixa
+            g.setColor(Color.GRAY);
+            Stroke linhaOriginal = g.getStroke();
+            g.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0));
+
+            // Calcula o ponto da caixa onde a linha vai colar (esquerda ou direita dependendo de onde a caixa está)
+            int pontoAncoragemX = (boxX > cx) ? boxX : boxX + larguraCaixa;
+            int pontoAncoragemY = (boxY > cy) ? boxY : boxY + alturaCaixa;
+            g.drawLine(cx, cy, pontoAncoragemX, pontoAncoragemY);
+
+            g.setStroke(linhaOriginal); // Repõe o traço normal do Java
+
+            // Desenha Fundo Branco (ligeiramente transparente) e Borda Preta
+            g.setColor(new Color(255, 255, 255, 200));
             g.fillRect(boxX, boxY, larguraCaixa, alturaCaixa);
             g.setColor(Color.BLACK);
             g.drawRect(boxX, boxY, larguraCaixa, alturaCaixa);
 
+            // 5. Escrever as linhas de texto da fila de espera
             int textY = boxY + 15;
             for (String linha : linhasTexto) {
                 g.drawString(linha, boxX + 5, textY);

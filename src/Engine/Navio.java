@@ -78,7 +78,7 @@ public class Navio implements Comparable<Navio>, Movel {
 
     @Override
     public Vetor getDirecao() {
-        return null;
+        return this.navegante.direcao(this.velocidadeLinear, tempoNavegando);
     }
 
     public void mudarEstado(EstadoNavio estado) {

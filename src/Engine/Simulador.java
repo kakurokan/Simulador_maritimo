@@ -10,6 +10,7 @@ public class Simulador {
     private List<Porto> portos;
     private List<Obstaculo> obstaculos;
     private GestorMaritimo gestorMaritimo;
+    private double tempoAcumulado;
 
     public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo) {
         this.corrente = corrente;
@@ -17,9 +18,25 @@ public class Simulador {
         this.portos = portos;
         this.obstaculos = obstaculo;
         this.gestorMaritimo = new GestorMaritimo(rotas, obstaculo);
+        this.tempoAcumulado = 0;
     }
 
     public void atualizar(double delta) {
+        tempoAcumulado += delta;
+
+        for (Porto porto : portos) {
+            Iterator<Navio> naviosProntos = porto.naviosProntos(tempoAcumulado);
+            while (naviosProntos.hasNext()) {
+                Navio navio = naviosProntos.next();
+
+                gestorMaritimo.libertarNavio(porto, navio);
+            }
+        }
+
+        List<Navio> navios = gestorMaritimo.getNavios();
+        for (Navio navio : navios) {
+            navio.atualizar(delta);
+        }
     }
 
     public void criarTempestade() {

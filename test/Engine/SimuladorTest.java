@@ -41,7 +41,7 @@ class SimuladorTest {
         naviosSistema = List.of(navio);
         corrente = new Vetor(-3, 2);
 
-        simulador = new Simulador(corrente, rotas, portos, naviosSistema, obstaculos);
+        simulador = new Simulador(corrente, rotas, portos, obstaculos);
     }
 
     @Test
@@ -72,7 +72,7 @@ class SimuladorTest {
     @Test
     void getObstaculos_SimuladorComObstaculos_RetornaListaCorreta() {
         obstaculos.add(new Tempestade(new Circulo(new Ponto(1, 1), 5)));
-        Simulador simuladorComObstaculos = new Simulador(corrente, rotas, portos, naviosSistema, obstaculos);
+        Simulador simuladorComObstaculos = new Simulador(corrente, rotas, portos, obstaculos);
 
         assertEquals(obstaculos, simuladorComObstaculos.getObstaculos(), "O simulador deveria retornar a mesma lista de obstáculos com a qual foi instanciado.");
     }

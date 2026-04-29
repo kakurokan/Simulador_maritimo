@@ -71,4 +71,7 @@ public class Poligono implements Obstaculo {
         return (intersecoes.isEmpty()) ? null : intersecoes;
     }
 
+    public Ponto[] getVertices() {
+        return vertices;
+    }
 }

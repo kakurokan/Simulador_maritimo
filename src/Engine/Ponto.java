@@ -62,6 +62,11 @@ public class Ponto {
         return distancia_y < eps && distancia_x < eps;
     }
 
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(x, y);
+    }
+
     /**
      * Subtrai as coordenadas do ponto fornecido das coordenadas do ponto atual,
      * resultando em um novo ponto representando a diferença vetorial entre eles.

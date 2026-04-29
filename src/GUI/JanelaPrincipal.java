@@ -15,7 +15,7 @@ public class JanelaPrincipal extends JFrame {
         this.painel = new PainelMapa();
 
         setTitle("Simulador marítimo");
-        setSize(800, 600);
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         add(painel, BorderLayout.CENTER);

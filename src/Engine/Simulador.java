@@ -1,7 +1,6 @@
 package Engine;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Simulador {
     private static final double MAX_RAIO_TEMPESTADE = 50;
@@ -10,15 +9,13 @@ public class Simulador {
     private List<Route> rotas;
     private List<Porto> portos;
     private List<Obstaculo> obstaculos;
-    private List<Movel> movels;
     private GestorMaritimo gestorMaritimo;
 
-    public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Movel> movels, List<Obstaculo> obstaculo) {
+    public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo) {
         this.corrente = corrente;
         this.rotas = rotas;
         this.portos = portos;
         this.obstaculos = obstaculo;
-        this.movels = movels;
         this.gestorMaritimo = new GestorMaritimo(rotas, obstaculo);
     }
 
@@ -52,5 +49,21 @@ public class Simulador {
 
     public List<Obstaculo> getObstaculos() {
         return obstaculos;
+    }
+
+    public SnapshotSimulacao gerarSnapshot() {
+        Map<String, List<SnapshotSimulacao.NavioEmEspera>> filaPorPorto = new HashMap<>();
+        for (Porto porto : portos) {
+            filaPorPorto.put(porto.getNome(), porto.getNaviosEmEspera());
+        }
+
+        List<Ponto> posicoesNavios = new ArrayList<>();
+        List<Navio> navios = gestorMaritimo.getNavios();
+
+        for (Navio navio : navios) {
+            posicoesNavios.add(navio.getPosicao());
+        }
+
+        return new SnapshotSimulacao(filaPorPorto, posicoesNavios);
     }
 }

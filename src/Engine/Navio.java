@@ -109,4 +109,8 @@ public class Navio implements Comparable<Navio>, Movel {
     public int getHorarioPartida() {
         return this.horarioPartida;
     }
+
+    public double getVelocidadeLinear() {
+        return velocidadeLinear;
+    }
 }

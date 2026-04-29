@@ -58,4 +58,5 @@ public class GestorMaritimo implements TorreDeControlo {
     public List<Navio> getNavios() {
         return this.navios;
     }
+
 }

@@ -1,8 +1,6 @@
 package Engine;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Porto {
     private static final int RAIO_AREA_NAVIO = 5;
@@ -37,6 +35,20 @@ public class Porto {
 
     public String getNome() {
         return this.nome;
+    }
+
+    public List<SnapshotSimulacao.NavioEmEspera> getNaviosEmEspera() {
+        List<SnapshotSimulacao.NavioEmEspera> fila = new ArrayList<>();
+
+        for (Navio navio : naviosEmEspera) {
+            fila.add(new SnapshotSimulacao.NavioEmEspera(
+                    navio.getHorarioPartida(),
+                    navio.getDestino().getNome(),
+                    navio.getVelocidadeLinear()
+            ));
+        }
+
+        return fila;
     }
 
     public Iterator<Navio> naviosProntos(double tempoAtual) {

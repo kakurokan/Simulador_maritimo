@@ -299,7 +299,7 @@ public class PainelMapa extends JPanel {
 
         // Posiciona a caixa à esquerda do Eixo Y
         int boxX = telaX(0) - largura - 30;
-        int boxY = telaY(0) - altura - 80; // Acima da origem
+        int boxY = telaY(0) - altura - 200; // Acima da origem
 
         // Coordenadas dos 5 pontos do polígono
         int[] xPoints = {boxX, boxX + largura - corte, boxX + largura, boxX + largura, boxX};

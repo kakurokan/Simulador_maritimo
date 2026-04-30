@@ -36,7 +36,7 @@ public class Navio implements Comparable<Navio>, Movel {
     }
 
     @Override
-    public void mover(double delta) {
+    public void mover(double delta, Vetor velocidadeCorrente) {
         //Incrementa o tempo apenas quando o navio se move.
         tempoNavegando += delta;
 
@@ -63,12 +63,12 @@ public class Navio implements Comparable<Navio>, Movel {
         return this.codigoViagem;
     }
 
-    public void atualizar(double delta) {
+    public void atualizar(double delta, Vetor velocidadeCorrente) {
         if (delta <= 0) {
             throw new IllegalArgumentException("O delta precisa ser um número positivo");
         }
 
-        estado.atualizar(this, delta);
+        estado.atualizar(this, delta, velocidadeCorrente);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class Navio implements Comparable<Navio>, Movel {
     }
 
     @Override
-    public Vetor getDirecao() {
-        return this.navegante.direcao(this.velocidadeLinear, tempoNavegando);
+    public Vetor getDirecao(Vetor velocidadeCorrente) {
+        return this.navegante.direcao(this.velocidadeLinear, tempoNavegando, velocidadeCorrente);
     }
 
     public void mudarEstado(EstadoNavio estado) {

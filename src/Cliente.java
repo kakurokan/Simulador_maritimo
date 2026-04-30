@@ -53,7 +53,7 @@ public class Cliente {
 
         List<Porto> portos = Arrays.asList(porto1, porto2, porto3, porto4);
 
-        Vetor corrente = new Vetor(1, 0);
+        Vetor corrente = new Vetor(1, 2);
 
         Simulador simulador = new Simulador(
                 corrente,

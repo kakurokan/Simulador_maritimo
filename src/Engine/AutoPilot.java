@@ -28,14 +28,14 @@ public class AutoPilot {
      * A velocidade ajustada é obtida subtraindo o vetor da velocidade do vento do vetor de rota
      * e multiplicando pelo inverso do tempo.
      *
-     * @param windSpeed O vetor que representa a velocidade do vento, que será subtraído do vetor de rota.
-     * @param time      O tempo em que a rota é percorrida, utilizado para ajustar a velocidade.
+     * @param velocidadeCorrente O vetor que representa a velocidade do vento, que será subtraído do vetor de rota.
+     * @param tempo              O tempo em que a rota é percorrida, utilizado para ajustar a velocidade.
      * @return Um novo vetor que representa a velocidade ajustada com base no vetor de rota,
      * na velocidade do vento e no tempo.
-     * @pre windSpeed != null e time > 0.0
+     * @pre velocidadeCorrente != null e tempo > 0.0
      */
-    public Vetor speed(Vetor windSpeed, double time) {
-        return r.mult(1 / time).sub(windSpeed);
+    public Vetor speed(Vetor velocidadeCorrente, double tempo) {
+        return r.mult(1 / tempo).sub(velocidadeCorrente);
     }
 
     /**
@@ -44,7 +44,7 @@ public class AutoPilot {
      *
      * @param linearSpeed A velocidade linear constante utilizada na travessia da rota.
      * @return O tempo necessário para percorrer a rota, ajustado pela velocidade do vento.
-     * @pre windSpeed != null e linearSpeed > 0.0
+     * @pre linearSpeed > 0.0
      */
     public double time(double linearSpeed) {
         return r.modulo() / linearSpeed;

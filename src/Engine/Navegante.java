@@ -90,7 +90,7 @@ public class Navegante {
     }
 
     /**
-     * Calcula a posição em uma sequência de segmentos a partir de uma velocidade linear
+     * Calcula a posição numa sequência de segmentos a partir de uma velocidade linear
      * constante e um tempo transcorrido.
      * <p>
      * A posição é determinada percorrendo os segmentos sequencialmente, calculando a
@@ -108,8 +108,11 @@ public class Navegante {
      * @pre tempo > 0 e velocidadeLinear > 0
      */
     public Ponto posicao(double velocidadeLinear, double tempo) {
+        //o array é preenchido dentro da função
         double[] percorrido = new double[1];
-        SegmentoReta seg = getSegmentoAtual(velocidadeLinear, tempo, percorrido);
+        
+        int segIndice = getIndiceSegmentoAtual(velocidadeLinear, tempo, percorrido);
+        SegmentoReta seg = this.segmentos.get(segIndice);
 
         Vetor r = new Vetor(seg.getA(), seg.getB());
         double percorreNoSegmento = percorrido[0] / r.modulo();
@@ -121,22 +124,25 @@ public class Navegante {
                 inicio.getY() + deslocamento.getY());
     }
 
-    public Vetor direcao(double velocidadeLinear, double tempo) {
-        SegmentoReta seg = getSegmentoAtual(velocidadeLinear, tempo, new double[1]);
+    public Vetor direcao(double velocidadeLinear, double tempo, Vetor velocidadeCorrente) {
+        int segIndice = getIndiceSegmentoAtual(velocidadeLinear, tempo, new double[1]);
 
-        return new Vetor(seg.getA(), seg.getB());
+        List<Vetor> velocidades = velocidadePorSegmento(velocidadeCorrente, velocidadeLinear);
+
+        return velocidades.get(segIndice);
     }
 
-    private SegmentoReta getSegmentoAtual(double velocidadeLinear, double tempo, double[] percorrido) {
+    private int getIndiceSegmentoAtual(double velocidadeLinear, double tempo, double[] percorrido) {
         double percorrer = velocidadeLinear * tempo;
 
-        for (SegmentoReta seg : this.segmentos) {
+        for (int i = 0; i < this.segmentos.size(); i++) {
+            SegmentoReta seg = this.segmentos.get(i);
             Vetor r = new Vetor(seg.getA(), seg.getB());
             double distancia = r.modulo();
 
             if (percorrer <= distancia) {
                 percorrido[0] = percorrer;
-                return seg;
+                return i;
             }
 
             percorrer -= distancia;
@@ -144,7 +150,7 @@ public class Navegante {
 
         SegmentoReta ultimo = this.segmentos.getLast();
         percorrido[0] = new Vetor(ultimo.getA(), ultimo.getB()).modulo();
-        return ultimo;
+        return this.segmentos.size() - 1;
     }
 
     public List<SegmentoReta> getSegmentos() {

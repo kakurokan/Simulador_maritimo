@@ -35,7 +35,7 @@ public class Simulador {
 
         List<Navio> navios = gestorMaritimo.getNavios();
         for (Navio navio : new ArrayList<>(navios)) {
-            navio.atualizar(delta);
+            navio.atualizar(delta, this.corrente);
         }
     }
 
@@ -80,7 +80,7 @@ public class Simulador {
         for (Navio navio : navios) {
             dadosNavios.add(new SnapshotSimulacao.DadosNavio(
                     navio.getPosicao(),
-                    navio.getDirecao()
+                    navio.getDirecao(this.corrente)
             ));
         }
 

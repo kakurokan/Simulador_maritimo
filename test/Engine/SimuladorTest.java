@@ -41,7 +41,7 @@ class SimuladorTest {
         naviosSistema = List.of(navio);
         corrente = new Vetor(-3, 2);
 
-        simulador = new Simulador(corrente, rotas, portos, obstaculos);
+        simulador = new Simulador(corrente, rotas, portos, obstaculos, gestor);
     }
 
     @Test

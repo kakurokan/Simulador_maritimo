@@ -15,20 +15,22 @@ public class PainelMapa extends JPanel {
     private final List<Tempestade> tempestades;
     private final List<Poligono> obstaculos;
     private final Map<String, Ponto> posicoesPortos;
+    private final Vetor corrente;
 
     private final Map<Ponto, Character> nomePontos = new HashMap<>();
     private final int escala = 50;
-    private final int offsetX = 50;
+    private final int offsetX = 200;
     private final int offsetY = 50;
     private final Color[] coresRotas = {Color.RED, Color.MAGENTA, Color.ORANGE, new Color(0, 150, 0), Color.PINK};
     private SnapshotSimulacao snapshot;
 
 
-    public PainelMapa(List<Route> rotas, List<Tempestade> tempestades, List<Poligono> obstaculosEstaticos, Map<String, Ponto> posicoesPortos) {
+    public PainelMapa(List<Route> rotas, List<Tempestade> tempestades, List<Poligono> obstaculosEstaticos, Map<String, Ponto> posicoesPortos, Vetor corrente) {
         this.rotas = rotas;
         this.tempestades = tempestades;
         this.obstaculos = obstaculosEstaticos;
         this.posicoesPortos = posicoesPortos;
+        this.corrente = corrente;
 
         setBackground(Color.white);
         atribuirLetrasAosPontos();
@@ -80,6 +82,7 @@ public class PainelMapa extends JPanel {
         desenharObstaculos(graphics2D);
         desenharTempestades(graphics2D);
         desenharRotasEPontos(graphics2D);
+        desenharCaixaCorrente(graphics2D);
 
         if (snapshot != null) {
             desenharNavios(graphics2D);
@@ -285,5 +288,46 @@ public class PainelMapa extends JPanel {
             g.setStroke(new BasicStroke(1));
             g.drawPolygon(shapePoligono);
         }
+    }
+
+    private void desenharCaixaCorrente(Graphics2D g) {
+        if (corrente == null) return;
+
+        int largura = 130;
+        int altura = 110;
+        int corte = 20; // O tamanho do canto cortado no topo direito
+
+        // Posiciona a caixa à esquerda do Eixo Y
+        int boxX = telaX(0) - largura - 30;
+        int boxY = telaY(0) - altura - 80; // Acima da origem
+
+        // Coordenadas dos 5 pontos do polígono
+        int[] xPoints = {boxX, boxX + largura - corte, boxX + largura, boxX + largura, boxX};
+        int[] yPoints = {boxY, boxY, boxY + corte, boxY + altura, boxY + altura};
+
+        // Sombra
+        int offsetSombra = 5;
+        int[] sombraX = {boxX + offsetSombra, boxX + largura - corte + offsetSombra, boxX + largura + offsetSombra, boxX + largura + offsetSombra, boxX + offsetSombra};
+        int[] sombraY = {boxY + offsetSombra, boxY + offsetSombra, boxY + corte + offsetSombra, boxY + altura + offsetSombra, boxY + altura + offsetSombra};
+
+        g.setColor(new Color(130, 145, 165)); // Azul escuro para a sombra
+        g.fillPolygon(sombraX, sombraY, 5);
+
+        // Desenhar o fundo
+        g.setColor(new Color(230, 245, 225));
+        g.fillPolygon(xPoints, yPoints, 5);
+
+        // Desenhar o texto
+        g.setColor(Color.RED);
+        g.setFont(new Font("Times New Roman", Font.BOLD, 18));
+
+        int textX = boxX + 15;
+        g.drawString("Velocidade", textX, boxY + 25);
+        g.drawString("da corrente", textX, boxY + 45);
+
+        g.setFont(new Font("Times New Roman", Font.BOLD, 20));
+
+        g.drawString("X = " + String.format("%.0f", corrente.getX()), textX, boxY + 80);
+        g.drawString("Y = " + String.format("%.0f", corrente.getY()), textX, boxY + 100);
     }
 }

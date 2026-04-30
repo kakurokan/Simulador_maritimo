@@ -53,8 +53,10 @@ public class Cliente {
 
         List<Porto> portos = Arrays.asList(porto1, porto2, porto3, porto4);
 
+        Vetor corrente = new Vetor(1, 0);
+
         Simulador simulador = new Simulador(
-                new Vetor(1, 0), // Corrente nula neste teste
+                corrente,
                 rotas,
                 portos,
                 todosObstaculos,
@@ -76,7 +78,8 @@ public class Cliente {
                     rotas,
                     obstaculosEstaticos,
                     tempestades,
-                    posicoesPortos
+                    posicoesPortos,
+                    corrente
             );
             gui.iniciar();
         });

@@ -15,9 +15,10 @@ public class JanelaPrincipal extends JFrame {
                            List<Route> rotas,
                            List<Poligono> obstaculos,
                            List<Tempestade> tempestades,
-                           Map<String, Ponto> posicoesPortos) {
+                           Map<String, Ponto> posicoesPortos,
+                           Vetor velocidadeCorrente) {
 
-        this.painel = new PainelMapa(rotas, tempestades, obstaculos, posicoesPortos);
+        this.painel = new PainelMapa(rotas, tempestades, obstaculos, posicoesPortos, velocidadeCorrente);
 
         setTitle("Simulador marítimo");
         setSize(1024, 768);

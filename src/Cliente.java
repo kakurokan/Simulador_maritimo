@@ -36,10 +36,9 @@ public class Cliente {
 
         // 5. INICIALIZAR O MOTOR DE JOGO COM OS OBSTÁCULOS BASE
         // Criamos uma lista mutável para o simulador poder adicionar coisas mais tarde
-        List<Obstaculo> todosObstaculos = new ArrayList<>();
-        todosObstaculos.addAll(obstaculosEstaticos);
+        List<Obstaculo> todosObstaculos = new ArrayList<>(obstaculosEstaticos);
 
-        TorreDeControlo torre = new GestorMaritimo(rotas, todosObstaculos);
+        TorreDeControlo torre = new GestorMaritimo();
 
         Porto porto1 = new Porto("Porto de Lisboa", pA, torre);
         Porto porto2 = new Porto("Porto de Faro", pB, torre);
@@ -60,37 +59,29 @@ public class Cliente {
 
         // 6. CRIAR TEMPESTADES ALEATÓRIAS
         // Mandamos o simulador criar 3 tempestades. Ele vai gerar os círculos e inseri-los na lista "todosObstaculos"
-        for (int i = 0; i < 3; i++) {
-            simulador.criarTempestade();
-        }
-
-        // 7. EXTRAIR AS TEMPESTADES PARA A INTERFACE GRÁFICA
-        // A GUI precisa de saber especificamente o que são tempestades para pintar de azul.
-        // Vamos procurá-las na lista do simulador:
         List<Tempestade> tempestadesParaGUI = new ArrayList<>();
-        for (Obstaculo obs : simulador.getObstaculos()) {
-            if (obs instanceof Tempestade) {
-                tempestadesParaGUI.add((Tempestade) obs);
-            }
+        for (int i = 0; i < 3; i++) {
+            tempestadesParaGUI.add(simulador.criarTempestade());
+
+            // 8. CRIAR TRÁFEGO (Adicionar Navios)
+            porto1.adicionarNavio(5, 0, porto2); // Navio arranca no tempo 0 para Faro
+            porto1.adicionarNavio(5, 5, porto3); // Navio arranca no tempo 5 para Vigo
+            porto2.adicionarNavio(5, 2, porto1); // Navio arranca no tempo 2 para Lisboa
+            porto3.adicionarNavio(5, 0, porto4); // Navio arranca no tempo 0 para Sagres
+
+            // 9. ARRANCAR A INTERFACE GRÁFICA
+            SwingUtilities.invokeLater(() -> {
+                simulador.iniciar();
+                JanelaPrincipal gui = new JanelaPrincipal(
+                        simulador,
+                        rotas,
+                        obstaculosEstaticos,
+                        tempestadesParaGUI, // Passamos a lista atualizada com as 3 tempestades
+                        posicoesPortos,
+                        corrente
+                );
+                gui.iniciar();
+            });
         }
-
-        // 8. CRIAR TRÁFEGO (Adicionar Navios)
-        porto1.adicionarNavio(5, 0, porto2); // Navio arranca no tempo 0 para Faro
-        porto1.adicionarNavio(5, 5, porto3); // Navio arranca no tempo 5 para Vigo
-        porto2.adicionarNavio(5, 2, porto1); // Navio arranca no tempo 2 para Lisboa
-        porto3.adicionarNavio(5, 0, porto4); // Navio arranca no tempo 0 para Sagres
-
-        // 9. ARRANCAR A INTERFACE GRÁFICA
-        SwingUtilities.invokeLater(() -> {
-            JanelaPrincipal gui = new JanelaPrincipal(
-                    simulador,
-                    rotas,
-                    obstaculosEstaticos,
-                    tempestadesParaGUI, // Passamos a lista atualizada com as 3 tempestades
-                    posicoesPortos,
-                    corrente
-            );
-            gui.iniciar();
-        });
     }
 }

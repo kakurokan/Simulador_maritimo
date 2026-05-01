@@ -5,11 +5,11 @@ import java.util.*;
 public class Simulador {
     private static final double MAX_RAIO_TEMPESTADE = 2.0;
     private static final double MIN_RAIO_TEMPESTADE = 0.5;
-    private Vetor corrente;
-    private List<Route> rotas;
-    private List<Porto> portos;
-    private List<Obstaculo> obstaculos;
-    private GestorMaritimo gestorMaritimo;
+    private final Vetor corrente;
+    private final List<Route> rotas;
+    private final List<Porto> portos;
+    private final List<Obstaculo> obstaculos;
+    private final TorreDeControlo torreDeControlo;
     private double tempoAcumulado;
 
     public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo, TorreDeControlo torreDeControlo) {
@@ -17,8 +17,12 @@ public class Simulador {
         this.rotas = rotas;
         this.portos = portos;
         this.obstaculos = obstaculo;
-        this.gestorMaritimo = (GestorMaritimo) torreDeControlo;
+        this.torreDeControlo = torreDeControlo;
         this.tempoAcumulado = 0;
+    }
+
+    public void iniciar() {
+        torreDeControlo.iniciar(this.rotas, this.obstaculos);
     }
 
     public void atualizar(double delta) {
@@ -29,17 +33,17 @@ public class Simulador {
             while (naviosProntos.hasNext()) {
                 Navio navio = naviosProntos.next();
 
-                gestorMaritimo.libertarNavio(porto, navio);
+                torreDeControlo.libertarNavio(porto, navio);
             }
         }
 
-        List<Navio> navios = gestorMaritimo.getNavios();
+        List<Navio> navios = torreDeControlo.getNavios();
         for (Navio navio : new ArrayList<>(navios)) {
             navio.atualizar(delta, this.corrente);
         }
     }
 
-    public void criarTempestade() {
+    public Tempestade criarTempestade() {
         Random rand = new Random();
 
         double raioAleatorio = MIN_RAIO_TEMPESTADE + rand.nextDouble() * (MAX_RAIO_TEMPESTADE - MIN_RAIO_TEMPESTADE);
@@ -62,6 +66,7 @@ public class Simulador {
         Tempestade tempestade = new Tempestade(area);
 
         this.obstaculos.add(tempestade);
+        return tempestade;
     }
 
     public List<Obstaculo> getObstaculos() {
@@ -74,7 +79,7 @@ public class Simulador {
             filaPorPorto.put(porto.getNome(), porto.getNaviosEmEspera());
         }
 
-        List<Navio> navios = gestorMaritimo.getNavios();
+        List<Navio> navios = torreDeControlo.getNavios();
         List<SnapshotSimulacao.DadosNavio> dadosNavios = new ArrayList<>();
 
         for (Navio navio : navios) {

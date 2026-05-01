@@ -1,5 +1,7 @@
 package Engine;
 
+import java.util.List;
+
 public interface TorreDeControlo {
     public void atualizarRota(Navio navio);
 
@@ -8,4 +10,8 @@ public interface TorreDeControlo {
     public void libertarNavio(Porto origem, Navio navio);
 
     public void navioTerminouPercurso(Navio navio);
+
+    public void iniciar(List<Route> rotas, List<Obstaculo> obstaculo);
+
+    public List<Navio> getNavios();
 }

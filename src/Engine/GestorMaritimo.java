@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorMaritimo implements TorreDeControlo {
-    private final List<Navio> navios;
-    private final EstrategiaRota estrategiaRota;
+    private List<Navio> navios;
+    private EstrategiaRota estrategiaRota;
 
-    public GestorMaritimo(List<Route> rotas, List<Obstaculo> obstaculo) {
+    public GestorMaritimo() {
+    }
+
+    public void iniciar(List<Route> rotas, List<Obstaculo> obstaculo) {
         Grafo grafo = new Grafo(rotas, obstaculo);
         this.estrategiaRota = new EstrategiaDijkstra(grafo);
         this.navios = new ArrayList<>();

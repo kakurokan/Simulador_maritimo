@@ -35,7 +35,7 @@ public class AutoPilot {
      * @pre velocidadeCorrente != null e tempo > 0.0
      */
     public Vetor speed(Vetor velocidadeCorrente, double tempo) {
-        return r.mult(1 / tempo).sub(velocidadeCorrente);
+        return r.multi(1 / tempo).sub(velocidadeCorrente);
     }
 
     /**

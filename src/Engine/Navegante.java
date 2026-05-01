@@ -110,13 +110,13 @@ public class Navegante {
     public Ponto posicao(double velocidadeLinear, double tempo) {
         //o array é preenchido dentro da função
         double[] percorrido = new double[1];
-        
+
         int segIndice = getIndiceSegmentoAtual(velocidadeLinear, tempo, percorrido);
         SegmentoReta seg = this.segmentos.get(segIndice);
 
         Vetor r = new Vetor(seg.getA(), seg.getB());
         double percorreNoSegmento = percorrido[0] / r.modulo();
-        Vetor deslocamento = r.mult(percorreNoSegmento);
+        Vetor deslocamento = r.multi(percorreNoSegmento);
 
         Ponto inicio = seg.getA();
 

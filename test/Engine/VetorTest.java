@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VetorTest {
-    
+
     @Test
     void construtor_VetorNulo_LancaIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -123,7 +123,7 @@ class VetorTest {
         Vetor original = new Vetor(2.34, 5.42);
         Vetor esperado = new Vetor(11.7, 27.1);
 
-        Vetor resultado = original.mult(5);
+        Vetor resultado = original.multi(5);
 
         assertEquals(esperado.getX(), resultado.getX(), Ponto.eps);
         assertEquals(esperado.getY(), resultado.getY(), Ponto.eps);

@@ -38,7 +38,7 @@ public class JanelaPrincipal extends JFrame {
         add(painelSul, BorderLayout.SOUTH);
 
         this.timer = new Timer(16, e -> {
-            simulador.atualizar(0.016);
+            simulador.atualizar(0.016 * 0.5);
             painel.atualizarSnapshot(simulador.gerarSnapshot());
             painel.repaint();
         });

@@ -145,7 +145,11 @@ public class Vetor {
      * @pre Math.abs(d) >= 1e-9.
      * @pos Retorna um novo vetor não nulo válido.
      */
-    public Vetor mult(double d) {
+    public Vetor multi(double d) {
+        if (Math.abs(d) < Ponto.eps) {
+            throw new IllegalArgumentException("O escalar não pode gerar um vetor nulo");
+        }
+
         return new Vetor(this.x * d, this.y * d);
     }
 

@@ -25,6 +25,7 @@ public class AcaoReiniciarSimulacao extends AbstractAction {
         List<Tempestade> novasTempestades = simulador.reiniciarSimulacao();
         painel.setTempestades(novasTempestades);
         rotinaDeTrafego.run();
+        painel.atualizarSnapshot(simulador.gerarSnapshot());
         painel.repaint();
     }
 }

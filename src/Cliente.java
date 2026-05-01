@@ -64,10 +64,14 @@ public class Cliente {
             tempestadesParaGUI.add(simulador.criarTempestade());
         }
         // 8. CRIAR TRÁFEGO (Adicionar Navios)
-        porto1.adicionarNavio(5, 0, porto2); // Navio arranca no tempo 0 para Faro
-        porto1.adicionarNavio(5, 5, porto3); // Navio arranca no tempo 5 para Vigo
-        porto2.adicionarNavio(5, 2, porto1); // Navio arranca no tempo 2 para Lisboa
-        porto3.adicionarNavio(5, 0, porto4); // Navio arranca no tempo 0 para Sagres
+        Runnable criarBarcos = () -> {
+            porto1.adicionarNavio(5, 0, porto2); // Navio arranca no tempo 0 para Faro
+            porto1.adicionarNavio(5, 5, porto3); // Navio arranca no tempo 5 para Vigo
+            porto2.adicionarNavio(5, 2, porto1); // Navio arranca no tempo 2 para Lisboa
+            porto3.adicionarNavio(5, 0, porto4); // Navio arranca no tempo 0 para Sagres
+        };
+
+        criarBarcos.run();
 
         // 9. ARRANCAR A INTERFACE GRÁFICA
         SwingUtilities.invokeLater(() -> {
@@ -78,7 +82,8 @@ public class Cliente {
                     obstaculosEstaticos,
                     tempestadesParaGUI, // Passamos a lista atualizada com as 3 tempestades
                     posicoesPortos,
-                    corrente
+                    corrente,
+                    criarBarcos
             );
             gui.iniciar();
         });

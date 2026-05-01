@@ -12,16 +12,15 @@ import java.util.Map;
 
 public class PainelMapa extends JPanel {
     private final List<Route> rotas;
-    private final List<Tempestade> tempestades;
     private final List<Poligono> obstaculos;
     private final Map<String, Ponto> posicoesPortos;
     private final Vetor corrente;
-
     private final Map<Ponto, Character> nomePontos = new HashMap<>();
     private final int escala = 50;
     private final int offsetX = 200;
     private final int offsetY = 50;
     private final Color[] coresRotas = {Color.RED, Color.MAGENTA, Color.ORANGE, new Color(0, 150, 0), Color.PINK};
+    private List<Tempestade> tempestades;
     private SnapshotSimulacao snapshot;
 
 
@@ -62,6 +61,10 @@ public class PainelMapa extends JPanel {
                     nomePontos.put(p, letraAtual++);
             }
         }
+    }
+
+    public void setTempestades(List<Tempestade> t) {
+        this.tempestades = t;
     }
 
     public void atualizarSnapshot(SnapshotSimulacao snapshotSimulacao) {

@@ -29,6 +29,10 @@ public class Porto {
         return new Navio(area, velocidadeLinear, horarioPartida, this, destino, torre);
     }
 
+    public void limparFila() {
+        this.naviosEmEspera.clear();
+    }
+
     public Ponto getPosicao() {
         return this.posicao;
     }

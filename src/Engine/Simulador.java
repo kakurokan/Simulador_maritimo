@@ -91,4 +91,25 @@ public class Simulador {
 
         return new SnapshotSimulacao(filaPorPorto, dadosNavios);
     }
+
+    public List<Tempestade> reiniciarSimulacao() {
+        this.tempoAcumulado = 0;
+
+        for (Porto porto : portos) {
+            porto.limparFila();
+        }
+
+        // Remover apenas as tempestades
+        this.obstaculos.removeIf(obs -> obs instanceof Tempestade);
+
+        // Criar novas tempestades aleatórias
+        List<Tempestade> novasTempestades = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            novasTempestades.add(criarTempestade());
+        }
+
+        this.torreDeControlo.iniciar(this.rotas, this.obstaculos);
+
+        return novasTempestades;
+    }
 }

@@ -113,4 +113,8 @@ public class Navio implements Comparable<Navio>, Movel {
     public double getVelocidadeLinear() {
         return velocidadeLinear;
     }
+
+    public SegmentoReta getSegmentoAtual(Ponto posicao){
+        return this.navegante.getSegmentoAtual(posicao);
+    }
 }

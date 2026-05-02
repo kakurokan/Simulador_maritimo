@@ -245,4 +245,26 @@ class SegmentoRetaTest {
 
         assertNull(seg.intersect(rota));
     }
+
+    @Test
+    void ponto_Pertence_Segmento(){
+        SegmentoReta seg = new SegmentoReta(new Ponto(0,0), new Ponto(5,5));
+        Ponto pertence = new Ponto(2.5,2.5);
+        assertTrue(seg.noSegmento(pertence));
+       }
+
+    @Test
+    void ponto_Nao_Pertence(){
+        SegmentoReta seg = new SegmentoReta(new Ponto(0,0), new Ponto(5,5));
+        Ponto pertence = new Ponto(2.6,2.6);
+        assertTrue(seg.noSegmento(pertence));
+
+    }
+
+    @Test
+    void ponto_Pertence_tolerancia(){
+        SegmentoReta seg = new SegmentoReta(new Ponto(0,0), new Ponto(5,5));
+        Ponto pertence = new Ponto(2.5+Ponto.eps,2.5+Ponto.eps);
+        assertTrue(seg.noSegmento(pertence));
+    }
 }

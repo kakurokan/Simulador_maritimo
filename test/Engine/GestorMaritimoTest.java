@@ -30,7 +30,7 @@ class GestorMaritimoTest {
         List<Obstaculo> obstaculos = new ArrayList<>();
 
 
-        gestor = new GestorMaritimo(rotas, obstaculos);
+        gestor = new GestorMaritimo();
 
         navio = origem.adicionarNavio(20, 10, destino);
         navio2 = origem.adicionarNavio(20, 20, destino);
@@ -40,7 +40,7 @@ class GestorMaritimoTest {
         navio = origem.adicionarNavio(20, 10, destino);
         navio2 = origem.adicionarNavio(20, 12, destino);
 
-        gestor = new GestorMaritimo(rotas, obstaculos);
+        gestor = new GestorMaritimo();
     }
 
     @Test

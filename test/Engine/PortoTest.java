@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,5 +53,15 @@ class PortoTest {
         public void atualizarPosicoes(Navio navio) {}
         public void libertarNavio(Porto origem, Navio navio) {}
         public void navioTerminouPercurso(Navio navio) {}
+
+        @Override
+        public void iniciar(List<Route> rotas, List<Obstaculo> obstaculo) {
+
+        }
+
+        @Override
+        public List<Navio> getNavios() {
+            return List.of();
+        }
     }
 }

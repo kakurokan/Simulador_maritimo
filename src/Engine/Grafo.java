@@ -55,4 +55,19 @@ public class Grafo {
         }
         return segmentos;
     }
+
+    public void adicionarPonto(Ponto posicao, SegmentoReta seg){
+        grafo.computeIfAbsent(posicao, k->new TreeSet<>(comparador)).add(seg.getA());
+        grafo.computeIfAbsent(seg.getA(), k->new TreeSet<>(comparador)).add(posicao);
+
+        grafo.computeIfAbsent(posicao, k->new TreeSet<>(comparador)).add(seg.getB());
+        grafo.computeIfAbsent(seg.getB(),k->new TreeSet<>(comparador)).add(posicao);
+
+    }
+
+    public void removerPonto(Ponto posicao,SegmentoReta seg){
+        grafo.remove(posicao);
+        grafo.get(seg.getA()).remove(posicao);
+        grafo.get(seg.getB()).remove(posicao);
+    }
 }

@@ -156,4 +156,12 @@ public class Navegante {
     public List<SegmentoReta> getSegmentos() {
         return segmentos;
     }
+
+
+    public SegmentoReta getSegmentoAtual(Ponto posicao){
+        for (SegmentoReta seg : segmentos){
+            if (seg.noSegmento(posicao)) return seg;
+        }
+        return null;
+    }
 }

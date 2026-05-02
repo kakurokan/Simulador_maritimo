@@ -125,11 +125,16 @@ public class SegmentoReta implements Obstaculo {
      * @pre p != null
      * @see <a href="https://www.geeksforgeeks.org/dsa/check-if-two-given-line-segments-intersect/">Geeks for geeks</a>
      */
-    private boolean noSegmento(Ponto p) {
-        return p.getX() <= Math.max(this.a.getX(), this.b.getX())
-                && p.getX() >= Math.min(this.a.getX(), this.b.getX())
-                && p.getY() <= Math.max(this.a.getY(), this.b.getY())
-                && p.getY() >= Math.min(this.a.getY(), this.b.getY());
+    public boolean noSegmento(Ponto p) {
+
+        double distAP = this.a.distanciaPara(p);
+
+        double distPB = p.distanciaPara(this.b);
+
+        double distAB = this.a.distanciaPara(this.b);
+
+        double diferenca = Math.abs((distAP +distPB)-distAB);
+        return diferenca <= Ponto.eps;
     }
 
     /**

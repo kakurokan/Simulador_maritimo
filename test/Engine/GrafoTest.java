@@ -85,4 +85,5 @@ class GrafoTest {
         assertEquals("Não existe nenhum segmento livre", exception.getMessage(),
                 "Se todos os segmentos forem bloqueados, o grafo deve avisar que não há caminhos disponíveis.");
     }
+
 }

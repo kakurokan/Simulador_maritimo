@@ -20,20 +20,25 @@ public class GestorMaritimo implements TorreDeControlo {
     @Override
     public void atualizarPosicoes(Navio navio) {
         boolean colidiu = false;
+        boolean parado = false;
 
         for (Navio outro : navios) {
-            if (navio.intersect(outro)) {
+            if (navio != outro && navio.intersect(outro)) {
+                colidiu = true;
+                outro.setEmColisao(true);
+
                 int compare = navio.compareTo(outro);
                 if (compare < 0) {
-                    navio.mudarEstado(new NavioAguardando());
-                    colidiu = true;
+                    parado = true;
                     break;
                 }
             }
         }
 
-        if (!colidiu && navio.getEstado() instanceof NavioAguardando) {
-            navio.mudarEstado(new NavioNavegando());
+        navio.setEmColisao(colidiu);
+
+        if (parado && navio.getEstado() instanceof NavioNavegando) {
+            navio.mudarEstado(new NavioAguardando());
         }
     }
 

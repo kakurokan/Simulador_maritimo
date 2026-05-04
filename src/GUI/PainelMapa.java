@@ -178,6 +178,20 @@ public class PainelMapa extends JPanel {
             int x = telaX(posAtual.getX());
             int y = telaY(posAtual.getY());
 
+            if (navio.isEmColisao()) {
+                int raioNoEcra = (int) (navio.getRaioArea() * escala);
+
+                g.setColor(new Color(255, 0, 0, 60));
+                g.fillOval(x - raioNoEcra, y - raioNoEcra, raioNoEcra * 2, raioNoEcra * 2);
+
+                // Borda tracejada vermelha brilhante
+                g.setColor(Color.RED);
+                Stroke linhaOriginal = g.getStroke();
+                g.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0));
+                g.drawOval(x - raioNoEcra, y - raioNoEcra, raioNoEcra * 2, raioNoEcra * 2);
+                g.setStroke(linhaOriginal); // Repor a caneta normal
+            }
+
             double angulo = 0;
             if (direcao != null) {
                 angulo = Math.atan2(-direcao.getY(), direcao.getX());

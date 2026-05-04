@@ -12,6 +12,7 @@ public class Navio implements Comparable<Navio>, Movel {
     private final int horarioPartida;
     private EstadoNavio estado;
     private double tempoNavegando;
+    private boolean emColisao;
 
     public Navio(Circulo area, double velocidadeLinear, int horario, Porto origem, Porto destino, TorreDeControlo torre) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
@@ -23,6 +24,15 @@ public class Navio implements Comparable<Navio>, Movel {
         this.estado = new NavioNaOrigem();
         this.torre = torre;
         this.tempoNavegando = 0;
+        this.emColisao = false;
+    }
+
+    public boolean isEmColisao() {
+        return emColisao;
+    }
+
+    public void setEmColisao(boolean emColisao) {
+        this.emColisao = emColisao;
     }
 
     private boolean intersect(Circulo circulo) {

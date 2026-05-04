@@ -57,10 +57,14 @@ public class SnapshotSimulacao {
     public static class DadosNavio {
         private final Ponto posicao;
         private final Vetor direcao;
+        private final boolean emColisao;
+        private final double raioArea;
 
-        public DadosNavio(Ponto posicao, Vetor direcao) {
+        public DadosNavio(Ponto posicao, Vetor direcao, boolean emColisao, double raioArea) {
             this.posicao = posicao;
             this.direcao = direcao;
+            this.emColisao = emColisao;
+            this.raioArea = raioArea;
         }
 
         public Ponto getPosicao() {
@@ -69,6 +73,14 @@ public class SnapshotSimulacao {
 
         public Vetor getDirecao() {
             return direcao;
+        }
+
+        public boolean isEmColisao() {
+            return emColisao;
+        }
+
+        public double getRaioArea() {
+            return raioArea;
         }
     }
 }

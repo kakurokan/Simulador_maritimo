@@ -85,7 +85,9 @@ public class Simulador {
         for (Navio navio : navios) {
             dadosNavios.add(new SnapshotSimulacao.DadosNavio(
                     navio.getPosicao(),
-                    navio.getDirecao(this.corrente)
+                    navio.getDirecao(this.corrente),
+                    navio.isEmColisao(),
+                    navio.getArea().getRaio()
             ));
         }
 

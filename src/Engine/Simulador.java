@@ -91,7 +91,7 @@ public class Simulador {
             ));
         }
 
-        return new SnapshotSimulacao(filaPorPorto, dadosNavios);
+        return new SnapshotSimulacao(filaPorPorto, dadosNavios, this.tempoAcumulado);
     }
 
     public List<Tempestade> reiniciarSimulacao() {
@@ -104,7 +104,7 @@ public class Simulador {
         // Remover apenas as tempestades
         this.obstaculos.removeIf(obs -> obs instanceof Tempestade);
 
-        // Criar novas tempestades aleatórias
+        // Cria tempestades aleatórias
         List<Tempestade> novasTempestades = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             novasTempestades.add(criarTempestade());

@@ -15,6 +15,8 @@ public class GestorMaritimo implements TorreDeControlo {
     public void iniciar(List<Route> rotas, List<Obstaculo> obstaculo) {
         grafo = new Grafo(rotas, obstaculo);
         this.estrategiaRota = new EstrategiaDijkstra(grafo);
+
+        this.navios.clear();
     }
 
     @Override

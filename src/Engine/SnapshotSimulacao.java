@@ -7,10 +7,16 @@ public class SnapshotSimulacao {
 
     private final Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto;
     private final List<DadosNavio> dadosNavios;
+    private final double tempoSimulacao;
 
-    public SnapshotSimulacao(Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto, List<DadosNavio> dadosNavios) {
+    public SnapshotSimulacao(Map<String, List<NavioEmEspera>> naviosEmEsperaPorPorto, List<DadosNavio> dadosNavios, double tempoSimulacao) {
         this.naviosEmEsperaPorPorto = Map.copyOf(naviosEmEsperaPorPorto);
         this.dadosNavios = dadosNavios;
+        this.tempoSimulacao = tempoSimulacao;
+    }
+
+    public double getTempoSimulacao() {
+        return tempoSimulacao;
     }
 
     public Map<String, List<NavioEmEspera>> getNaviosEmEsperaPorPorto() {

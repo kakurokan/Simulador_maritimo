@@ -90,6 +90,7 @@ public class PainelMapa extends JPanel {
         if (snapshot != null) {
             desenharNavios(graphics2D);
             desenharCaixasFlutuantesPorto(graphics2D);
+            desenharRelogio(graphics2D);
         }
     }
 
@@ -279,6 +280,22 @@ public class PainelMapa extends JPanel {
                 textY += 15;
             }
         }
+    }
+
+    private void desenharRelogio(Graphics2D g) {
+        String textoTempo = String.format("Tempo: %.1f", snapshot.getTempoSimulacao());
+
+        g.setFont(new Font("Arial", Font.BOLD, 22));
+        g.setColor(Color.BLACK);
+
+        FontMetrics metricas = g.getFontMetrics();
+        int larguraTexto = metricas.stringWidth(textoTempo);
+
+        int textoX = telaX(0) - larguraTexto - 45;
+
+        int textoY = telaY(0) - 400;
+
+        g.drawString(textoTempo, textoX, textoY);
     }
 
     private void desenharObstaculos(Graphics2D g) {

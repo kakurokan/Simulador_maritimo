@@ -7,6 +7,7 @@ public class GestorMaritimo implements TorreDeControlo {
     private final List<Navio> navios;
     private EstrategiaRota estrategiaRota;
     private Grafo grafo;
+
     public GestorMaritimo() {
         this.navios = new ArrayList<>();
     }
@@ -18,10 +19,21 @@ public class GestorMaritimo implements TorreDeControlo {
 
     @Override
     public void atualizarPosicoes(Navio navio) {
+        boolean colidiu = false;
+
         for (Navio outro : navios) {
             if (navio.intersect(outro)) {
                 int compare = navio.compareTo(outro);
+                if (compare < 0) {
+                    navio.mudarEstado(new NavioAguardando());
+                    colidiu = true;
+                    break;
+                }
             }
+        }
+
+        if (!colidiu && navio.getEstado() instanceof NavioAguardando) {
+            navio.mudarEstado(new NavioNavegando());
         }
     }
 
@@ -32,9 +44,9 @@ public class GestorMaritimo implements TorreDeControlo {
 
         Ponto origem = navio.getPosicao();
         SegmentoReta atual = navio.getSegmentoAtual(origem);
-        grafo.adicionarPonto(origem,atual);
+        grafo.adicionarPonto(origem, atual);
         Route rota = estrategiaRota.caminhos(origem, navio.getDestino().getPosicao(), this.navios);
-        grafo.removerPonto(origem,atual);
+        grafo.removerPonto(origem, atual);
         if (rota != null) {
             navio.receberRota(rota);
             navio.mudarEstado(new NavioNavegando());

@@ -13,7 +13,6 @@ public class Navio implements Comparable<Navio>, Movel {
     private EstadoNavio estado;
     private double tempoNavegando;
 
-
     public Navio(Circulo area, double velocidadeLinear, int horario, Porto origem, Porto destino, TorreDeControlo torre) {
         this.area = new Circulo(area.getCentro(), area.getRaio());
         this.destino = destino;
@@ -98,6 +97,10 @@ public class Navio implements Comparable<Navio>, Movel {
         return navegante.getSegmentos();
     }
 
+    public TorreDeControlo getTorre() {
+        return torre;
+    }
+
     public EstadoNavio getEstado() {
         return this.estado;
     }
@@ -114,7 +117,7 @@ public class Navio implements Comparable<Navio>, Movel {
         return velocidadeLinear;
     }
 
-    public SegmentoReta getSegmentoAtual(Ponto posicao){
+    public SegmentoReta getSegmentoAtual(Ponto posicao) {
         return this.navegante.getSegmentoAtual(posicao);
     }
 }

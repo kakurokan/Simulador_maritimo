@@ -116,6 +116,12 @@ public class Navegante {
 
         Vetor r = new Vetor(seg.getA(), seg.getB());
         double percorreNoSegmento = percorrido[0] / r.modulo();
+
+        // Se a percentagem a percorrer for tão pequena que vai criar um vetor (0,0), ignoramos
+        if (percorreNoSegmento < 0.0001) {
+            return seg.getA();
+        }
+
         Vetor deslocamento = r.multi(percorreNoSegmento);
 
         Ponto inicio = seg.getA();
@@ -158,8 +164,8 @@ public class Navegante {
     }
 
 
-    public SegmentoReta getSegmentoAtual(Ponto posicao){
-        for (SegmentoReta seg : segmentos){
+    public SegmentoReta getSegmentoAtual(Ponto posicao) {
+        for (SegmentoReta seg : segmentos) {
             if (seg.noSegmento(posicao)) return seg;
         }
         return null;

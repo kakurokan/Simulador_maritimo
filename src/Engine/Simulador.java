@@ -3,7 +3,7 @@ package Engine;
 import java.util.*;
 
 public class Simulador {
-    private static final double MAX_RAIO_TEMPESTADE = 2.0;
+    private static final double MAX_RAIO_TEMPESTADE = 1.0;
     private static final double MIN_RAIO_TEMPESTADE = 0.5;
     private final Vetor corrente;
     private final List<Route> rotas;

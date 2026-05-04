@@ -21,26 +21,43 @@ public class GestorMaritimo implements TorreDeControlo {
 
     @Override
     public void atualizarPosicoes(Navio navio) {
-        boolean colidiu = false;
-        boolean parado = false;
+        boolean tocando = false;
+        boolean caminhoBloqueado = false;
 
         for (Navio outro : navios) {
             if (navio != outro && navio.intersect(outro)) {
-                colidiu = true;
-                outro.setEmColisao(true);
+                tocando = true;
+                outro.setEmColisao(true); // O outro também acende a bolha visual
 
-                int compare = navio.compareTo(outro);
-                if (compare < 0) {
-                    parado = true;
-                    break;
+                // Verifica se o navio atual tem de ceder passagem (menor prioridade)
+                if (navio.compareTo(outro) > 0) {
+
+                    // A MAGIA DA ULTRAPASSAGEM:
+                    // Usamos um vetor corrente simulado apenas para descobrir para onde apontam
+                    Vetor correnteSimulada = new Vetor(0.001, 0.001);
+                    Vetor dirNavio = navio.getDirecao(correnteSimulada);
+                    Vetor dirOutro = outro.getDirecao(correnteSimulada);
+
+                    // O Produto Interno (Dot Product) avalia o ângulo entre os dois barcos:
+                    // Se <= 0, estão de frente ou de lado (Risco de choque -> Para os motores!)
+                    // Se > 0, estão a ir exatamente para o mesmo lado (Pode ultrapassar!)
+                    if (dirNavio.produtoInterno(dirOutro) <= 0) {
+                        caminhoBloqueado = true;
+                    }
                 }
             }
         }
 
-        navio.setEmColisao(colidiu);
+        navio.setEmColisao(tocando);
 
-        if (parado && navio.getEstado() instanceof NavioNavegando) {
-            navio.mudarEstado(new NavioAguardando());
+        if (caminhoBloqueado) {
+            if (navio.getEstado() instanceof NavioNavegando) {
+                navio.mudarEstado(new NavioAguardando());
+            }
+        } else {
+            if (navio.getEstado() instanceof NavioAguardando) {
+                navio.mudarEstado(new NavioNavegando());
+            }
         }
     }
 

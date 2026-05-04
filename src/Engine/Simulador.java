@@ -45,25 +45,40 @@ public class Simulador {
 
     public Tempestade criarTempestade() {
         Random rand = new Random();
+        Tempestade tempestade = null;
+        boolean posicaoSegura = false;
+        double margem = 0.5;
 
-        double raioAleatorio = MIN_RAIO_TEMPESTADE + rand.nextDouble() * (MAX_RAIO_TEMPESTADE - MIN_RAIO_TEMPESTADE);
+        while (!posicaoSegura) {
+            double raioAleatorio = MIN_RAIO_TEMPESTADE + rand.nextDouble() * (MAX_RAIO_TEMPESTADE - MIN_RAIO_TEMPESTADE);
 
-        Route rotaAleatoria = rotas.get(rand.nextInt(rotas.size()));
-        List<SegmentoReta> segmentosRotaAleatoria = rotaAleatoria.getSegmentos();
-        SegmentoReta segmentoAleatorio = segmentosRotaAleatoria.get(rand.nextInt(segmentosRotaAleatoria.size()));
+            Route rotaAleatoria = rotas.get(rand.nextInt(rotas.size()));
+            List<SegmentoReta> segmentosRotaAleatoria = rotaAleatoria.getSegmentos();
+            SegmentoReta segmentoAleatorio = segmentosRotaAleatoria.get(rand.nextInt(segmentosRotaAleatoria.size()));
 
-        Vetor direcaoSegmento = new Vetor(segmentoAleatorio.getA(), segmentoAleatorio.getB());
+            Vetor direcaoSegmento = new Vetor(segmentoAleatorio.getA(), segmentoAleatorio.getB());
 
-        double t = rand.nextDouble();
+            double t = rand.nextDouble();
 
-        double x = segmentoAleatorio.getA().getX() + direcaoSegmento.getX() * t;
-        double y = segmentoAleatorio.getA().getY() + direcaoSegmento.getY() * t;
+            double x = segmentoAleatorio.getA().getX() + direcaoSegmento.getX() * t;
+            double y = segmentoAleatorio.getA().getY() + direcaoSegmento.getY() * t;
 
-        Ponto centroAleatorio = new Ponto(x, y);
+            Ponto centroAleatorio = new Ponto(x, y);
 
-        Circulo area = new Circulo(centroAleatorio, raioAleatorio);
+            posicaoSegura = true;
 
-        Tempestade tempestade = new Tempestade(area);
+            for (Porto porto : portos) {
+                if (porto.getPosicao().distanciaPara(centroAleatorio) <= raioAleatorio + margem) {
+                    posicaoSegura = false;
+                    break;
+                }
+            }
+
+            if (posicaoSegura) {
+                Circulo area = new Circulo(centroAleatorio, raioAleatorio);
+                tempestade = new Tempestade(area);
+            }
+        }
 
         this.obstaculos.add(tempestade);
         return tempestade;

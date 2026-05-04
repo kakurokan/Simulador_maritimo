@@ -6,7 +6,9 @@ public class NavioAguardando implements EstadoNavio {
         if (navio.isEmColisao()) {
             //Pede para torre para sair
             navio.getTorre().atualizarPosicoes(navio);
-        } else {
+        }
+
+        if (!navio.isEmColisao()) {
             navio.mudarEstado(new NavioNavegando());
         }
     }

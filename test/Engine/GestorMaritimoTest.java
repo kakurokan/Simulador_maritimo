@@ -29,48 +29,51 @@ class GestorMaritimoTest {
         List<Route> rotas = new ArrayList<>(List.of(rota1, rota2));
         List<Obstaculo> obstaculos = new ArrayList<>();
 
-
         gestor = new GestorMaritimo();
+        gestor.iniciar(rotas,obstaculos);
 
-        navio = origem.adicionarNavio(20, 10, destino);
-        navio2 = origem.adicionarNavio(20, 20, destino);
         origem = new Porto("Albufeira", new Ponto(0, 0), gestor);
         destino = new Porto("Lisboa", new Ponto(3, 5), gestor);
 
-        navio = origem.adicionarNavio(20, 10, destino);
-        navio2 = origem.adicionarNavio(20, 12, destino);
+        navio = origem.adicionarNavio(2, 10, destino);
+        navio2 = destino.adicionarNavio(2, 10, origem);
 
-        gestor = new GestorMaritimo();
     }
 
     @Test
     void atualizarRota() {
-        gestor.atualizarRota(navio2);
+        gestor.libertarNavio(origem,navio);
+        gestor.atualizarRota(navio);
 
         Route melhorRotaEsperada = new Route(List.of(
                 new Ponto(0, 0), new Ponto(1, 1), new Ponto(3, 2), new Ponto(3, 5)
         ));
-        assertEquals(melhorRotaEsperada.getSegmentos(), navio2.getSegmentosRota());
+        assertEquals(melhorRotaEsperada.getSegmentos(), navio.getSegmentosRota());
     }
 
     @Test
     void atualizarPosicoes() {
-        Ponto posicaoFinal = new Ponto(3, 5);
-        gestor.atualizarPosicoes(navio);
+        gestor.libertarNavio(destino,navio2);
+        navio2.atualizar(1.3,new Vetor(1,1));
+        gestor.libertarNavio(origem,navio);
+        navio.atualizar(1.9, new Vetor(1,1));
 
-        assertEquals(posicaoFinal, navio.getPosicao());
-    }
+        gestor.atualizarPosicoes(navio2);
+        assertEquals(NavioAguardando.class, navio.getEstado().getClass());
+       }
 
     @Test
     void libertarNavio() {
 
-        Porto porto = new Porto("Albufeira City", new Ponto(0, 0), gestor);
-        gestor.libertarNavio(porto, navio2);
+
+        gestor.libertarNavio(destino, navio2);
         gestor.libertarNavio(origem, navio);
 
         assertInstanceOf(NavioNavegando.class, navio.getEstado());
 
         assertInstanceOf(NavioNavegando.class, navio2.getEstado());
+
+        assertNotNull(gestor.getNavios());
     }
 
     @Test

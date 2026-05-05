@@ -17,7 +17,8 @@ class SimuladorTest {
     private List<Porto> portos;
     private Simulador simulador;
     private Vetor corrente;
-
+    private GestorMaritimo gestor;
+    private Porto origem, destino;
     @BeforeEach
     void setUp() {
         Route rota1 = new Route(List.of(
@@ -31,10 +32,11 @@ class SimuladorTest {
 
         rotas = new ArrayList<>(List.of(rota1, rota2));
         obstaculos = new ArrayList<>();
-        GestorMaritimo gestor = new GestorMaritimo();
+        gestor = new GestorMaritimo();
 
-        Porto origem = new Porto("Albufeira", new Ponto(0, 0), gestor);
-        Porto destino = new Porto("Lisboa", new Ponto(50, 40), gestor);
+        gestor.iniciar(rotas,obstaculos);
+         origem = new Porto("Albufeira", new Ponto(0, 0), gestor);
+         destino = new Porto("Lisboa", new Ponto(3, 5), gestor);
         portos = List.of(origem, destino);
 
         navio = origem.adicionarNavio(5, 2, destino);
@@ -46,7 +48,8 @@ class SimuladorTest {
 
     @Test
     void atualizar_ComNavioNavegando_AlteraPosicaoDoNavio() {
-        navio.mudarEstado(new NavioNavegando());
+        gestor.libertarNavio(origem,navio);
+
         Ponto posicaoInicial = navio.getPosicao();
 
         simulador.atualizar(1.0);

@@ -23,9 +23,11 @@ class NavioTest {
         List<Route> rotas = List.of(melhorRotaEsperada);
         List<Obstaculo> obstaculos = new ArrayList<>();
 
+
         torre = new GestorMaritimo();
+        torre.iniciar(rotas, obstaculos);
         origem = new Porto("Porto de Lisboa", new Ponto(0, 0), torre);
-        destino = new Porto("Porto de Faro", new Ponto(10, 10), torre);
+        destino = new Porto("Porto de Faro", new Ponto(3, 5), torre);
 
         // Navio principal usado na maioria dos testes
         navio = origem.adicionarNavio(5, 2, destino);
@@ -49,11 +51,11 @@ class NavioTest {
 
     @Test
     void mover_ComDeltaPositivo_AtualizaPosicao() {
-        double delta = 0.5;
-        torre.atualizarRota(navio);
+        double delta = 1;
+        torre.libertarNavio(origem,navio);
         Ponto posicaoInicial = navio.getPosicao();
 
-        navio.mover(delta,new Vetor(5,5));
+        navio.mover(delta,new Vetor(2,2));
         Ponto posicaoAtual = navio.getPosicao();
 
         assertNotEquals(posicaoInicial, posicaoAtual, "O navio deveria ter saído da posição inicial após invocar mover().");
@@ -141,7 +143,7 @@ class NavioTest {
     void getArea_RetornaCirculoComRaioEPosicaoCorretos() {
         Circulo areaRetornada = navio.getArea();
 
-        assertEquals(5.0, areaRetornada.getRaio(), "O raio da área gerado pelo Porto deveria ser 5.");
+        assertEquals(1.0, areaRetornada.getRaio(), "O raio da área gerado pelo Porto deveria ser 1.");
         assertEquals(navio.getPosicao(), areaRetornada.getCentro(), "O centro da área deve ser idêntico à posição do navio.");
     }
 

@@ -22,9 +22,10 @@ class EstadoNavioTest {
         TorreDeControlo torreAux = new TorreDeControloSAux();
         Porto origem = new Porto("Albufeira", new Ponto(0, 0), torreAux);
         Porto portoDestino = new Porto("Porto Faro", new Ponto(100.0, 100.0), torreAux);
-
+        Route rota = new Route(new double[]{0.0, 0.0, 100.0, 100.0
+        });
         navio = new Navio(areaNavio, 20.0, 1, origem, portoDestino, torreAux);
-
+        navio.receberRota(rota);
         navegando = new NavioNavegando();
         naOrigem = new NavioNaOrigem();
         noDestino = new NavioNoDestino();

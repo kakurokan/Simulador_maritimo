@@ -7,6 +7,9 @@ public class EstrategiaDijkstra implements EstrategiaRota {
     private final Grafo grafo;
 
     EstrategiaDijkstra(Grafo grafo) {
+        if (grafo == null){
+            throw new IllegalArgumentException("EstrategiaDijkstra:iv");
+        }
         this.grafo = grafo;
     }
 

@@ -27,23 +27,14 @@ public class GestorMaritimo implements TorreDeControlo {
         for (Navio outro : navios) {
             if (navio != outro && navio.intersect(outro)) {
                 tocando = true;
-                outro.setEmColisao(true); // O outro também acende a bolha visual
+                outro.setEmColisao(true);
 
-                // Verifica se o navio atual tem de ceder passagem (menor prioridade)
-                if (navio.compareTo(outro) > 0) {
-
-                    // A MAGIA DA ULTRAPASSAGEM:
-                    // Usamos um vetor corrente simulado apenas para descobrir para onde apontam
-                    Vetor correnteSimulada = new Vetor(0.001, 0.001);
-                    Vetor dirNavio = navio.getDirecao(correnteSimulada);
-                    Vetor dirOutro = outro.getDirecao(correnteSimulada);
-
-                    // O Produto Interno (Dot Product) avalia o ângulo entre os dois barcos:
-                    // Se <= 0, estão de frente ou de lado (Risco de choque -> Para os motores!)
-                    // Se > 0, estão a ir exatamente para o mesmo lado (Pode ultrapassar!)
-                    if (dirNavio.produtoInterno(dirOutro) <= 0) {
-                        caminhoBloqueado = true;
-                    }
+                // A REGRA DE OURO DO ENUNCIADO:
+                // Se o MEU código de viagem for lexicograficamente menor (< 0) que o outro,
+                // então EU sou obrigado a esperar (caminhoBloqueado = true).
+                if (navio.compareTo(outro) < 0) {
+                    caminhoBloqueado = true;
+                    break;
                 }
             }
         }

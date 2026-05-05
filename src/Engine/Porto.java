@@ -3,7 +3,7 @@ package Engine;
 import java.util.*;
 
 public class Porto {
-    private static final double RAIO_AREA_NAVIO = 0.5;
+    private static final double RAIO_AREA_NAVIO = 1;
     private static final Comparator<Navio> COMPARADOR_POR_HORARIO_PARTIDA =
             Comparator.comparingInt(Navio::getHorarioPartida);
     private final String nome;

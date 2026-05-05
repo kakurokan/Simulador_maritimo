@@ -1,4 +1,5 @@
 import Engine.*;
+import GUI.DialogoCorrente;
 import GUI.JanelaPrincipal;
 
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class Cliente {
         List<Porto> portos = Arrays.asList(porto1, porto2, porto3, porto4, porto5, porto6, porto7);
 
         // Corrente marítima a afetar o cenário
-        Vetor corrente = new Vetor(1, 2);
+        Vetor corrente = DialogoCorrente.pedirCorrente(new Vetor(1.0, 2.0));
 
         Simulador simulador = new Simulador(
                 corrente,

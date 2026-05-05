@@ -5,11 +5,11 @@ import java.util.*;
 public class Simulador {
     private static final double MAX_RAIO_TEMPESTADE = 1.0;
     private static final double MIN_RAIO_TEMPESTADE = 0.5;
-    private final Vetor corrente;
     private final List<Route> rotas;
     private final List<Porto> portos;
     private final List<Obstaculo> obstaculos;
     private final TorreDeControlo torreDeControlo;
+    private Vetor corrente;
     private double tempoAcumulado;
 
     public Simulador(Vetor corrente, List<Route> rotas, List<Porto> portos, List<Obstaculo> obstaculo, TorreDeControlo torreDeControlo) {
@@ -19,6 +19,10 @@ public class Simulador {
         this.obstaculos = obstaculo;
         this.torreDeControlo = torreDeControlo;
         this.tempoAcumulado = 0;
+    }
+
+    public void setCorrente(Vetor corrente) {
+        this.corrente = corrente;
     }
 
     public void iniciar() {

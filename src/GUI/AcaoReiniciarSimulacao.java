@@ -2,6 +2,7 @@ package GUI;
 
 import Engine.Simulador;
 import Engine.Tempestade;
+import Engine.Vetor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,10 +23,18 @@ public class AcaoReiniciarSimulacao extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Tempestade> novasTempestades = simulador.reiniciarSimulacao();
-        painel.setTempestades(novasTempestades);
-        rotinaDeTrafego.run();
-        painel.atualizarSnapshot(simulador.gerarSnapshot());
-        painel.repaint();
+        Vetor corrente = DialogoCorrente.pedirCorrente(painel.getCorrente());
+
+        if (corrente != null) {
+
+            simulador.setCorrente(corrente);
+            painel.setCorrente(corrente);
+
+            List<Tempestade> novasTempestades = simulador.reiniciarSimulacao();
+            painel.setTempestades(novasTempestades);
+            rotinaDeTrafego.run();
+            painel.atualizarSnapshot(simulador.gerarSnapshot());
+            painel.repaint();
+        }
     }
 }

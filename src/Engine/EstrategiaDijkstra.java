@@ -2,21 +2,61 @@ package Engine;
 
 import java.util.*;
 
+/**
+ * A classe EstrategiaDijkstra é uma implementação da interface EstrategiaRota
+ * que utiliza o algoritmo de Dijkstra para calcular o caminho mais curto entre dois pontos
+ * num grafo. Considera restrições específicas como obstáculos de navegação durante o
+ * processo de determinação do caminho.
+ * <p>
+ * Esta estratégia utiliza uma fila de prioridade para explorar pontos em ordem crescente de
+ * distância a partir do ponto de origem. Para cada ponto, avalia os seus vizinhos,
+ * atualizando as suas distâncias se for encontrado um caminho mais curto, e mantém registo dos
+ * caminhos usando um mapeamento inverso de pontos.
+ * <p>
+ * A classe também fornece métodos utilitários para reconstruir o caminho usando o
+ * mapeamento inverso calculado e aplicar restrições, como garantir que não existem
+ * obstáculos ou áreas restritas ao longo de segmentos específicos do caminho.
+ */
 
 public class EstrategiaDijkstra implements EstrategiaRota {
     private final Grafo grafo;
 
+    /**
+     * Constrói uma instância de EstrategiaDijkstra com o grafo especificado.
+     *
+     * @param grafo o grafo que representa a estrutura navegável.
+     *              Este grafo não pode ser nulo e deve conter ligações válidas
+     *              entre nós (pontos). Se o grafo for nulo, uma
+     *              IllegalArgumentException é lançada.
+     */
     EstrategiaDijkstra(Grafo grafo) {
-        if (grafo == null){
+        if (grafo == null) {
             throw new IllegalArgumentException("EstrategiaDijkstra:iv");
         }
         this.grafo = grafo;
     }
 
+    /**
+     * Verifica se o segmento de reta fornecido está livre de colisões com os navios na lista.
+     *
+     * @param segmento o segmento de reta que será avaliado
+     * @param navios   a lista de navios cujas posições serão consideradas na verificação
+     * @return true se o segmento estiver livre de colisões, caso contrário, false
+     */
     private boolean caminhoLivre(SegmentoReta segmento, List<Navio> navios) {
         return true;
     }
 
+    /**
+     * Reverte o caminho fornecido, criando uma rota a partir do destino
+     * até a origem com base no mapeamento de pontos.
+     *
+     * @param caminhoInverso Um mapa que associa cada ponto ao seu ponto anterior
+     *                       no caminho inverso. Não deve ser nulo.
+     * @param destino        O ponto de destino inicial. Não pode ser nulo.
+     * @return Uma instância de {@code Route} que representa o caminho invertido,
+     * ou {@code null} se o destino não tiver um ponto associado no mapa.
+     */
     private Route inverteCaminho(Map<Ponto, Ponto> caminhoInverso, Ponto destino) {
         LinkedList<Ponto> caminhoCerto = new LinkedList<>();
         Ponto passo = destino;
@@ -31,6 +71,18 @@ public class EstrategiaDijkstra implements EstrategiaRota {
         return new Route(pontosRota);
     }
 
+    /**
+     * Calcula a rota mais curta entre dois pontos em um grafo navegável considerando
+     * as restrições impostas pelos navios existentes.
+     *
+     * @param origem  O ponto de partida no grafo. Não pode ser nulo e deve estar presente no grafo.
+     * @param destino O ponto de destino no grafo. Não pode ser nulo e deve estar presente no grafo.
+     * @param navios  Uma lista de navios cujo posicionamento será considerado ao verificar a
+     *                viabilidade dos segmentos de reta no caminho. Não pode ser nula, mas pode estar vazia.
+     * @return Um objeto {@code Route} representando o caminho mais curto entre a origem e o destino,
+     * levando em conta as restrições de tráfego por navios. Retorna {@code null} se a
+     * origem ou o destino não estiverem no grafo ou se não houver caminho viável.
+     */
     @Override
     public Route caminhos(Ponto origem, Ponto destino, List<Navio> navios) {
         if (!grafo.getGrafo().containsKey(origem) || !grafo.getGrafo().containsKey(destino)) {
@@ -73,16 +125,40 @@ public class EstrategiaDijkstra implements EstrategiaRota {
         return inverteCaminho(caminhoInverso, destino);
     }
 
+    /**
+     * Representa um nó utilizado no algoritmo de Dijkstra. Cada nó contém um ponto
+     * e a distância acumulada desse ponto em relação à origem no grafo.
+     * <p>
+     * Esta classe é projetada para ser utilizada como parte do algoritmo de cálculo
+     * de rotas mais curtas, com a capacidade de comparar nós com base em suas distâncias
+     * acumuladas, para priorizar o nó com a menor distância no processamento.
+     */
     private static class No implements Comparable<No> {
         private final Ponto ponto;
         private final double distanciaAcumulada;
 
+        /**
+         * Constrói um nó contendo um ponto e sua distância acumulada em relação ao início do grafo.
+         *
+         * @param ponto              O ponto representado pelo nó no grafo.
+         * @param distanciaAcumulada A distância acumulada do ponto em relação ao nó de origem.
+         */
         No(Ponto ponto, double distanciaAcumulada) {
             this.ponto = ponto;
             this.distanciaAcumulada = distanciaAcumulada;
         }
 
 
+        /**
+         * Compara este nó com o nó especificado com base na distância acumulada.
+         * Este método é usado para determinar a ordem de prioridade entre dois nós
+         * no contexto do algoritmo de Dijkstra, priorizando o nó com a menor distância acumulada.
+         *
+         * @param n o nó a ser comparado com este nó
+         * @return um valor negativo se este nó tiver uma distância acumulada menor que o nó especificado;
+         * zero se ambos os nós tiverem a mesma distância acumulada;
+         * um valor positivo se este nó tiver uma distância acumulada maior que o nó especificado
+         */
         @Override
         public int compareTo(No n) {
             return Double.compare(this.distanciaAcumulada, n.distanciaAcumulada);

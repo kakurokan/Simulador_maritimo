@@ -93,6 +93,13 @@ public class Route {
         return total;
     }
 
+    /**
+     * Compara este objeto {@code Route} com o objeto especificado para verificar igualdade.
+     * Dois objetos {@code Route} são considerados iguais se suas sequências de pontos forem idênticas.
+     *
+     * @param o O objeto a ser comparado com esta {@code Route}.
+     * @return {@code true} se o objeto especificado for igual a esta {@code Route}, {@code false} caso contrário.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

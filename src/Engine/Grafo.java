@@ -2,40 +2,85 @@ package Engine;
 
 import java.util.*;
 
+/**
+ * Representa um grafo direcionado ou não-direcionado que utiliza {@code Ponto} como os vértices
+ * e armazena as conexões entre eles em forma de arestas. O grafo é construído com base em
+ * uma lista de rotas e uma lista de obstáculos, garantindo que as conexões entre os pontos
+ * não intersectem obstáculos fornecidos.
+ */
 public class Grafo {
-    private final Map<Ponto, Set<Ponto>> grafo;
     static Comparator<Ponto> comparador;
+    private final Map<Ponto, Set<Ponto>> grafo;
 
+    /**
+     * Construtor da classe {@code Grafo}, que cria um grafo com base em uma lista de rotas e uma lista
+     * de obstáculos. O grafo é construído utilizando os segmentos das rotas fornecidas, desde que
+     * esses segmentos não intersectem nenhum obstáculo na lista de obstáculos fornecida.
+     *
+     * @param rotas     A lista de objetos {@code Route} representando as rotas que serão utilizadas
+     *                  para construir o grafo. Cada rota deve conter pelo menos dois pontos.
+     *                  Não pode ser vazia.
+     * @param obstaculo A lista de objetos {@code Obstaculo} representando os obstáculos no plano
+     *                  cartesiano. Esses obstáculos serão utilizados para verificar interseções
+     *                  com os segmentos das rotas fornecidas.
+     * @throws IllegalArgumentException Se a lista de rotas estiver vazia ou se, após a validação,
+     *                                  nenhum segmento livre (sem interseção) for encontrado.
+     */
     public Grafo(List<Route> rotas, List<Obstaculo> obstaculo) {
-        if(rotas.isEmpty()) {
+        if (rotas.isEmpty()) {
             throw new IllegalArgumentException("Grafo:iv");
         }
 
         comparador = Comparator.comparingDouble(Ponto::getX).thenComparingDouble(Ponto::getY);
-        grafo =  new TreeMap<>(comparador);
+        grafo = new TreeMap<>(comparador);
         List<SegmentoReta> segmentosRotas = getSegmentosRotas(rotas);
-        for(SegmentoReta segmento : segmentosRotas) {
-            if (intersetaObstaculo(segmento,obstaculo)) {
+        for (SegmentoReta segmento : segmentosRotas) {
+            if (intersetaObstaculo(segmento, obstaculo)) {
                 continue;
             }
             Ponto p1 = segmento.getA();
             Ponto p2 = segmento.getB();
-            grafo.computeIfAbsent(p1, k->new TreeSet<>(comparador)).add(p2);
-            grafo.computeIfAbsent(p2, k->new TreeSet<>(comparador)).add(p1);
+            grafo.computeIfAbsent(p1, k -> new TreeSet<>(comparador)).add(p2);
+            grafo.computeIfAbsent(p2, k -> new TreeSet<>(comparador)).add(p1);
         }
-        if(grafo.isEmpty()) {
+        if (grafo.isEmpty()) {
             throw new IllegalArgumentException("Não existe nenhum segmento livre");
         }
     }
 
+    /**
+     * Retorna uma visão imutável do grafo no formato de um mapa onde cada chave
+     * representa um ponto e o valor associado é um conjunto imutável dos pontos
+     * adjacentes conectados a ele.
+     * <p>
+     * O mapa retornado é uma cópia baseada no grafo interno da classe, mas
+     * disponibilizada sem permitir modificações externas, garantindo a integridade
+     * dos dados do grafo original.
+     *
+     * @return Um mapa imutável representando o grafo, onde as chaves são objetos
+     * do tipo {@code Ponto} e cada valor associado é um conjunto imutável
+     * de objetos {@code Ponto} representando as conexões.
+     */
     public Map<Ponto, Set<Ponto>> getGrafo() {
-    Map<Ponto, Set<Ponto>> view = new TreeMap<>(comparador);
-    for(Map.Entry<Ponto, Set<Ponto>> entry : grafo.entrySet()) {
-        view.put(entry.getKey(), Collections.unmodifiableSet(entry.getValue()));
+        Map<Ponto, Set<Ponto>> view = new TreeMap<>(comparador);
+        for (Map.Entry<Ponto, Set<Ponto>> entry : grafo.entrySet()) {
+            view.put(entry.getKey(), Collections.unmodifiableSet(entry.getValue()));
+        }
+        return Collections.unmodifiableMap(view);
     }
-    return Collections.unmodifiableMap(view);}
 
-
+    /**
+     * Verifica se um segmento de reta intercepta algum dos obstáculos fornecidos.
+     *
+     * @param segmento  O segmento de reta a ser verificado. Este é representado
+     *                  por dois pontos {@code A} e {@code B}, que definem o
+     *                  início e o fim do segmento.
+     * @param obstaculo A lista de obstáculos contra os quais a interseção será
+     *                  verificada. Cada obstáculo fornece métodos para calcular
+     *                  pontos de interseção com o segmento.
+     * @return {@code true} se o segmento de reta interceptar qualquer um dos
+     * obstáculos, {@code false} caso contrário.
+     */
     private boolean intersetaObstaculo(SegmentoReta segmento, List<Obstaculo> obstaculo) {
         Route rota = new Route(
                 List.of(segmento.getA(), segmento.getB()));
@@ -48,7 +93,17 @@ public class Grafo {
         return false;
     }
 
-    private List<SegmentoReta> getSegmentosRotas(List<Route> rotas){
+    /**
+     * Obtém uma lista de segmentos de reta a partir de uma lista de rotas.
+     * Cada rota contém uma lista de segmentos que são extraídos e adicionados
+     * à lista resultante.
+     *
+     * @param rotas A lista de objetos {@code Route} representando as rotas.
+     *              Cada objeto {@code Route} deve conter uma ou mais definições
+     *              de segmentos de reta.
+     * @return Uma lista de objetos {@code SegmentoReta} extraídos das rotas fornecidas.
+     */
+    private List<SegmentoReta> getSegmentosRotas(List<Route> rotas) {
         List<SegmentoReta> segmentos = new ArrayList<>();
         for (Route rota : rotas) {
             segmentos.addAll(rota.getSegmentos());
@@ -56,19 +111,42 @@ public class Grafo {
         return segmentos;
     }
 
-    public void adicionarPonto(Ponto posicao, SegmentoReta seg){
-        if (posicao.equals(seg.getA()) || posicao.equals(seg.getB())) { return;}
-            grafo.computeIfAbsent(posicao, k -> new TreeSet<>(comparador)).add(seg.getA());
-            grafo.computeIfAbsent(seg.getA(), k -> new TreeSet<>(comparador)).add(posicao);
+    /**
+     * Adiciona um ponto ao grafo e estabelece conexões entre o ponto fornecido e os extremos
+     * de um segmento de reta especificado, se o ponto não for igual a um dos extremos do segmento.
+     *
+     * @param posicao O ponto que será adicionado ao grafo. Se for igual a um dos extremos
+     *                do segmento, nenhuma ação será realizada.
+     * @param seg     O segmento de reta cujos extremos serão conectados ao ponto fornecido.
+     */
+    public void adicionarPonto(Ponto posicao, SegmentoReta seg) {
+        if (posicao.equals(seg.getA()) || posicao.equals(seg.getB())) {
+            return;
+        }
+        grafo.computeIfAbsent(posicao, k -> new TreeSet<>(comparador)).add(seg.getA());
+        grafo.computeIfAbsent(seg.getA(), k -> new TreeSet<>(comparador)).add(posicao);
 
 
-        grafo.computeIfAbsent(posicao, k->new TreeSet<>(comparador)).add(seg.getB());
-        grafo.computeIfAbsent(seg.getB(),k->new TreeSet<>(comparador)).add(posicao);
+        grafo.computeIfAbsent(posicao, k -> new TreeSet<>(comparador)).add(seg.getB());
+        grafo.computeIfAbsent(seg.getB(), k -> new TreeSet<>(comparador)).add(posicao);
 
     }
 
-    public void removerPonto(Ponto posicao,SegmentoReta seg){
-        if (posicao.equals(seg.getA()) || posicao.equals(seg.getB())) { return;}
+    /**
+     * Remove um ponto do grafo e desconecta todas as arestas associadas a ele,
+     * caso o ponto não corresponda a nenhum dos extremos do segmento de reta fornecido.
+     *
+     * @param posicao O ponto a ser removido. Caso seja equivalente a um dos extremos
+     *                do segmento especificado, nenhuma ação será realizada.
+     * @param seg     O segmento de reta cujos extremos são avaliados para garantir que
+     *                o ponto a ser removido não seja um deles. As conexões entre os
+     *                extremos do segmento e o ponto serão removidas, caso o ponto seja
+     *                desconectável.
+     */
+    public void removerPonto(Ponto posicao, SegmentoReta seg) {
+        if (posicao.equals(seg.getA()) || posicao.equals(seg.getB())) {
+            return;
+        }
         grafo.remove(posicao);
         grafo.get(seg.getA()).remove(posicao);
         grafo.get(seg.getB()).remove(posicao);

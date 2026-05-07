@@ -7,11 +7,34 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A classe JanelaPrincipal representa a janela principal da aplicação para um simulador marítimo.
+ * Esta classe é responsável por renderizar o mapa, incorporar interações com os
+ * componentes da simulação e gerir as atualizações temporizadas do estado da simulação.
+ * <p>
+ * A janela inclui um painel de mapa, um botão para reiniciar a simulação e um
+ * temporizador que controla as atualizações periódicas para simular comportamento em tempo real.
+ * <p>
+ * Coordena interações entre o modelo de simulação, os elementos da interface do utilizador
+ * e os componentes relacionados da aplicação.
+ */
 public class JanelaPrincipal extends JFrame {
     private final Timer timer;
     private final PainelMapa painel;
-    private final Runnable recriarBarcos;
 
+    /**
+     * Construtor da classe JanelaPrincipal que inicializa a interface gráfica para o simulador marítimo.
+     * Este construtor configura a janela principal, inclui um painel de mapa para exibição
+     * das rotas, obstáculos, tempestades e portos, e define um temporizador para atualizar o andamento da simulação.
+     *
+     * @param simulador          O objeto Simulador responsável pela lógica da simulação marítima.
+     * @param rotas              Lista de rotas marítimas utilizadas na simulação.
+     * @param obstaculos         Lista de obstáculos representados por polígonos na área de simulação.
+     * @param tempestades        Lista de tempestades ativas na área de simulação.
+     * @param posicoesPortos     Mapeamento entre os nomes dos portos e suas respectivas localizações.
+     * @param velocidadeCorrente Vetor representando a velocidade da corrente marítima no ambiente simulado.
+     * @param recriarBarcos      Runnable que define a lógica para recriar os barcos usados na simulação.
+     */
     public JanelaPrincipal(Simulador simulador,
                            List<Route> rotas,
                            List<Poligono> obstaculos,
@@ -19,7 +42,6 @@ public class JanelaPrincipal extends JFrame {
                            Map<String, Ponto> posicoesPortos,
                            Vetor velocidadeCorrente,
                            Runnable recriarBarcos) {
-        this.recriarBarcos = recriarBarcos;
         this.painel = new PainelMapa(rotas, tempestades, obstaculos, posicoesPortos, velocidadeCorrente);
 
         setTitle("Simulador marítimo");
@@ -30,7 +52,7 @@ public class JanelaPrincipal extends JFrame {
 
         JPanel painelSul = new JPanel();
 
-        AcaoReiniciarSimulacao reset = new AcaoReiniciarSimulacao(simulador, painel, this.recriarBarcos);
+        AcaoReiniciarSimulacao reset = new AcaoReiniciarSimulacao(simulador, painel, recriarBarcos);
 
         JButton botaoReset = new JButton(reset);
 
@@ -44,6 +66,14 @@ public class JanelaPrincipal extends JFrame {
         });
     }
 
+    /**
+     * Inicia a janela principal da aplicação e dá início ao temporizador da simulação.
+     * <p>
+     * Este método torna a janela visível para o utilizador e inicia o temporizador,
+     * que é responsável por executar atualizações periódicas na interface e no
+     * estado da simulação. O temporizador ajuda a simular o comportamento em tempo
+     * real, atualizando o mapa e os elementos relacionados.
+     */
     public void iniciar() {
         setVisible(true);
         timer.start();

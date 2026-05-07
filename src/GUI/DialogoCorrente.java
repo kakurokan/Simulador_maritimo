@@ -4,6 +4,11 @@ import Engine.Vetor;
 
 import javax.swing.*;
 
+/**
+ * Classe responsável por apresentar um diálogo ao utilizador para inserção
+ * de componentes de um vetor de corrente. O diálogo permite ao utilizador
+ * inserir e confirmar os valores para os componentes X e Y de uma corrente.
+ */
 public class DialogoCorrente {
 
     /**

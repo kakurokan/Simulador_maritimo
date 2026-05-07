@@ -62,6 +62,13 @@ public class Ponto {
         return distancia_y < eps && distancia_x < eps;
     }
 
+    /**
+     * Calcula o código hash para este ponto com base nas suas coordenadas.
+     * O código hash é derivado usando o método {@code Objects.hash}, incorporando os valores
+     * das coordenadas {@code x} e {@code y}.
+     *
+     * @return um valor inteiro representando o código hash deste ponto.
+     */
     @Override
     public int hashCode() {
         return java.util.Objects.hash(x, y);
@@ -69,7 +76,7 @@ public class Ponto {
 
     /**
      * Subtrai as coordenadas do ponto fornecido das coordenadas do ponto atual,
-     * resultando em um novo ponto representando a diferença vetorial entre eles.
+     * resultando num novo ponto representando a diferença vetorial entre eles.
      *
      * @param p O ponto cujas coordenadas serão subtraídas do ponto atual.
      * @return Um novo objeto Engine.Ponto representando a subtração das coordenadas dos dois pontos.

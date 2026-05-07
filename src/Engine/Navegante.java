@@ -16,6 +16,13 @@ import java.util.List;
 public class Navegante {
     private List<SegmentoReta> segmentos = new ArrayList<>();
 
+    /**
+     * Constrói uma instância padrão de {@code Navegante} sem inicializar uma rota associada.
+     * <p>
+     * Este construtor cria uma instância de {@code Navegante} com uma lista de segmentos vazia.
+     * A rota e seus segmentos podem ser atribuídos posteriormente utilizando métodos disponíveis
+     * na classe.
+     */
     public Navegante() {
     }
 
@@ -130,6 +137,18 @@ public class Navegante {
                 inicio.getY() + deslocamento.getY());
     }
 
+    /**
+     * Calcula a direção do movimento em função da velocidade linear atual, tempo transcorrido
+     * e a velocidade corrente num determinado ponto da rota.
+     *
+     * @param velocidadeLinear   A velocidade linear constante em unidades de comprimento por unidade
+     *                           de tempo. Deve ser um valor positivo maior que zero.
+     * @param tempo              O tempo transcorrido em unidades de tempo. Deve ser um valor não negativo.
+     * @param velocidadeCorrente Um vetor representando a velocidade atual do movimento.
+     *                           Não pode ser {@code null}.
+     * @return Um vetor representando a direção do movimento no segmento correspondente,
+     * considerando os parâmetros fornecidos.
+     */
     public Vetor direcao(double velocidadeLinear, double tempo, Vetor velocidadeCorrente) {
         int segIndice = getIndiceSegmentoAtual(velocidadeLinear, tempo, new double[1]);
 
@@ -138,6 +157,22 @@ public class Navegante {
         return velocidades.get(segIndice);
     }
 
+    /**
+     * Determina o índice do segmento atual sendo percorrido com base numa velocidade
+     * linear e tempo decorrido fornecidos. Também calcula a distância percorrida
+     * dentro do segmento atual.
+     *
+     * @param velocidadeLinear A velocidade linear em unidades de distância por unidade de tempo.
+     *                         Deve ser um valor positivo maior que zero.
+     * @param tempo            O tempo decorrido para o movimento ao longo dos segmentos.
+     *                         Deve ser um valor positivo maior ou igual a zero.
+     * @param percorrido       Um array de tamanho 1 utilizado para armazenar a distância percorrida
+     *                         dentro do segmento atual após a conclusão do método.
+     *                         Não pode ser nulo.
+     * @return O índice do segmento atual sendo percorrido. Se a distância total
+     * percorrida exceder o comprimento cumulativo de todos os segmentos, o índice do
+     * último segmento é retornado.
+     */
     private int getIndiceSegmentoAtual(double velocidadeLinear, double tempo, double[] percorrido) {
         double percorrer = velocidadeLinear * tempo;
 
@@ -159,11 +194,27 @@ public class Navegante {
         return this.segmentos.size() - 1;
     }
 
+    /**
+     * Obtém a lista de segmentos associados à instância de Navegante.
+     *
+     * @return Uma lista contendo os segmentos da rota representados por
+     * objetos do tipo {@code SegmentoReta}. Se não houver segmentos
+     * associados, retorna uma lista vazia.
+     */
     public List<SegmentoReta> getSegmentos() {
         return segmentos;
     }
 
-
+    /**
+     * Retorna o segmento atual da lista de segmentos em que o ponto fornecido está localizado.
+     * O método verifica se o ponto pertence a algum dos segmentos da lista e retorna o
+     * segmento correspondente.
+     *
+     * @param posicao A posição representada por um ponto que será verificado relativamente
+     *                aos segmentos. Não pode ser nulo.
+     * @return O segmento correspondente ao ponto fornecido, ou {@code null} se o ponto não
+     * pertencer a nenhum segmento.
+     */
     public SegmentoReta getSegmentoAtual(Ponto posicao) {
         for (SegmentoReta seg : segmentos) {
             if (seg.noSegmento(posicao)) return seg;

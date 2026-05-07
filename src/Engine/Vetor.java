@@ -155,7 +155,7 @@ public class Vetor {
 
     /**
      * Subtrai o vetor atual por outro vetor fornecido. A subtração é realizada
-     * componente a componente, resultando em um novo vetor.
+     * componente a componente, resultando num novo vetor.
      *
      * @param v O vetor a ser subtraído do vetor atual.
      * @return Um novo vetor que é o resultado da subtração do vetor fornecido
@@ -197,7 +197,7 @@ public class Vetor {
      *
      * @param o O objeto a ser comparado com o vetor atual.
      * @return {@code true} se o objeto fornecido for um vetor e suas componentes
-     * forem iguais ao vetor atual dentro da tolerância epsilon; {@code false} caso contrário.
+     * igualarem o vetor atual dentro da tolerância epsilon; {@code false} caso contrário.
      * @pre o != null
      */
     @Override

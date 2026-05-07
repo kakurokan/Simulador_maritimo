@@ -3,7 +3,7 @@ package Engine;
 import java.util.*;
 
 /**
- * Representa um grafo direcionado ou não-direcionado que utiliza {@code Ponto} como os vértices
+ * Representa um grafo direcionado ou não direcionado que utiliza {@code Ponto} como os vértices
  * e armazena as conexões entre eles em forma de arestas. O grafo é construído com base em
  * uma lista de rotas e uma lista de obstáculos, garantindo que as conexões entre os pontos
  * não intersectem obstáculos fornecidos.
@@ -40,8 +40,8 @@ public class Grafo {
             }
             Ponto p1 = segmento.getA();
             Ponto p2 = segmento.getB();
-            grafo.computeIfAbsent(p1, k -> new TreeSet<>(comparador)).add(p2);
-            grafo.computeIfAbsent(p2, k -> new TreeSet<>(comparador)).add(p1);
+            grafo.computeIfAbsent(p1, _ -> new TreeSet<>(comparador)).add(p2);
+            grafo.computeIfAbsent(p2, _ -> new TreeSet<>(comparador)).add(p1);
         }
         if (grafo.isEmpty()) {
             throw new IllegalArgumentException("Não existe nenhum segmento livre");
@@ -123,12 +123,12 @@ public class Grafo {
         if (posicao.equals(seg.getA()) || posicao.equals(seg.getB())) {
             return;
         }
-        grafo.computeIfAbsent(posicao, k -> new TreeSet<>(comparador)).add(seg.getA());
-        grafo.computeIfAbsent(seg.getA(), k -> new TreeSet<>(comparador)).add(posicao);
+        grafo.computeIfAbsent(posicao, _ -> new TreeSet<>(comparador)).add(seg.getA());
+        grafo.computeIfAbsent(seg.getA(), _ -> new TreeSet<>(comparador)).add(posicao);
 
 
-        grafo.computeIfAbsent(posicao, k -> new TreeSet<>(comparador)).add(seg.getB());
-        grafo.computeIfAbsent(seg.getB(), k -> new TreeSet<>(comparador)).add(posicao);
+        grafo.computeIfAbsent(posicao, _ -> new TreeSet<>(comparador)).add(seg.getB());
+        grafo.computeIfAbsent(seg.getB(), _ -> new TreeSet<>(comparador)).add(posicao);
 
     }
 
